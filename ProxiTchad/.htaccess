@@ -1,0 +1,19 @@
+# KHIDMA Tchad - Configuration Hostinger
+# Redirection et gestion des erreurs
+
+# Active la réécriture d'URL
+RewriteEngine On
+
+# Redirige vers index.html si le fichier n'existe pas
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.html [L]
+
+# Page d'erreur 404 personnalisée
+ErrorDocument 404 /index.html
+
+# Désactive l'affichage des répertoires
+Options -Indexes
+
+# Force l'encodage UTF-8
+AddDefaultCharset UTF-8

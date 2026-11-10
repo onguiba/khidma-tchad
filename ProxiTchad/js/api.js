@@ -4,7 +4,9 @@
  * Remplace le LocalStorage par de vraies requêtes HTTP
  */
 
-const API_BASE_URL = 'http://localhost:3001/api';
+// Configuration : Mode Frontend uniquement (sans backend Node.js)
+// Pour Hostinger : le backend est désactivé par défaut
+const API_BASE_URL = null; // Backend désactivé - Mode LocalStorage uniquement
 
 // ============================================================
 // GESTION DU TOKEN JWT & SESSION
@@ -84,16 +86,9 @@ const KhidmaSession = {
 let _backendAvailable = null; // null = pas encore testé, true/false = résultat
 
 async function checkBackendHealth() {
-  if (_backendAvailable !== null) return _backendAvailable;
-  try {
-    const response = await fetch(`${API_BASE_URL}/health`, { 
-      signal: AbortSignal.timeout(2000) 
-    });
-    _backendAvailable = response.ok;
-  } catch {
-    _backendAvailable = false;
-  }
-  return _backendAvailable;
+  // Backend désactivé pour Hostinger - Mode Frontend uniquement
+  _backendAvailable = false;
+  return false;
 }
 
 async function apiRequest(method, endpoint, data = null, requiresAuth = false) {
