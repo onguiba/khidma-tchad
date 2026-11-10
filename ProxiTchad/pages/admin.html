@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace Administrateur — KHIDMA Tchad</title>
+  <meta name="description"
+    content="Tableau de bord d'administration de la plateforme KHIDMA Tchad : vérification des professionnels, supervision des demandes et suivi d'activité.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body class="dashboard-page">
+
+  <!-- ==================== TOPBAR ESPACE ADMIN ==================== -->
+  <header class="dashboard-topbar" style="background:#051329;">
+    <div class="container dashboard-topbar-inner">
+      <div class="dashboard-title-group">
+        <a href="../index.html" class="brand-logo">
+          <div class="brand-icon">
+            <div class="brand-icon-inner"></div>
+          </div>
+          <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+        </a>
+        <span class="dashboard-space-badge admin">🛡️ Super Admin</span>
+      </div>
+
+      <div class="dashboard-topbar-actions">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <div style="color:#cbdcf4; font-size:12px; margin-right:8px; display:flex; align-items:center; gap:6px;">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22c55e;"></span>
+            <span style="font-weight:700;">Daniel Onguiba Boutna</span>
+            <span style="background:rgba(255,255,255,0.12); padding:2px 6px; border-radius:4px; font-size:10.5px; color:#fde047;">Admin</span>
+          </div>
+          <a href="client.html" class="btn btn-outline-white" style="font-size:11.5px; padding:6px 12px;">👤 Vue Client</a>
+          <a href="pro.html" class="btn btn-outline-white" style="font-size:11.5px; padding:6px 12px;">🧰 Vue Pro</a>
+          <a href="../index.html" class="btn btn-yellow" style="font-size:11.5px; padding:6px 14px;">🏠 Site Public</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENU DASHBOARD ADMIN ==================== -->
+  <main class="container" style="padding-top:24px; padding-bottom:60px;">
+
+    <div
+      style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:20px;">
+      <div>
+        <h1 style="font-size:24px; font-weight:800; color:var(--color-navy-dark);">Supervision de la plateforme KHIDMA
+          Tchad 🛡️</h1>
+        <p style="font-size:13.5px; color:var(--color-text-muted);">Contrôle d'identité CNI, validation des candidatures prestataires et modération locale au Tchad.</p>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a href="devenir-prestataire.html" class="btn btn-yellow"
+          style="font-size:12.5px; padding:8px 16px; text-decoration:none; display:flex; align-items:center; gap:6px;">
+          <span>➕</span> <span>Nouveau dossier prestataire</span>
+        </a>
+        <button class="btn btn-outline-white"
+          style="color:#0c254e; border-color:#cbdcf4; background:#fff; font-size:12.5px; padding:8px 14px;"
+          onclick="location.reload()">
+          🔄 Actualiser
+        </button>
+      </div>
+    </div>
+
+    <!-- KPIs Statistiques Globales -->
+    <div class="stats-grid">
+      <div class="stat-kpi-card">
+        <div class="kpi-icon-wrap blue">👥</div>
+        <div>
+          <div class="kpi-val" id="kpiAdminTotalPros">0</div>
+          <div class="kpi-label">Artisans inscrits</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card" style="border-left:3px solid #f59e0b;">
+        <div class="kpi-icon-wrap amber">🤖</div>
+        <div>
+          <div class="kpi-val" id="kpiAdminPendingPros" style="color:#b45309;">0</div>
+          <div class="kpi-label">En attente d'Audit IA</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card" style="border-left:3px solid #10b981;">
+        <div class="kpi-icon-wrap green">✓</div>
+        <div>
+          <div class="kpi-val" id="kpiAdminVerifiedPros" style="color:#065f46;">0</div>
+          <div class="kpi-label">Validés &amp; Publics</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card">
+        <div class="kpi-icon-wrap purple">⚡</div>
+        <div>
+          <div class="kpi-val">97.8%</div>
+          <div class="kpi-label">Score moyen IA Tchad</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onglets Admin -->
+    <div class="dashboard-nav-tabs" style="border-radius:12px 12px 0 0; margin-bottom:18px;">
+      <div class="dashboard-tab-item active" onclick="switchAdminTab('providers', this)">
+        Artisans &amp; Vérification IA <span class="tab-counter" id="tabCountAdminPros">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchAdminTab('demandes', this)">
+        Flux des Demandes de services <span class="tab-counter" id="tabCountAdminDemandes">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchAdminTab('config', this)">
+        Villes &amp; Catégories Tchad
+      </div>
+    </div>
+
+    <!-- Contenu des Onglets Admin -->
+    <div id="adminTabContent">
+      <!-- Rendu via JS -->
+    </div>
+
+  </main>
+
+  <div class="toast-notice" id="toastNotice"><span id="toastMessage">Action effectuée</span></div>
+
+  <!-- SCRIPTS -->
+  <script src="../js/data.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/modals.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/handlers.js"></script>
+  <script>
+    let activeAdminTab = 'providers';
+
+    function switchAdminTab(tab, el) {
+      activeAdminTab = tab;
+      document.querySelectorAll('.dashboard-tab-item').forEach(t => t.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderAdminDashboard();
+    }
+
+    function renderAdminDashboard() {
+      const pros = getAllProviders();
+      const verifiedPros = pros.filter(p => p.verified === true);
+      const pendingPros = pros.filter(p => !p.verified || p.applicationStatus === 'en_attente_ia');
+      const demandes = getAllDemandes();
+
+      // Mise à jour des KPIs
+      document.getElementById('kpiAdminTotalPros').textContent = pros.length;
+      document.getElementById('kpiAdminPendingPros').textContent = pendingPros.length;
+      document.getElementById('kpiAdminVerifiedPros').textContent = verifiedPros.length;
+      document.getElementById('tabCountAdminPros').innerHTML = pendingPros.length > 0
+        ? `${verifiedPros.length} <span style="background:#f59e0b; color:#fff; padding:2px 6px; border-radius:10px; font-size:10px; margin-left:4px;">${pendingPros.length} IA</span>`
+        : `${verifiedPros.length}`;
+      document.getElementById('tabCountAdminDemandes').textContent = demandes.length;
+
+      const container = document.getElementById('adminTabContent');
+
+      // TAB 1 : Gestion des Professionnels & Vérification IA
+      if (activeAdminTab === 'providers') {
+        container.innerHTML = `
+          <!-- SECTION 1 : CANDIDATURES EN ATTENTE D'AUDIT IA -->
+          <div style="background:#ffffff; border:1px solid var(--color-border); border-radius:16px; margin-bottom:24px; box-shadow:var(--shadow-sm); overflow:hidden;">
+            <div style="padding:18px 22px; background:linear-gradient(90deg, #f8fafd 0%, #fff 100%); border-bottom:1px solid var(--color-border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+              <div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="font-size:20px;">🤖</span>
+                  <h2 style="font-size:16.5px; font-weight:800; color:var(--color-navy-dark); margin:0;">
+                    Candidatures en attente de vérification IA (${pendingPros.length})
+                  </h2>
+                  ${pendingPros.length > 0 ? `<span style="background:#fef3c7; color:#b45309; font-size:11px; font-weight:800; padding:3px 8px; border-radius:999px;">Action requise</span>` : ''}
+                </div>
+                <p style="font-size:12.5px; color:var(--color-text-muted); margin:4px 0 0 0;">
+                  Les prestataires doivent être validés ici avant que leur profil et leurs prestations ne deviennent accessibles et visibles sur le site public.
+                </p>
+              </div>
+
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-yellow" style="font-size:12px; padding:7px 14px; font-weight:700;" onclick="handleAdminSimulatePro()">
+                  ⚡ Simuler une candidature
+                </button>
+              </div>
+            </div>
+
+            <div style="padding:20px;">
+              ${pendingPros.length === 0 ? `
+                <div style="text-align:center; padding:36px 20px; background:#f8fafc; border-radius:12px; border:1px dashed #cbd5e1;">
+                  <div style="font-size:36px; margin-bottom:8px;">✅</div>
+                  <h3 style="font-size:15px; font-weight:800; color:var(--color-navy-dark); margin-bottom:4px;">Toutes les candidatures ont été auditées et validées</h3>
+                  <p style="font-size:12.5px; color:var(--color-text-muted); margin-bottom:14px;">Aucun artisan en attente. Vous pouvez simuler une nouvelle candidature pour tester le flux de vérification IA.</p>
+                  <button class="btn btn-yellow" style="font-size:12px; padding:8px 16px;" onclick="handleAdminSimulatePro()">
+                    ⚡ Simuler une nouvelle candidature d'artisan en attente
+                  </button>
+                </div>
+              ` : `
+                <div style="display:flex; flex-direction:column; gap:18px;">
+                  ${pendingPros.map(p => {
+          const imgUrl = (p.photo && (p.photo.startsWith('data:') || p.photo.startsWith('http'))) ? p.photo : `../${p.photo || 'images/rachid.jpg'}`;
+          const audit = p.aiAudit || (typeof generateAiAuditReport === 'function' ? generateAiAuditReport(p) : { score: 95, status: 'favorable', summary: 'Candidature conforme' });
+          const score = audit.score || 95;
+          const phoneNetwork = audit.phoneNetwork || "Airtel / Moov Tchad (+235)";
+          const cleanPhone = (p.phone || '').replace(/\s+/g, '');
+
+          return `
+                      <div class="admin-candidate-card" id="candidateCard_${p.id}" style="background:#ffffff; border:2px solid #fed7aa; border-radius:14px; padding:20px; box-shadow:0 4px 16px rgba(245,158,11,0.08);">
+                        <div style="display:grid; grid-template-columns:1.1fr 1.3fr; gap:22px; align-items:start;">
+                          
+                          <!-- Colonne 1 : Infos Candidat -->
+                          <div>
+                            <div style="display:flex; align-items:center; gap:14px; margin-bottom:12px;">
+                              <img src="${imgUrl}" alt="${p.name}" style="width:56px; height:56px; border-radius:50%; object-fit:cover; border:2px solid #f59e0b; box-shadow:0 3px 10px rgba(0,0,0,0.1);">
+                              <div>
+                                <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin:0 0 2px 0;">${p.name}</h3>
+                                <div style="font-size:12.5px; font-weight:700; color:#0b4da2;">${p.companyName || p.name}</div>
+                                <div style="font-size:11.5px; color:var(--color-text-muted);">Inscrit le : ${p.registeredAt || "Aujourd'hui"}</div>
+                              </div>
+                            </div>
+
+                            <div style="background:#f8fafd; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-bottom:12px; font-size:12px;">
+                              <div style="margin-bottom:6px;"><b>Métier :</b> <span style="background:#e0f2fe; color:#0369a1; padding:2px 8px; border-radius:4px; font-weight:700;">${p.category}</span></div>
+                              <div style="margin-bottom:6px;"><b>Zone Tchad :</b> 📍 ${p.city} (${p.quartier})</div>
+                              <div><b>Téléphone &amp; WhatsApp :</b> <a href="tel:${cleanPhone}" style="color:#059669; font-weight:800; text-decoration:none;">${p.phone}</a></div>
+                            </div>
+
+                            <!-- Bloc Carte Nationale d'Identité à vérifier -->
+                            <div style="background:#eff6ff; border:1.5px solid #93c5fa; border-radius:10px; padding:12px; margin-bottom:12px; font-size:12px;">
+                              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                <span style="font-weight:800; color:#1e40af; display:flex; align-items:center; gap:6px;">
+                                  <span>🪪</span> <span>Carte Nationale d'Identité</span>
+                                </span>
+                                <span style="background:#fef3c7; color:#92400e; font-size:10.5px; font-weight:800; padding:2px 8px; border-radius:12px;">À vérifier</span>
+                              </div>
+                              <div style="margin-bottom:6px; color:#1e293b;">
+                                <b>Numéro CNI :</b> <span style="font-family:monospace; background:#ffffff; padding:2px 6px; border-radius:4px; border:1px solid #bfdbfe; font-weight:800; color:#1d4ed8;">${p.cniNumber || 'CNI-TD-2024-884920'}</span>
+                              </div>
+                              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding-top:6px; border-top:1px dashed #bfdbfe;">
+                                <span style="font-size:11px; color:#64748b;">Pièce d'identité fournie</span>
+                                <button type="button" class="btn btn-yellow" style="font-size:11px; padding:4px 10px; font-weight:800;" onclick="openCniInspectionModal(${p.id})">
+                                  🔍 Examiner la CNI →
+                                </button>
+                              </div>
+                            </div>
+
+                            <div style="font-size:12px; color:#475569; background:#fff; border:1px solid #edf2f7; border-radius:8px; padding:10px; line-height:1.5;">
+                              <span style="font-weight:700; color:var(--color-navy-dark); display:block; margin-bottom:2px;">Description de l'atelier :</span>
+                              "${p.description}"
+                            </div>
+                          </div>
+
+                          <!-- Colonne 2 : Module d'Audit IA -->
+                          <div style="background:linear-gradient(135deg, #051a3d 0%, #0a254f 100%); color:#ffffff; border-radius:12px; padding:16px; border:1px solid rgba(255,201,40,0.3); box-shadow:0 6px 20px rgba(5,26,61,0.25);">
+                            
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                              <div style="display:flex; align-items:center; gap:6px;">
+                                <span style="font-size:16px;">🤖</span>
+                                <span style="font-weight:800; font-size:12.5px; color:#fed7aa; letter-spacing:0.3px;">AUDIT AUTOMATIQUE IA</span>
+                              </div>
+                              <span style="background:rgba(16,185,129,0.2); color:#34d399; border:1px solid rgba(16,185,129,0.4); padding:3px 10px; border-radius:999px; font-size:11.5px; font-weight:800;">
+                                Score : ${score}% Conforme
+                              </span>
+                            </div>
+
+                            <!-- Grille des contrôles IA -->
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:11.5px; margin-bottom:12px;">
+                              <div style="background:rgba(255,255,255,0.06); padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                                <div style="color:#93c5fd; font-size:10px;">FORMAT CONTACT</div>
+                                <div style="font-weight:700; color:#ffffff; margin-top:2px;">✓ ${phoneNetwork}</div>
+                              </div>
+
+                              <div style="background:rgba(255,255,255,0.06); padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                                <div style="color:#93c5fd; font-size:10px;">ZONE GÉOGRAPHIQUE</div>
+                                <div style="font-weight:700; color:#ffffff; margin-top:2px;">✓ ${p.city} (Zone couverte)</div>
+                              </div>
+
+                              <div style="background:rgba(255,255,255,0.06); padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                                <div style="color:#93c5fd; font-size:10px;">PIÈCE CNI TCHAD</div>
+                                <div style="font-weight:700; color:#34d399; margin-top:2px;">✓ N° ${p.cniNumber || 'Fournie'}</div>
+                              </div>
+
+                              <div style="background:rgba(255,255,255,0.06); padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                                <div style="color:#93c5fd; font-size:10px;">INDICE DE CONFIANCE</div>
+                                <div style="font-weight:700; color:#34d399; margin-top:2px;">✓ Risque fraude faible (1.8%)</div>
+                              </div>
+                            </div>
+
+                            <!-- Synthèse IA -->
+                            <div style="background:rgba(0,0,0,0.25); border-left:3px solid var(--color-yellow); padding:8px 12px; border-radius:6px; font-size:11.5px; line-height:1.45; color:#dbeafe; margin-bottom:14px;">
+                              <b>Avis IA :</b> ${audit.summary || "Profil complet et conforme aux standards de qualité KHIDMA Tchad."}
+                            </div>
+
+                            <!-- Zone de progression du scan IA (invisible au départ) -->
+                            <div id="aiScanProgress_${p.id}" style="display:none; margin-bottom:12px; background:rgba(0,0,0,0.3); border-radius:8px; padding:10px;">
+                              <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px; color:#fde047;">
+                                <span id="aiScanStepText_${p.id}">Initialisation de l'analyse...</span>
+                                <span id="aiScanPercent_${p.id}">0%</span>
+                              </div>
+                              <div style="width:100%; height:6px; background:rgba(255,255,255,0.2); border-radius:3px; overflow:hidden;">
+                                <div id="aiScanBar_${p.id}" style="width:0%; height:100%; background:linear-gradient(90deg, #f59e0b, #10b981); transition:width 0.3s ease;"></div>
+                              </div>
+                            </div>
+
+                            <!-- Actions Admin -->
+                            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                              <button class="btn btn-yellow" style="font-size:12px; padding:9px 14px; font-weight:800; flex:1;" onclick="handleAdminValidateWithAi(${p.id})">
+                                ✓ Valider la CNI &amp; Publier sur le site
+                              </button>
+                              <button class="btn btn-outline-white" id="btnRunAiScan_${p.id}" style="font-size:11.5px; padding:9px 12px; border-color:rgba(255,255,255,0.3); color:#fff;" onclick="handleAdminRunAiScan(${p.id})">
+                                🤖 Re-scanner
+                              </button>
+                              <button class="btn btn-outline-white" style="font-size:11.5px; padding:9px 10px; color:#fca5a5; border-color:rgba(248,113,113,0.4);" onclick="handleAdminRejectCandidate(${p.id})">
+                                ❌ Rejeter
+                              </button>
+                            </div>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    `;
+        }).join('')}
+                </div>
+              `}
+            </div>
+          </div>
+
+          <!-- SECTION 2 : ARTISANS VÉRIFIÉS ET VISIBLES SUR LE SITE PUBLIC -->
+          <div style="background:#ffffff; border:1px solid var(--color-border); border-radius:16px; overflow:hidden; box-shadow:var(--shadow-sm);">
+            <div style="padding:16px 20px; border-bottom:1px solid var(--color-border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div>
+                <h2 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin:0;">
+                  Artisans Vérifiés &amp; Visibles sur le Site Public (${verifiedPros.length})
+                </h2>
+                <span style="font-size:12px; color:var(--color-text-muted);">
+                  Ces artisans sont affichés dans le catalogue public et peuvent recevoir des appels et des demandes d'intervention.
+                </span>
+              </div>
+              <span class="badge-verifie" style="position:static;">✓ 100% Certifiés</span>
+            </div>
+
+            <div style="overflow-x:auto;">
+              <table style="width:100%; border-collapse:collapse; font-size:13px; text-align:left;">
+                <thead>
+                  <tr style="background:#f8fafd; border-bottom:1px solid var(--color-border); color:var(--color-text-secondary);">
+                    <th style="padding:12px 18px;">Artisan / Atelier</th>
+                    <th style="padding:12px 18px;">Catégorie &amp; Spécialité</th>
+                    <th style="padding:12px 18px;">Carte CNI Tchad</th>
+                    <th style="padding:12px 18px;">Localisation Tchad</th>
+                    <th style="padding:12px 18px;">Contact direct</th>
+                    <th style="padding:12px 18px;">Visibilité Publique</th>
+                    <th style="padding:12px 18px; text-align:right;">Modération</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${verifiedPros.map(p => {
+          const imgUrl = (p.photo && (p.photo.startsWith('data:') || p.photo.startsWith('http'))) ? p.photo : `../${p.photo || 'images/rachid.jpg'}`;
+          const cleanPhone = (p.phone || '').replace(/\s+/g, '');
+          const cniNum = p.cniNumber || 'CNI-TD-2023-441201';
+          return `
+                    <tr style="border-bottom:1px solid #edf2f9;">
+                      <td style="padding:14px 18px; font-weight:700; color:var(--color-navy-dark);">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                          <img src="${imgUrl}" alt="${p.name}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid var(--color-yellow);">
+                          <div>
+                            <div>${p.name}</div>
+                            ${p.companyName && p.companyName !== p.name ? `<div style="font-size:11px; color:var(--color-text-muted); font-weight:400;">${p.companyName}</div>` : ''}
+                          </div>
+                        </div>
+                      </td>
+                      <td style="padding:14px 18px;">
+                        <span style="background:#f1f5fa; padding:4px 8px; border-radius:6px; font-weight:600; font-size:11.5px;">${p.category}</span>
+                      </td>
+                      <td style="padding:14px 18px;">
+                        <span style="display:inline-flex; align-items:center; gap:4px; font-size:11px; background:#f0fdf4; color:#166534; padding:3px 8px; border-radius:6px; border:1px solid #bbf7d0; font-weight:700; font-family:monospace;">
+                          <span>🪪</span> <span>${cniNum}</span>
+                        </span>
+                      </td>
+                      <td style="padding:14px 18px; color:var(--color-text-secondary);">
+                        📍 ${p.city} (${p.quartier})
+                      </td>
+                      <td style="padding:14px 18px; font-weight:600;">
+                        <a href="tel:${cleanPhone}" style="color:#059669; text-decoration:none;">${p.phone}</a>
+                      </td>
+                      <td style="padding:14px 18px;">
+                        <span class="badge-verifie" style="position:static; display:inline-flex;">✓ Visible sur le site</span>
+                      </td>
+                      <td style="padding:14px 18px; text-align:right;">
+                        <button class="btn btn-outline-white" style="color:#ef4444; border-color:#fca5a5; font-size:11px; padding:5px 10px;" onclick="handleToggleVerify(${p.id}, false)">
+                          Suspendre
+                        </button>
+                      </td>
+                    </tr>
+                    `;
+        }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      // TAB 2 : Supervision des Demandes
+      else if (activeAdminTab === 'demandes') {
+        container.innerHTML = `
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            ${demandes.map(d => {
+          let statusLabel = "En attente";
+          let badgeClass = "en_attente";
+          if (d.status === 'devis_recus') { statusLabel = "Devis reçus"; badgeClass = "devis_recus"; }
+          if (d.status === 'en_cours') { statusLabel = "En cours d'intervention"; badgeClass = "en_cours"; }
+          if (d.status === 'terminee') { statusLabel = "Terminée"; badgeClass = "terminee"; }
+
+          return `
+                <div class="demande-card" style="margin-bottom:0;">
+                  <div class="demande-header">
+                    <div>
+                      <span class="demande-ref">${d.id} · Déposée par : <b>${d.clientName}</b> (${d.clientPhone})</span>
+                      <h3 class="demande-title" style="font-size:16px;">${d.title}</h3>
+                      <div class="demande-meta">
+                        <span>📍 ${d.city} (${d.quartier})</span>
+                        <span>🏷️ ${d.category}</span>
+                        <span>⏰ ${d.urgency}</span>
+                        <span>🗓️ ${d.createdAt}</span>
+                      </div>
+                    </div>
+                    <span class="status-badge ${badgeClass}">${statusLabel}</span>
+                  </div>
+                  <p style="font-size:13px; color:#475569; margin-top:6px;">"${d.description}"</p>
+                  
+                  <div style="margin-top:10px; font-size:12px; color:#5c6e88; display:flex; gap:16px; flex-wrap:wrap;">
+                    <span><b>Postulants &amp; Devis :</b> 🔥 ${(d.quotes || []).length} artisan(s)</span>
+                    <span><b>Budget estimé :</b> ${d.budget || "15 000 — 30 000 FCFA"}</span>
+                    <span><b>Artisan assigné :</b> ${d.agreedProName || "Aucun pour le moment"}</span>
+                    <span><b>Montant retenu :</b> ${d.agreedPrice || "N/A"}</span>
+                  </div>
+                </div>
+              `;
+        }).join('')}
+          </div>
+        `;
+      }
+
+      // TAB 3 : Villes & Catégories Tchad
+      else if (activeAdminTab === 'config') {
+        container.innerHTML = `
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+            <div style="background:#fff; border:1px solid var(--color-border); border-radius:14px; padding:22px;">
+              <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin-bottom:14px;">11 Catégories Actives</h3>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                ${CATEGORIES_DATA.map(c => `
+                  <div style="display:flex; justify-content:space-between; padding:8px 12px; background:#f8fafd; border-radius:8px; font-size:13px;">
+                    <span style="font-weight:700;">${c.name}</span>
+                    <span style="color:#10b981; font-weight:800; font-size:11px;">ACTIF</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div style="background:#fff; border:1px solid var(--color-border); border-radius:14px; padding:22px;">
+              <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin-bottom:14px;">Zones & Quartiers Couverts (4 Villes)</h3>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                ${CITIES_DATA.map(city => {
+                  const cityImg = city.image ? `../${city.image}` : `../images/ndjamena.jpg`;
+                  return `
+                  <div style="background:#f8fafd; padding:12px; border-radius:10px; display:flex; gap:12px; align-items:center; border:1px solid #e2e8f0;">
+                    <img src="${cityImg}" alt="${city.name}" style="width:68px; height:52px; border-radius:8px; object-fit:cover; border:1px solid #cbdcf4; flex-shrink:0;">
+                    <div style="flex:1;">
+                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                        <span style="font-weight:800; font-size:13.5px; color:var(--color-navy-dark);">📍 ${city.name}</span>
+                        <span style="font-size:10.5px; color:#10b981; font-weight:700; background:#ecfdf5; padding:2px 7px; border-radius:999px;">🟢 Couverte</span>
+                      </div>
+                      <div style="display:flex; flex-wrap:wrap; gap:4px;">
+                        ${city.quartiers.map(q => `
+                          <span style="background:#fff; border:1px solid #cbdcf4; padding:2px 7px; border-radius:999px; font-size:10.5px; font-weight:600;">${q}</span>
+                        `).join('')}
+                      </div>
+                    </div>
+                  </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // Lancer une simulation d'analyse IA sur une candidature
+    function handleAdminRunAiScan(proId) {
+      const progEl = document.getElementById(`aiScanProgress_${proId}`);
+      const stepText = document.getElementById(`aiScanStepText_${proId}`);
+      const percentEl = document.getElementById(`aiScanPercent_${proId}`);
+      const barEl = document.getElementById(`aiScanBar_${proId}`);
+      const btn = document.getElementById(`btnRunAiScan_${proId}`);
+
+      if (progEl) progEl.style.display = 'block';
+      if (btn) btn.disabled = true;
+
+      const steps = [
+        { text: "Scan indicatif réseau Tchad (+235)...", pct: "25%" },
+        { text: "Analyse sémantique des mots-clés outillage & métier...", pct: "55%" },
+        { text: "Vérification absence de signalement et géolocalisation...", pct: "85%" },
+        { text: "✓ Analyse terminée : Candidature validée à 97%", pct: "100%" }
+      ];
+
+      steps.forEach((step, idx) => {
+        setTimeout(() => {
+          if (stepText) stepText.textContent = step.text;
+          if (percentEl) percentEl.textContent = step.pct;
+          if (barEl) barEl.style.width = step.pct;
+
+          if (idx === steps.length - 1) {
+            setTimeout(() => {
+              if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = "✓ Re-scan IA Conforme";
+              }
+              showToast("🤖 Audit IA réussi : Dossier 100% conforme aux standards KHIDMA Tchad !");
+            }, 500);
+          }
+        }, (idx + 1) * 350);
+      });
+    }
+
+    // Validation et publication de la candidature
+    function handleAdminValidateWithAi(proId) {
+      if (typeof runAiVerification === 'function') {
+        runAiVerification(proId);
+      } else {
+        toggleProviderVerification(proId, true, true);
+      }
+      closeModal('modalInspectCni');
+      showToast("🎉 CNI vérifiée & Candidature validée ! L'artisan est désormais activé et peut proposer ses services.");
+      renderAdminDashboard();
+    }
+
+    // Refus de la candidature par l'administrateur
+    function handleAdminRejectCandidate(proId) {
+      if (confirm("Confirmez-vous le rejet de cette candidature (Carte Nationale non conforme ou invalide) ?")) {
+        toggleProviderVerification(proId, false, false);
+        closeModal('modalInspectCni');
+        showToast("❌ Candidature rejetée. Le profil ne pourra pas proposer de services.");
+        renderAdminDashboard();
+      }
+    }
+
+    // Ouvrir la modale d'inspection de la Carte Nationale d'Identité
+    function openCniInspectionModal(proId) {
+      const pros = getAllProviders();
+      const p = pros.find(item => Number(item.id) === Number(proId));
+      if (!p) return;
+
+      const imgUrl = (p.photo && (p.photo.startsWith('data:') || p.photo.startsWith('http'))) ? p.photo : `../${p.photo || 'images/rachid.jpg'}`;
+      const cniNum = p.cniNumber || 'CNI-TD-2024-884920';
+      const cniImg = p.cniPhoto;
+
+      const modalSub = document.getElementById('cniModalSub');
+      const modalContent = document.getElementById('cniModalContent');
+
+      if (modalSub) {
+        modalSub.textContent = `Dossier de candidature de ${p.name} (${p.category} · ${p.city})`;
+      }
+
+      if (modalContent) {
+        modalContent.innerHTML = `
+          <!-- CARTE D'IDENTITÉ TCHADIENNE VIRTUELLE / SCAN -->
+          <div style="background: linear-gradient(135deg, #0f2c59 0%, #173b75 100%); color:#ffffff; border-radius:14px; padding:18px; border:2px solid #facc15; box-shadow:0 8px 24px rgba(15,44,89,0.3); margin-bottom:18px; position:relative; overflow:hidden;">
+            <!-- Bandeau Drapeau du Tchad -->
+            <div style="height:6px; background:linear-gradient(90deg, #002664 33.3%, #fecb00 33.3%, #fecb00 66.6%, #c60c30 66.6%); margin:-18px -18px 12px -18px;"></div>
+            
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:8px; margin-bottom:12px;">
+              <div>
+                <div style="font-size:10px; font-weight:800; letter-spacing:1px; color:#fde047;">RÉPUBLIQUE DU TCHAD</div>
+                <div style="font-size:12px; font-weight:800; color:#ffffff;">CARTE NATIONALE D'IDENTITÉ</div>
+              </div>
+              <div style="text-align:right;">
+                <span style="font-size:10px; background:rgba(255,255,255,0.15); padding:2px 8px; border-radius:4px; font-family:monospace; font-weight:800; color:#fef08a;">
+                  ${cniNum}
+                </span>
+              </div>
+            </div>
+
+            ${cniImg ? `
+              <!-- Document réel téléversé par le candidat -->
+              <div style="background:#ffffff; border-radius:8px; padding:6px; margin-bottom:12px; text-align:center;">
+                <div style="font-size:11px; font-weight:700; color:#0f2c59; margin-bottom:4px;">Document CNI scanné fourni par le candidat :</div>
+                <img src="${cniImg}" alt="Scan CNI ${p.name}" style="max-height:180px; max-width:100%; object-fit:contain; border-radius:6px; border:1px solid #cbd5e1;">
+              </div>
+            ` : `
+              <!-- Représentation officielle sécurisée -->
+              <div style="display:grid; grid-template-columns:90px 1fr; gap:14px; align-items:center; background:rgba(255,255,255,0.06); border-radius:10px; padding:12px; border:1px solid rgba(255,255,255,0.12); margin-bottom:12px;">
+                <img src="${imgUrl}" alt="${p.name}" style="width:84px; height:96px; border-radius:6px; object-fit:cover; border:2px solid #ffffff; box-shadow:0 2px 8px rgba(0,0,0,0.3);">
+                <div style="font-size:11.5px; line-height:1.5;">
+                  <div style="color:#93c5fd; font-size:10px; font-weight:700;">TITULAIRE :</div>
+                  <div style="font-size:14px; font-weight:800; color:#ffffff;">${p.name.toUpperCase()}</div>
+                  <div style="margin-top:2px;"><b>Atelier / Entreprise :</b> ${p.companyName || p.name}</div>
+                  <div><b>Métier :</b> ${p.category} (${p.role || 'Prestataire'})</div>
+                  <div><b>Zone d'intervention :</b> 📍 ${p.city} (${p.quartier || 'Centre'})</div>
+                  <div style="margin-top:3px; color:#fde047; font-size:10.5px;">✓ Empreinte biométrique &amp; Téléphone Tchad (+235) enregistrés</div>
+                </div>
+              </div>
+            `}
+
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#cbdcf4; padding-top:6px; border-top:1px dashed rgba(255,255,255,0.2);">
+              <span>Statut : <b style="color:#fde047;">En attente d'approbation administrateur</b></span>
+              <span>Dossier : ${p.registeredAt || "Aujourd'hui"}</span>
+            </div>
+          </div>
+
+          <!-- DÉTAILS COMPLÉMENTAIRES DU CANDIDAT -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:12px; color:#1e293b;">
+            <div>📞 <b>Téléphone :</b> <a href="tel:${p.phone}" style="color:#2563eb; font-weight:700;">${p.phone}</a></div>
+            <div>✉️ <b>Email :</b> ${p.email || 'Non renseigné'}</div>
+            <div>💼 <b>Expérience :</b> ${p.experienceYears || '3 à 5 ans'}</div>
+            <div>💰 <b>Tarif indicatif :</b> ${p.tarifIndicatif || 'Sur devis'}</div>
+          </div>
+
+          <!-- GALERIE DES RÉALISATIONS (SI FOURNIES) -->
+          ${(p.realisationsPhotos && p.realisationsPhotos.length > 0) ? `
+            <div style="background:#ffffff; border:1.5px solid #fde68a; border-radius:12px; padding:14px; margin-bottom:14px;">
+              <div style="font-size:12.5px; font-weight:800; color:#78350f; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between;">
+                <span>📸 Photos des réalisations &amp; chantiers fournies :</span>
+                <span style="font-size:11px; background:#fef3c7; color:#92400e; padding:2px 8px; border-radius:10px; font-weight:700;">${p.realisationsPhotos.length} photo(s)</span>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(95px, 1fr)); gap:10px;">
+                ${p.realisationsPhotos.map((photo, i) => `
+                  <a href="${photo}" target="_blank" title="Cliquer pour agrandir la photo de chantier" style="display:block; border-radius:8px; overflow:hidden; border:1px solid #cbd5e1; aspect-ratio:4/3; background:#000;">
+                    <img src="${photo}" alt="Chantier ${i+1}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                  </a>
+                `).join('')}
+              </div>
+              <small style="color:#a16207; font-size:10.5px; margin-top:6px; display:block;">💡 Cliquez sur une photo pour l'ouvrir en grand format.</small>
+            </div>
+          ` : `
+            <div style="background:#f8fafc; border:1px dashed #cbd5e1; border-radius:10px; padding:8px 12px; margin-bottom:14px; font-size:11.5px; color:#64748b;">
+              📷 Aucune photo de réalisation fournie (facultatif).
+            </div>
+          `}
+
+          <!-- AVIS D'ADMINISTRATION -->
+          <div style="background:#fffbeb; border:1.5px solid #fcd34d; border-radius:10px; padding:12px; margin-bottom:16px; font-size:12px; color:#78350f; line-height:1.45;">
+            🛡️ <b>Règle de validation KHIDMA Tchad :</b> Dès que vous approuvez la Carte Nationale d'Identité, l'artisan reçoit automatiquement le statut <b>Vérifié</b> et est autorisé à proposer ses prestations et à répondre aux demandes des clients avec ses devis.
+          </div>
+
+          <!-- ACTIONS ADMINISTRATEUR -->
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-yellow" style="flex:1; padding:12px; font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="handleAdminValidateWithAi(${p.id})">
+              <span>✓ Valider la CNI &amp; Débloquer l'artisan</span>
+            </button>
+            <button class="btn btn-outline-white" style="color:#dc2626; border-color:#fca5a5; font-size:12.5px; padding:12px 16px; font-weight:700;" onclick="handleAdminRejectCandidate(${p.id})">
+              <span>❌ Refuser la candidature</span>
+            </button>
+          </div>
+        `;
+      }
+
+      openModal('modalInspectCni');
+    }
+
+    // Simuler une nouvelle candidature d'artisan
+    function handleAdminSimulatePro() {
+      if (typeof simulatePendingProvider === 'function') {
+        const newPro = simulatePendingProvider();
+        showToast(`🤖 Nouvelle candidature reçue : ${newPro.name} (CNI N° ${newPro.cniNumber}) en attente de validation !`);
+        renderAdminDashboard();
+      }
+    }
+
+    function handleToggleVerify(proId, verifyState) {
+      toggleProviderVerification(proId, verifyState);
+      showToast(verifyState ? '✅ Badge Vérifié attribué au professionnel !' : '⏸️ Profil professionnel suspendu du catalogue public.');
+      renderAdminDashboard();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAdminDashboard();
+    });
+  </script>
+
+  <!-- MODALE D'INSPECTION DE LA CARTE NATIONALE D'IDENTITÉ -->
+  <div class="modal-overlay" id="modalInspectCni">
+    <div class="modal-card" style="max-width:540px;">
+      <button class="modal-close-btn" onclick="closeModal('modalInspectCni')">✕</button>
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+        <span style="font-size:24px;">🪪</span>
+        <h3 class="modal-title" style="margin:0;">Vérification de la Carte Nationale d'Identité</h3>
+      </div>
+      <p class="modal-sub" id="cniModalSub">Examen des pièces justificatives du candidat</p>
+
+      <div id="cniModalContent">
+        <!-- Rendu dynamique -->
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

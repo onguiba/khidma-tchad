@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devenir Prestataire — KHIDMA Tchad</title>
+  <meta name="description" content="Rejoignez KHIDMA Tchad et trouvez de nouveaux clients pour vos services au Tchad.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="../index.html" class="brand-logo">
+        <div class="brand-icon">
+          <div class="brand-icon-inner"></div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+          <span class="brand-sub">Les bons professionnels, près de vous.</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" aria-label="Menu principal">
+        <a href="../index.html" class="nav-link">Accueil</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="client.html" class="nav-link" style="color:var(--color-yellow); font-weight:700;">👤 Espace Client</a>
+        <a href="pro.html" class="nav-link">🧰 Espace Pro</a>
+        <a href="devenir-prestataire.html" class="nav-link active">Devenir prestataire</a>
+        <a href="publier-demande.html" class="nav-link">Publier une demande</a>
+        <a href="a-propos.html" class="nav-link">À propos</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-outline-white btn-connexion" onclick="openModal('modalConnexion')">Connexion</button>
+        <button class="btn btn-yellow btn-inscription" onclick="document.getElementById('formSection').scrollIntoView({behavior:'smooth'})">Inscription Pro</button>
+        <button class="mobile-menu-toggle" onclick="toggleMobileDrawer(true)" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO ONBOARDING PRO -->
+  <section style="background: linear-gradient(135deg, #051a3d 0%, #08295d 100%); color: #fff; padding: 60px 0;">
+    <div class="container" style="display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px; align-items:center;">
+      <div>
+        <span class="hero-tagline">ESPACE PROFESSIONNELS & ARTISANS</span>
+        <h1 style="font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 15px;">
+          Développez votre activité <br><span style="color:var(--color-yellow)">partout au Tchad</span>
+        </h1>
+        <p style="color: #d1e2f7; font-size: 15.5px; line-height: 1.6; margin-bottom: 24px;">
+          Vous êtes plombier, électricien, réparateur, maçon ou transporteur ? Rejoignez la première plateforme locale et recevez des appels de clients directement sur votre téléphone.
+        </p>
+        <button class="btn btn-yellow" onclick="document.getElementById('formSection').scrollIntoView({behavior:'smooth'})">
+          Commencer mon inscription gratuite →
+        </button>
+      </div>
+      <div style="text-align:center;">
+        <img src="../images/femme_pro.jpg" alt="Professionnelle KHIDMA Tchad" style="border-radius:18px; max-width:320px; margin:0 auto; box-shadow:0 15px 40px rgba(0,0,0,0.3);">
+      </div>
+    </div>
+  </section>
+
+  <!-- AVANTAGES -->
+  <section style="padding: 50px 0;">
+    <div class="container">
+      <h2 class="section-title-main text-center" style="justify-content:center; margin-bottom:30px;">Pourquoi Rejoindre KHIDMA Tchad ?</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+        <div style="background:#fff; padding:24px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-md);">
+          <div style="font-size:32px; margin-bottom:12px;">📱</div>
+          <h3 style="font-size:16px; font-weight:800; margin-bottom:8px; color:var(--color-navy-dark);">Contact direct sans intermédiaire</h3>
+          <p style="font-size:13px; color:var(--color-text-muted); line-height:1.6;">Les clients vous appellent directement ou vous écrivent sur WhatsApp. Vous négociez vos tarifs en toute liberté.</p>
+        </div>
+        <div style="background:#fff; padding:24px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-md);">
+          <div style="font-size:32px; margin-bottom:12px;">💼</div>
+          <h3 style="font-size:16px; font-weight:800; margin-bottom:8px; color:var(--color-navy-dark);">Postulez aux chantiers en direct</h3>
+          <p style="font-size:13px; color:var(--color-text-muted); line-height:1.6;">Accédez au flux des demandes publiées chaque jour par les particuliers et proposez vos devis et tarifs sans commission.</p>
+        </div>
+        <div style="background:#fff; padding:24px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-md);">
+          <div style="font-size:32px; margin-bottom:12px;">🛡️</div>
+          <h3 style="font-size:16px; font-weight:800; margin-bottom:8px; color:var(--color-navy-dark);">Badge Vérifié de confiance</h3>
+          <p style="font-size:13px; color:var(--color-text-muted); line-height:1.6;">Après vérification de votre identité et de vos compétences, gagnez en crédibilité et décrochez 3x plus de chantiers.</p>
+        </div>
+        <div style="background:#fff; padding:24px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-md);">
+          <div style="font-size:32px; margin-bottom:12px;">📍</div>
+          <h3 style="font-size:16px; font-weight:800; margin-bottom:8px; color:var(--color-navy-dark);">Clients dans votre quartier</h3>
+          <p style="font-size:13px; color:var(--color-text-muted); line-height:1.6;">Recevez des demandes d'intervention à proximité immédiate de votre domicile ou de votre atelier à N'Djamena et en province.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE D'INSCRIPTION -->
+  <section id="formSection" style="padding: 30px 0 60px;">
+    <div class="container container-narrow">
+      <div style="background:#fff; padding:36px; border-radius:20px; border:1px solid var(--color-border); box-shadow:var(--shadow-lg);">
+        <h2 style="font-size:24px; font-weight:800; color:var(--color-navy-dark); margin-bottom:8px;">Formulaire d'inscription prestataire</h2>
+        <p style="font-size:13px; color:var(--color-text-muted); margin-bottom:20px;">Remplissez les informations ci-dessous pour soumettre votre candidature sur la plateforme KHIDMA Tchad.</p>
+
+        <!-- BANNIÈRE PROCESSUS DE VÉRIFICATION IA -->
+        <div style="background: linear-gradient(135deg, #051a3d 0%, #08295d 100%); color:#ffffff; border-radius:16px; padding:20px 22px; margin-bottom:28px; box-shadow:0 6px 20px rgba(5,26,61,0.2);">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <span style="font-size:20px;">🤖</span>
+            <h3 style="font-size:15px; font-weight:800; color:var(--color-yellow); margin:0;">Processus de Sélection &amp; Validation par l'IA</h3>
+          </div>
+          <p style="font-size:12px; color:#d1e2f7; line-height:1.5; margin:0 0 14px 0;">
+            Pour garantir la confiance des clients au Tchad, chaque candidature est auditée automatiquement par notre Intelligence Artificielle (contrôle téléphone +235, compétences et zone) avant validation par l'administrateur.
+          </p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
+            <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:10px 12px;">
+              <div style="font-weight:800; font-size:12px; color:#ffffff; margin-bottom:2px;">1️⃣ Inscription &amp; CNI</div>
+              <div style="font-size:11px; color:#cbdcf4;">Enregistrez votre atelier et votre Carte Nationale d'Identité.</div>
+            </div>
+            <div style="background:rgba(255,201,40,0.15); border:1px solid rgba(255,201,40,0.4); border-radius:10px; padding:10px 12px;">
+              <div style="font-weight:800; font-size:12px; color:var(--color-yellow); margin-bottom:2px;">2️⃣ Audit IA &amp; Téléphone</div>
+              <div style="font-size:11px; color:#fef3c7;">Contrôle instantané numéro +235 &amp; compétences.</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding:10px 12px;">
+              <div style="font-weight:800; font-size:12px; color:#ffffff; margin-bottom:2px;">3️⃣ Validation CNI par l'Admin</div>
+              <div style="font-size:11px; color:#cbdcf4;">L'administrateur valide votre pièce pour débloquer vos devis.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BANDEAU OPTIONNEL CONNEXION RAPIDE -->
+        <div id="proAuthFastBar" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:12px 18px; margin-bottom:22px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#475569;">
+            <span>ℹ️ Déjà inscrit sur KHIDMA Tchad ?</span>
+          </div>
+          <button type="button" class="btn" style="background:#ffffff; color:var(--color-navy-dark); border:1.5px solid #cbd5e1; border-radius:8px; padding:6px 14px; font-weight:700; font-size:12px;" onclick="switchLoginRole('pro'); openModal('modalConnexion')">
+            🔑 Se connecter à mon compte
+          </button>
+        </div>
+
+        <!-- BADGE UTILISATEUR CONNECTÉ (SI AUTHENTIFIÉ) -->
+        <div id="proAuthSuccessBadge" style="display:none; background:#f0fdf4; border:1.5px solid #86efac; border-radius:14px; padding:14px 18px; margin-bottom:24px; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <img id="connectedUserAvatar" src="../images/femme_pro.jpg" alt="Avatar" style="width:46px; height:46px; border-radius:50%; object-fit:cover; border:2.5px solid #22c55e; box-shadow:0 2px 8px rgba(34,197,94,0.25);">
+            <div>
+              <div style="font-size:14px; font-weight:800; color:#14532d; display:flex; align-items:center; gap:6px;">
+                <span>✓ Compte actif : <span id="connectedUserName">Artisan</span></span>
+                <span style="font-size:10.5px; background:#dcfce7; color:#15803d; padding:2px 7px; border-radius:12px; font-weight:700;">Prêt</span>
+              </div>
+              <div style="font-size:12px; color:#166534;" id="connectedUserEmail">artisan@khidma.td</div>
+            </div>
+          </div>
+          <button type="button" class="btn" style="background:#ffffff; border:1px solid #bbf7d0; color:#15803d; font-size:11.5px; padding:6px 14px; border-radius:8px;" onclick="logoutUser()">
+            Déconnexion
+          </button>
+        </div>
+
+        <!-- CONTENEUR DU FORMULAIRE -->
+        <div id="proRegistrationFormContainer" style="position:relative;">
+          <form onsubmit="handleInscriptionSubmit(event)">
+            
+            <!-- SECTION 1 : PHOTO DE PROFIL OU LOGO -->
+            <div style="background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:14px; padding:18px; margin-bottom:22px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                <label class="form-label" style="margin:0; font-weight:800; color:var(--color-navy-dark); font-size:14px;">
+                  1. Photo de profil ou Logo professionnel <span style="color:#ef4444;">*</span>
+                </label>
+                <span style="font-size:11px; background:#dbeafe; color:#1e40af; padding:3px 8px; border-radius:8px; font-weight:700;">Visible par les clients</span>
+              </div>
+              
+              <div class="photo-upload-wrapper" id="proPagePhotoDropzone" onclick="document.getElementById('proPagePhotoFile').click()" style="background:#ffffff; border:2px dashed #94a3b8; border-radius:12px; padding:14px; cursor:pointer; transition:border-color 0.2s;">
+                <div class="photo-upload-inner" style="display:flex; align-items:center; gap:16px;">
+                  <div class="photo-preview-placeholder" id="proPagePhotoPlaceholder" style="width:68px; height:68px; background:#f1f5f9; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px;">📷</div>
+                  <img id="proPagePhotoPreview" class="photo-preview-avatar" src="" alt="Aperçu" style="display:none; width:68px; height:68px; border-radius:50%; object-fit:cover; border:2.5px solid #22c55e;">
+                  <div class="photo-upload-info" style="flex:1;">
+                    <div class="photo-upload-title" style="font-weight:700; font-size:13px; color:var(--color-navy-dark); margin-bottom:3px;">
+                      <span>Cliquez pour choisir votre photo</span>
+                      <span id="proPagePhotoBadge" class="photo-upload-badge-loaded" style="display:none; font-size:11px; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:10px; margin-left:6px;">✓ Photo prête</span>
+                    </div>
+                    <div class="photo-upload-hint" style="font-size:11.5px; color:#64748b;">Format JPG ou PNG (photo de vous en atelier, en tenue de travail ou logo commercial).</div>
+                    <div class="photo-action-btns" id="proPagePhotoActions" style="display:none; margin-top:6px; gap:8px;" onclick="event.stopPropagation();">
+                      <button type="button" class="btn-photo-action" style="font-size:11px; padding:3px 10px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px;" onclick="document.getElementById('proPagePhotoFile').click()">Changer</button>
+                      <button type="button" class="btn-photo-action" style="font-size:11px; padding:3px 10px; color:#ef4444; background:#fee2e2; border:1px solid #fca5a5; border-radius:6px;" onclick="resetProPhoto('proPagePhotoPreview', 'proPagePhotoPlaceholder', 'proPagePhotoBase64', 'proPagePhotoFile', 'proPagePhotoBadge'); document.getElementById('proPagePhotoActions').style.display='none';">Supprimer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <input type="file" id="proPagePhotoFile" accept="image/*" style="display:none;" onchange="handleProPhotoSelect(event, 'proPagePhotoPreview', 'proPagePhotoPlaceholder', 'proPagePhotoBase64', 'proPagePhotoBadge'); document.getElementById('proPagePhotoActions').style.display='flex';">
+              <input type="hidden" id="proPagePhotoBase64" name="proPhotoBase64" value="">
+            </div>
+
+            <!-- SECTION 2 : COORDONNÉES ET IDENTITÉ PROFESSIONNELLE -->
+            <div style="margin-bottom:22px;">
+              <h3 style="font-size:15px; font-weight:800; color:var(--color-navy-dark); margin-bottom:14px; display:flex; align-items:center; gap:6px;">
+                <span>2. Identité &amp; Coordonnées Professionnelles</span>
+              </h3>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label class="form-label">Nom complet du responsable <span style="color:#ef4444;">*</span></label>
+                  <input type="text" name="proName" class="form-control" placeholder="Ex : Mahamat Hassan" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Nom commercial ou atelier <span style="color:#ef4444;">*</span></label>
+                  <input type="text" name="proCompany" class="form-control" placeholder="Ex : Hassan Plomberie Moderne" required>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label class="form-label">Domaine d'activité principal <span style="color:#ef4444;">*</span></label>
+                  <select name="proCategory" class="form-control" required>
+                    <option value="">Sélectionnez votre métier</option>
+                    <option>Plomberie &amp; Sanitaire</option>
+                    <option>Électricité &amp; Réseaux</option>
+                    <option>Climatisation &amp; Froid</option>
+                    <option>Bâtiment &amp; Maçonnerie</option>
+                    <option>Peinture &amp; Finitions</option>
+                    <option>Menuiserie &amp; Bois</option>
+                    <option>Serrurerie &amp; Métallerie</option>
+                    <option>Mécanique &amp; Dépannage Auto/Moto</option>
+                    <option>Informatique &amp; Télécom</option>
+                    <option>Nettoyage &amp; Collecte d'ordures</option>
+                    <option>Transport &amp; Déménagement</option>
+                    <option>Santé &amp; Soins à domicile</option>
+                    <option>Couture &amp; Stylisme</option>
+                    <option>Enseignement &amp; Soutien scolaire</option>
+                    <option>Autre métier</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Années d'expérience professionnelle</label>
+                  <select name="proExperience" class="form-control">
+                    <option value="1 à 2 ans">1 à 2 ans d'expérience</option>
+                    <option value="3 à 5 ans" selected>3 à 5 ans d'expérience</option>
+                    <option value="5 à 10 ans">5 à 10 ans d'expérience</option>
+                    <option value="Plus de 10 ans">Plus de 10 ans (Maître artisan)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label class="form-label">Numéro WhatsApp &amp; Appels <span style="color:#ef4444;">*</span></label>
+                  <input type="tel" name="proPhone" class="form-control" placeholder="+235 66 12 34 56" required>
+                  <small style="color:var(--color-text-muted); font-size:11px; margin-top:3px; display:block;">Ce numéro sera contacté par les clients pour les devis et interventions.</small>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Email professionnel <span style="color:#64748b; font-size:11px;">(Facultatif)</span></label>
+                  <input type="email" name="proEmail" class="form-control" placeholder="artisan@gmail.com">
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div class="form-group">
+                  <label class="form-label">Ville de travail <span style="color:#ef4444;">*</span></label>
+                  <select name="proCity" class="form-control" required>
+                    <option>N'Djamena</option>
+                    <option>Moundou</option>
+                    <option>Sarh</option>
+                    <option>Abéché</option>
+                    <option>Kélo</option>
+                    <option>Koumra</option>
+                    <option>Bongor</option>
+                    <option>Doba</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Quartiers d'intervention couverts <span style="color:#ef4444;">*</span></label>
+                  <input type="text" name="proQuartier" class="form-control" placeholder="Ex : Moursal, Sabangali, Chagoua, Walia..." required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Tarif d'intervention indicatif <span style="color:#64748b; font-size:11px;">(Ex : À partir de 5 000 FCFA / Devis gratuit)</span></label>
+                <input type="text" name="proTarif" class="form-control" placeholder="Ex : À partir de 5 000 FCFA déplacement inclus">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Présentation de vos compétences, outillage &amp; garanties <span style="color:#ef4444;">*</span></label>
+                <textarea name="proDescription" class="form-control" rows="3" placeholder="Décrivez votre expérience, le matériel utilisé, votre réactivité, garantie de travail soigné..." required></textarea>
+              </div>
+            </div>
+            <!-- SECTION 3 : PIÈCE D'IDENTITÉ & CARTE NATIONALE (CNI) — OBLIGATOIRE -->
+            <div style="background:#f0f7ff; border:2px solid #60a5fa; border-radius:14px; padding:20px; margin-bottom:22px; box-shadow:0 3px 12px rgba(37,99,235,0.06);">
+              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="font-size:22px;">🪪</span>
+                  <h3 style="font-size:15px; font-weight:800; color:var(--color-navy-dark); margin:0;">
+                    3. Carte Nationale d'Identité (CNI) — Obligatoire <span style="color:#ef4444;">*</span>
+                  </h3>
+                </div>
+                <span style="background:#dbeafe; color:#1e40af; font-size:11px; font-weight:800; padding:3px 10px; border-radius:999px;">
+                  🛡️ Contrôle Administrateur Requis
+                </span>
+              </div>
+              
+              <p style="font-size:12.5px; color:#334155; line-height:1.5; margin:0 0 16px 0;">
+                <b>Condition de sécurité KHIDMA Tchad :</b> Pour pouvoir proposer vos services sur la plateforme, vous devez obligatoirement fournir votre Carte Nationale d'Identité tchadienne (ou passeport). L'administrateur vérifiera et validera votre pièce d'identité avant que vous ne puissiez postuler et envoyer des devis aux clients.
+              </p>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start;">
+                <!-- Numéro de CNI -->
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" style="font-size:12.5px;">
+                    <span>Numéro officiel CNI / NNID <span style="color:#ef4444;">*</span></span>
+                  </label>
+                  <input type="text" name="proCniNumber" class="form-control" placeholder="Ex : CNI-TD-2024-884920 ou N° NNID" required>
+                  <small style="color:var(--color-text-muted); font-size:11px; margin-top:4px; display:block;">Le numéro officiel figurant sur votre pièce d'identité.</small>
+                </div>
+
+                <!-- Scan / Photo de la CNI -->
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" style="font-size:12.5px;">
+                    <span>Photo / Scan de la CNI (Recto / Verso) <span style="color:#ef4444;">*</span></span>
+                  </label>
+                  
+                  <div class="photo-upload-wrapper" id="proPageCniDropzone" onclick="document.getElementById('proPageCniFile').click()" style="padding:10px 14px; border:2px dashed #93c5fd; background:#ffffff; border-radius:10px; cursor:pointer;">
+                    <div class="photo-upload-inner" style="gap:12px; display:flex; align-items:center;">
+                      <div class="photo-preview-placeholder" id="proPageCniPlaceholder" style="width:48px; height:48px; background:#eff6ff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:24px;">🪪</div>
+                      <img id="proPageCniPreview" class="photo-preview-avatar" src="" alt="Aperçu CNI" style="display:none; width:72px; height:48px; border-radius:6px; object-fit:cover; border:1.5px solid #3b82f6;">
+                      <div class="photo-upload-info" style="text-align:left;">
+                        <div class="photo-upload-title" style="font-size:12px; font-weight:700; color:var(--color-navy-dark);">
+                          <span>Téléverser votre CNI</span>
+                          <span id="proPageCniBadge" class="photo-upload-badge-loaded" style="display:none; font-size:10.5px; background:#dcfce7; color:#15803d; padding:2px 7px; border-radius:10px;">✓ CNI chargée</span>
+                        </div>
+                        <div class="photo-upload-hint" style="font-size:10.5px; color:#64748b;">Format JPG ou PNG (photo lisible).</div>
+                        <div class="photo-action-btns" id="proPageCniActions" style="display:none; margin-top:4px; gap:8px;" onclick="event.stopPropagation();">
+                          <button type="button" class="btn-photo-action" style="font-size:10.5px; padding:2px 8px;" onclick="document.getElementById('proPageCniFile').click()">Changer</button>
+                          <button type="button" class="btn-photo-action" style="font-size:10.5px; padding:2px 8px; color:#ef4444;" onclick="resetProCni('proPageCniPreview', 'proPageCniPlaceholder', 'proPageCniBase64', 'proPageCniFile', 'proPageCniBadge'); document.getElementById('proPageCniActions').style.display='none';">Supprimer</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <input type="file" id="proPageCniFile" accept="image/*" style="display:none;" onchange="handleProCniSelect(event, 'proPageCniPreview', 'proPageCniPlaceholder', 'proPageCniBase64', 'proPageCniBadge'); document.getElementById('proPageCniActions').style.display='flex';">
+                  <input type="hidden" id="proPageCniBase64" name="proCniBase64" value="">
+                </div>
+              </div>
+            </div>
+
+            <!-- SECTION 4 : IMAGES DES RÉALISATIONS & CHANTIERS — FACULTATIF -->
+            <div style="background:#fffbeb; border:1.5px solid #fde68a; border-radius:14px; padding:20px; margin-bottom:22px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="font-size:22px;">📸</span>
+                  <h3 style="font-size:15px; font-weight:800; color:#78350f; margin:0;">
+                    4. Images des Réalisations &amp; Chantiers <span style="font-size:12px; font-weight:700; color:#b45309; background:#fef3c7; padding:2px 8px; border-radius:10px;">Facultatif / Optionnel</span>
+                  </h3>
+                </div>
+                <span id="realisationsCountBadge" style="font-size:11.5px; font-weight:700; color:#92400e; background:#fef3c7; padding:3px 10px; border-radius:999px;">
+                  0 photo ajoutée
+                </span>
+              </div>
+
+              <p style="font-size:12.5px; color:#92400e; line-height:1.5; margin:0 0 14px 0;">
+                Ajoutez des photos de vos réalisations passées (chantiers terminés, dépannages, réparations, installations ou vue de votre atelier). 
+                <b>Les artisans avec photos de réalisations reçoivent 4 fois plus d'appels !</b>
+              </p>
+
+              <!-- Dropzone Multi-photos -->
+              <div id="realisationsDropzone" onclick="document.getElementById('proRealisationsFileInput').click()" style="background:#ffffff; border:2px dashed #f59e0b; border-radius:12px; padding:18px; text-align:center; cursor:pointer; transition:all 0.2s ease;">
+                <div style="font-size:30px; margin-bottom:6px;">🏗️</div>
+                <div style="font-size:13px; font-weight:800; color:#78350f; margin-bottom:4px;">
+                  Cliquez ici pour sélectionner une ou plusieurs photos de vos réalisations
+                </div>
+                <div style="font-size:11.5px; color:#a16207;">
+                  Formats acceptés : JPG, PNG (plusieurs photos possibles — max 6 photos)
+                </div>
+              </div>
+              <input type="file" id="proRealisationsFileInput" accept="image/*" multiple style="display:none;" onchange="handleProRealisationsSelect(event)">
+              <input type="hidden" id="proRealisationsJson" name="proRealisationsJson" value="[]">
+
+              <!-- Galerie de prévisualisation des réalisations -->
+              <div id="proRealisationsGallery" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:12px; margin-top:14px;">
+                <!-- Miniatures injectées dynamiquement -->
+              </div>
+            </div>
+
+            <!-- SECTION 5 : SÉCURITÉ DU COMPTE ARTISAN -->
+            <div class="form-group" style="margin-bottom:20px;">
+              <label class="form-label" style="display:flex; justify-content:space-between; align-items:center;">
+                <span>5. Mot de passe de votre compte artisan <span style="color:#ef4444;">*</span></span>
+                <span style="font-size:11px; color:var(--color-blue); font-weight:700;">Pour vous connecter à votre Espace Pro</span>
+              </label>
+              <input type="password" name="proPassword" class="form-control" placeholder="Créez votre mot de passe secret (ex : 12345 ou 6 caractères)" required>
+            </div>
+
+            <!-- BOUTON DE SOUMISSION -->
+            <button type="submit" id="btnSubmitRegistration" class="btn btn-yellow" style="width:100%; padding:15px; font-size:15.5px; font-weight:800; border-radius:12px; box-shadow:0 6px 18px rgba(250,204,21,0.35);">
+              🚀 Soumettre mon inscription &amp; ma Carte Nationale pour validation →
+            </button>
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modale Connexion Dédiée Client ou Prestataire -->
+  <div class="modal-overlay" id="modalConnexion">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalConnexion')">✕</button>
+      <h3 class="modal-title">Connexion à votre compte</h3>
+      <p class="modal-sub">Accédez rapidement à votre espace KHIDMA Tchad :</p>
+      
+      <!-- Boutons de connexion sociale (Google & Facebook) -->
+      <div class="social-login-grid">
+        <button type="button" class="btn-social-auth btn-social-google" onclick="handleSocialLogin('google')">
+          <svg width="19" height="19" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Continuer avec Google</span>
+        </button>
+
+        <button type="button" class="btn-social-auth btn-social-facebook" onclick="handleSocialLogin('facebook')">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span>Continuer avec Facebook</span>
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>ou avec vos identifiants</span>
+      </div>
+      
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-bottom:16px;">
+        <button type="button" id="tabLoginPro" class="btn" style="background:var(--color-navy-dark); color:var(--color-yellow); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid var(--color-yellow); border-radius:8px; cursor:pointer;" onclick="switchLoginRole('pro')">
+          🧰 Prestataire
+        </button>
+        <button type="button" id="tabLoginClient" class="btn" style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px; cursor:pointer;" onclick="switchLoginRole('client')">
+          👤 Client
+        </button>
+        <button type="button" id="tabLoginAdmin" class="btn" style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px; cursor:pointer;" onclick="switchLoginRole('admin')">
+          🛡️ Admin
+        </button>
+      </div>
+
+      <form onsubmit="handleConnexionSubmit(event)">
+        <input type="hidden" id="loginRoleInput" name="loginRole" value="pro">
+
+        <div id="loginNoticePro" style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:12px; color:#1e40af;">
+          🔧 <b>Espace Prestataire :</b> Connectez-vous avec votre numéro de téléphone d'artisan pour consulter les interventions reçues.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" id="loginIdentifierLabel">Numéro WhatsApp ou Téléphone de l'artisan</label>
+          <input type="text" id="loginIdentifierInput" name="identifier" class="form-control" placeholder="+235 66 12 34 56 ou votre numéro" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de passe du compte</label>
+          <input type="password" id="loginPasswordInput" name="password" class="form-control" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px;">
+          Accéder à mes interventions artisan →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container text-center">
+      <div class="footer-bottom-row" style="border:none; justify-content:center;">
+        <span>\u00a9 2025 KHIDMA Tchad. Tous droits réservés. Espace Prestataires.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MENU LATÉRAL COULISSANT MOBILE -->
+  <div class="mobile-drawer-overlay" id="mobileDrawer" onclick="closeMobileDrawer(event)">
+    <aside class="mobile-drawer-content">
+      <div class="drawer-header">
+        <div class="brand-logo">
+          <div class="brand-icon"><div class="brand-icon-inner"></div></div>
+          <div class="brand-text">
+            <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+            <span class="brand-sub">Les bons professionnels, près de vous.</span>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="toggleMobileDrawer(false)">✕</button>
+      </div>
+
+      <nav class="drawer-links">
+        <a href="../index.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🏠</span> <span>Accueil</span>
+        </a>
+        <a href="services.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🛠️</span> <span>Tous les Services</span>
+        </a>
+        <a href="client.html" class="drawer-link" onclick="toggleMobileDrawer(false)" style="border-left:3px solid var(--color-yellow);">
+          <span class="drawer-icon">👤</span> <span>Espace Client</span>
+        </a>
+        <a href="pro.html" class="drawer-link" onclick="toggleMobileDrawer(false)" style="border-left:3px solid #10b981;">
+          <span class="drawer-icon">🧰</span> <span>Espace Professionnel</span>
+        </a>
+        <a href="devenir-prestataire.html" class="drawer-link active" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🤝</span> <span>Devenir Prestataire</span>
+        </a>
+        <a href="publier-demande.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">📝</span> <span>Publier une Demande</span>
+        </a>
+        <a href="a-propos.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">ℹ️</span> <span>À propos &amp; FAQ</span>
+        </a>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- BARRE MOBILE BASSE -->
+  <nav class="mobile-bottom-bar" aria-label="Navigation mobile rapide">
+    <a href="../index.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="services.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Services</span>
+    </a>
+    <a href="devenir-prestataire.html" class="bottom-nav-item bottom-nav-center active">
+      <div class="center-pill-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </div>
+      <span>Rejoindre</span>
+    </a>
+    <a href="pro.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span>Espace Pro</span>
+    </a>
+    <button type="button" class="bottom-nav-item" onclick="toggleMobileDrawer(true)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <div class="toast-notice" id="toastNotice"><span id="toastMessage">Action effectuée</span></div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/modals.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/handlers.js"></script>
+
+  <script>
+    // Liste locale des réalisations téléversées (tableau de DataURLs en base64)
+    window.proRealisationsList = [];
+
+    // Sélection multiple de photos de réalisations
+    function handleProRealisationsSelect(event) {
+      const files = event.target.files;
+      if (!files || files.length === 0) return;
+
+      const maxPhotos = 6;
+      const remainingSlots = maxPhotos - window.proRealisationsList.length;
+
+      if (remainingSlots <= 0) {
+        showToast('⚠️ Limite atteinte : 6 photos de réalisations maximum.');
+        return;
+      }
+
+      const filesToProcess = Array.from(files).slice(0, remainingSlots);
+
+      filesToProcess.forEach(file => {
+        if (!file.type.match('image.*')) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = new Image();
+          img.onload = function() {
+            // Compression via canvas max 800x800
+            const canvas = document.createElement('canvas');
+            const maxDim = 800;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > maxDim) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              }
+            } else {
+              if (height > maxDim) {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const compressed = canvas.toDataURL('image/jpeg', 0.82);
+            window.proRealisationsList.push(compressed);
+            renderProRealisationsGallery();
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Réinitialiser le file input pour permettre de sélectionner à nouveau
+      event.target.value = '';
+    }
+
+    // Suppression d'une réalisation par son index
+    function removeProRealisation(idx) {
+      window.proRealisationsList.splice(idx, 1);
+      renderProRealisationsGallery();
+    }
+
+    // Rendu visuel de la galerie des réalisations
+    function renderProRealisationsGallery() {
+      const gallery = document.getElementById('proRealisationsGallery');
+      const hiddenInput = document.getElementById('proRealisationsJson');
+      const badge = document.getElementById('realisationsCountBadge');
+
+      if (hiddenInput) {
+        hiddenInput.value = JSON.stringify(window.proRealisationsList);
+      }
+
+      if (badge) {
+        const count = window.proRealisationsList.length;
+        badge.textContent = count === 0 ? '0 photo ajoutée' : `${count} photo${count > 1 ? 's' : ''} ajoutée${count > 1 ? 's' : ''}`;
+        badge.style.background = count > 0 ? '#dcfce7' : '#fef3c7';
+        badge.style.color = count > 0 ? '#15803d' : '#92400e';
+      }
+
+      if (!gallery) return;
+
+      if (window.proRealisationsList.length === 0) {
+        gallery.innerHTML = '';
+        return;
+      }
+
+      gallery.innerHTML = window.proRealisationsList.map((photoData, idx) => `
+        <div style="position:relative; border-radius:10px; overflow:hidden; border:2px solid #f59e0b; aspect-ratio:4/3; box-shadow:0 3px 10px rgba(0,0,0,0.12);">
+          <img src="${photoData}" alt="Réalisation ${idx + 1}" style="width:100%; height:100%; object-fit:cover;">
+          <button type="button" onclick="removeProRealisation(${idx})" title="Supprimer cette photo" style="position:absolute; top:4px; right:4px; width:24px; height:24px; background:rgba(239,68,68,0.92); color:#ffffff; border:none; border-radius:50%; font-size:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,0.3);">
+            ✕
+          </button>
+          <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.6); color:#ffffff; font-size:10px; padding:2px 6px; text-align:center; font-weight:700;">
+            Chantier #${idx + 1}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Actualiser l'état du formulaire selon que l'artisan est connecté ou non
+    function updateDevenirPrestataireAuthState() {
+      const sessionData = localStorage.getItem('khidma_auth_user');
+      let user = null;
+      if (sessionData) {
+        try { user = JSON.parse(sessionData); } catch(e) {}
+      }
+
+      const fastBar = document.getElementById('proAuthFastBar');
+      const successBadge = document.getElementById('proAuthSuccessBadge');
+      const nameInput = document.querySelector('input[name="proName"]');
+      const emailInput = document.querySelector('input[name="proEmail"]');
+      const photoPreview = document.getElementById('proPagePhotoPreview');
+      const photoPlaceholder = document.getElementById('proPagePhotoPlaceholder');
+      const photoBadge = document.getElementById('proPagePhotoBadge');
+      const photoHidden = document.getElementById('proPagePhotoBase64');
+      const photoActions = document.getElementById('proPagePhotoActions');
+
+      if (user) {
+        if (fastBar) fastBar.style.display = 'none';
+        if (successBadge) {
+          successBadge.style.display = 'flex';
+          const nameEl = document.getElementById('connectedUserName');
+          const emailEl = document.getElementById('connectedUserEmail');
+          const avatarEl = document.getElementById('connectedUserAvatar');
+          if (nameEl) nameEl.textContent = user.name;
+          if (emailEl) emailEl.textContent = user.email || (user.provider === 'google' ? 'Compte Google vérifié' : 'Compte Facebook vérifié');
+          if (avatarEl && user.avatar) avatarEl.src = user.avatar;
+        }
+
+        // Pré-remplissage automatique des données depuis Google/Facebook
+        if (nameInput && (!nameInput.value || nameInput.value.includes('Ex :'))) {
+          nameInput.value = user.name || '';
+        }
+        if (emailInput && !emailInput.value && user.email) {
+          emailInput.value = user.email;
+        }
+        if (user.avatar && photoPreview) {
+          photoPreview.src = user.avatar;
+          photoPreview.style.display = 'block';
+          if (photoPlaceholder) photoPlaceholder.style.display = 'none';
+          if (photoBadge) {
+            photoBadge.textContent = '✓ Photo synchronisée';
+            photoBadge.style.display = 'inline-flex';
+          }
+          if (photoHidden) photoHidden.value = user.avatar;
+          if (photoActions) photoActions.style.display = 'flex';
+        }
+      } else {
+        if (fastBar) fastBar.style.display = 'flex';
+        if (successBadge) successBadge.style.display = 'none';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateDevenirPrestataireAuthState();
+    });
+  </script>
+  </script>
+</body>
+</html>

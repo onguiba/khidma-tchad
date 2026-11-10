@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace Professionnel — KHIDMA Tchad</title>
+  <meta name="description" content="Tableau de bord pour artisans et professionnels au Tchad : recevez des demandes de chantiers, envoyez vos devis et gérez vos clients.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="dashboard-page">
+
+  <!-- ==================== TOPBAR ESPACE PROFESSIONNEL ==================== -->
+  <header class="dashboard-topbar" style="background: linear-gradient(90deg, #051a3d 0%, #07224f 60%, #0b3578 100%); box-shadow: 0 4px 24px rgba(0,0,0,0.25);">
+    <div class="container dashboard-topbar-inner">
+      <div class="dashboard-title-group">
+        <a href="../index.html" class="brand-logo">
+          <div class="brand-icon"><div class="brand-icon-inner"></div></div>
+          <div class="brand-text">
+            <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+            <span class="brand-sub">Les meilleurs prestataires, près de vous.</span>
+          </div>
+        </a>
+        <span class="dashboard-space-badge pro">🧰 Espace Pro</span>
+      </div>
+
+      <div class="dashboard-topbar-actions">
+        <!-- Statut de disponibilité en direct -->
+        <div class="user-status-pill" id="proAvailabilityPill" onclick="toggleProAvailability()" style="cursor:pointer; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3);" title="Cliquez pour changer votre statut">
+          <span class="status-dot-active" id="proAvailabilityDot" style="animation: pulse-ring 2s ease-in-out infinite;"></span>
+          <span id="proAvailabilityText">Disponible</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span id="proTopbarAccountName" style="background:rgba(255,255,255,0.12); color:#ffffff; font-size:11.5px; font-weight:700; padding:6px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.18);">Artisan : Chargement...</span>
+          <a href="../index.html" class="btn btn-yellow" style="font-size:11.5px; padding:6px 14px;">🏠 Site Public</a>
+          <button onclick="handleProLogout()" class="btn btn-outline-white" style="font-size:11.5px; padding:6px 10px; color:#fca5a5; border-color:#f87171;" title="Se déconnecter">🚪 Déco</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENU DASHBOARD PRO ==================== -->
+  <main class="container" style="padding-top:28px; padding-bottom:70px;">
+
+    <!-- Alerte si non connecté -->
+    <div id="proLoginGuard" style="display:none; background:linear-gradient(135deg,#fff7ed,#fffbeb); border:2px solid #fbbf24; border-radius:16px; padding:28px; text-align:center; margin-bottom:24px;">
+      <div style="font-size:44px; margin-bottom:10px;">🔐</div>
+      <h2 style="font-size:18px; font-weight:800; color:#92400e; margin-bottom:8px;">Accès réservé aux artisans connectés</h2>
+      <p style="font-size:13px; color:#78350f; margin-bottom:16px;">Veuillez vous connecter ou créer votre compte prestataire pour accéder à votre tableau de bord.</p>
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <a href="devenir-prestataire.html" class="btn btn-yellow" style="padding:11px 22px; font-size:13.5px;">Créer mon compte →</a>
+        <a href="../index.html" class="btn btn-outline-white" style="color:#92400e; border-color:#fbbf24; padding:11px 22px; font-size:13.5px;">Retour à l'accueil</a>
+      </div>
+    </div>
+
+    <!-- Profil Pro Résumé Dynamique -->
+    <div id="proDashboardContent">
+      <!-- Bannière de Statut du Compte & Vérification IA -->
+      <div id="proAccountStatusBanner" style="margin-bottom:20px;"></div>
+
+      <div style="background: linear-gradient(135deg, #ffffff 0%, #f8fafd 100%); border:1px solid var(--color-border); border-radius:20px; padding:22px; display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:24px; box-shadow:var(--shadow-md);">
+      <div style="display:flex; align-items:center; gap:18px;">
+        <div style="position:relative;">
+          <img id="proProfileAvatar" src="../images/rachid.jpg" alt="Photo de profil"
+            style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:3px solid var(--color-yellow); cursor:pointer; box-shadow:0 4px 14px rgba(255,201,40,0.35);"
+            onclick="document.getElementById('proChangePhotoInput').click()" title="Cliquez pour changer votre photo de profil">
+          <button type="button" onclick="document.getElementById('proChangePhotoInput').click()" title="Modifier ma photo"
+            style="position:absolute; bottom:-4px; right:-4px; background:var(--color-navy-dark); color:#fff; border:2px solid #fff; border-radius:50%; width:26px; height:26px; font-size:12px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,0.2);">📷</button>
+          <input type="file" id="proChangePhotoInput" accept="image/*" style="display:none;" onchange="handleProChangePhoto(event)">
+        </div>
+
+        <div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <h1 id="proProfileName" style="font-size:20px; font-weight:800; color:var(--color-navy-dark);">Rachid Plomberie</h1>
+            <span id="proProfileBadge" class="badge-verifie" style="position:static;">✓ Vérifié</span>
+          </div>
+          <div id="proProfileDetails" style="font-size:12.5px; color:var(--color-text-muted); margin-top:4px;">🔧 Plombier · 📍 N'Djamena (Moursal) · 📞 +235 66 12 34 56</div>
+          <div style="margin-top:8px;">
+            <button type="button" onclick="document.getElementById('proChangePhotoInput').click()" style="font-size:11px; padding:4px 10px; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:6px; color:var(--color-navy-dark); cursor:pointer;">
+              📷 Changer ma photo
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="text-align:right;">
+          <div id="proProfileRating" style="font-size:20px; font-weight:800; color:var(--color-star);">★ 5.0 / 5</div>
+          <div id="proProfileReviews" style="font-size:11px; color:var(--color-text-muted);">0 avis clients</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- KPIs Statistiques -->
+    <div class="stats-grid" style="margin-bottom:24px;">
+      <div class="stat-kpi-card" style="border-left:3px solid #f59e0b;">
+        <div class="kpi-icon-wrap amber">🔔</div>
+        <div>
+          <div class="kpi-val" id="kpiProNewOpportunities">0</div>
+          <div class="kpi-label">Demandes dans votre zone</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card" style="border-left:3px solid #0b4da2;">
+        <div class="kpi-icon-wrap blue">💼</div>
+        <div>
+          <div class="kpi-val" id="kpiProQuotesSent">0</div>
+          <div class="kpi-label">Devis envoyés</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card" style="border-left:3px solid #8b5cf6;">
+        <div class="kpi-icon-wrap purple">⚡</div>
+        <div>
+          <div class="kpi-val" id="kpiProInProgress">0</div>
+          <div class="kpi-label">Chantiers en cours</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card" style="border-left:3px solid #059669;">
+        <div class="kpi-icon-wrap green">✅</div>
+        <div>
+          <div class="kpi-val" id="kpiProCompleted">0</div>
+          <div class="kpi-label">Interventions finalisées</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onglets Dashboard Pro -->
+    <div class="dashboard-nav-tabs" style="border-radius:12px 12px 0 0; margin-bottom:0;">
+      <div class="dashboard-tab-item active" onclick="switchProTab('opportunities', this)">
+        Opportunités &amp; Demandes à proximité <span class="tab-counter" id="tabCountOpp" style="background:#fef3c7; color:#b45309;">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchProTab('in_progress', this)">
+        Mes Chantiers en cours <span class="tab-counter" id="tabCountInProgress">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchProTab('history', this)">
+        Historique &amp; Avis reçus <span class="tab-counter" id="tabCountHistory">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchProTab('realisations', this)">
+        📸 Mes Réalisations <span class="tab-counter" id="tabCountRealisations" style="background:#dcfce7; color:#15803d;">0</span>
+      </div>
+    </div>
+
+    <!-- Conteneur des Vues Pro -->
+    <div id="proTabContent" style="background:#fff; border:1px solid var(--color-border); border-radius:0 0 14px 14px; border-top:none; min-height:200px; padding:20px;">
+      <!-- Rendu via JS -->
+    </div>
+
+    </div><!-- fin proDashboardContent -->
+
+  </main>
+
+  <!-- ==================== MODALE ENVOYER UN DEVIS ==================== -->
+  <div class="modal-overlay" id="modalSendQuote">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalSendQuote')">✕</button>
+      <h3 class="modal-title">Envoyer une proposition au client</h3>
+      <p class="modal-sub" id="modalSendQuoteSub">Proposez votre tarif et votre créneau d'intervention.</p>
+
+      <form onsubmit="handleProSubmitQuote(event)">
+        <input type="hidden" id="quoteTargetDemandeId">
+
+        <div class="form-group">
+          <label class="form-label">Montant estimé (en FCFA)</label>
+          <input type="text" id="quoteAmountInput" class="form-control" placeholder="Ex : 15 000 FCFA" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Délai ou Heure de disponibilité</label>
+          <input type="text" id="quoteDelayInput" class="form-control" placeholder="Ex : Intervention possible sous 1h ou ce soir 17h" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Message d'explication pour le client</label>
+          <textarea id="quoteMessageInput" class="form-control" rows="3" placeholder="Expliquez comment vous comptez résoudre le problème, matériel inclus..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px; margin-top:8px;">
+          Transmettre mon devis au client immédiatement →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-notice" id="toastNotice"><span id="toastMessage">Action effectuée</span></div>
+
+  <!-- SCRIPTS -->
+  <script src="../js/data.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/modals.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/handlers.js"></script>
+  <script>
+    let activeProTab = 'opportunities';
+    let isAvailable = true;
+
+    function toggleProAvailability() {
+      isAvailable = !isAvailable;
+      const dot = document.getElementById('proAvailabilityDot');
+      const text = document.getElementById('proAvailabilityText');
+      if (isAvailable) {
+        dot.style.background = '#10b981';
+        dot.style.boxShadow = '0 0 8px #10b981';
+        text.textContent = 'Disponible pour interventions';
+        showToast('🟢 Votre statut est maintenant : DISPONIBLE');
+      } else {
+        dot.style.background = '#ef4444';
+        dot.style.boxShadow = '0 0 8px #ef4444';
+        text.textContent = 'Occupé / En pause';
+        showToast('🔴 Votre statut est maintenant : OCCUPÉ (vous ne recevez plus d’alertes directes)');
+      }
+    }
+
+    let currentOppFilter = 'all';
+
+    function filterProOpportunities(cat) {
+      currentOppFilter = cat;
+      renderProDashboard();
+    }
+
+    function switchProTab(tab, el) {
+      activeProTab = tab;
+      document.querySelectorAll('.dashboard-tab-item').forEach(t => t.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderProDashboard();
+    }
+
+    function renderProDashboard() {
+      const currentPro = (typeof getCurrentPro === 'function') ? getCurrentPro() : { id: 1, name: "Rachid Plomberie", category: "Plomberie", city: "N'Djamena", quartier: "Moursal" };
+      const demandes = getAllDemandes();
+
+      // Opportunités : demandes en attente ou ayant des devis
+      let opportunities = demandes.filter(d => d.status === 'en_attente' || d.status === 'devis_recus');
+      if (currentOppFilter !== 'all') {
+        opportunities = opportunities.filter(d => d.category === currentOppFilter);
+      }
+
+      // Priorité aux interventions express ciblées vers cet artisan
+      opportunities.sort((a, b) => {
+        const aDirect = (Number(a.targetProId) === Number(currentPro.id) || a.targetProName === currentPro.name || a.targetProName === currentPro.companyName) ? 1 : 0;
+        const bDirect = (Number(b.targetProId) === Number(currentPro.id) || b.targetProName === currentPro.name || b.targetProName === currentPro.companyName) ? 1 : 0;
+        return bDirect - aDirect;
+      });
+
+      // Chantiers en cours : demandes où ce pro a été retenu ou en cours
+      const inProgress = demandes.filter(d => d.status === 'en_cours' && (Number(d.agreedProId) === Number(currentPro.id) || !d.agreedProId));
+      // Historique
+      const completed = demandes.filter(d => d.status === 'terminee');
+
+      // KPIs
+      document.getElementById('kpiProNewOpportunities').textContent = opportunities.length;
+      document.getElementById('kpiProQuotesSent').textContent = demandes.filter(d => d.quotes && d.quotes.some(q => Number(q.proId) === Number(currentPro.id))).length;
+      document.getElementById('kpiProInProgress').textContent = inProgress.length;
+      document.getElementById('kpiProCompleted').textContent = completed.length;
+
+      document.getElementById('tabCountOpp').textContent = opportunities.length;
+      document.getElementById('tabCountInProgress').textContent = inProgress.length;
+      document.getElementById('tabCountHistory').textContent = completed.length;
+      const countRealEl = document.getElementById('tabCountRealisations');
+      if (countRealEl) countRealEl.textContent = (currentPro.realisationsPhotos || []).length;
+
+      const container = document.getElementById('proTabContent');
+
+      // VUE 4 : Mes Réalisations & Chantiers
+      if (activeProTab === 'realisations') {
+        const photos = currentPro.realisationsPhotos || [];
+        container.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid #e2e8f0;">
+            <div>
+              <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin:0 0 4px 0;">📸 Vos Réalisations &amp; Chantiers</h3>
+              <p style="font-size:12.5px; color:var(--color-text-muted); margin:0;">Ces photos sont présentées aux clients et à l'administrateur pour illustrer vos compétences (Facultatif).</p>
+            </div>
+            <div>
+              <button type="button" class="btn btn-yellow" style="font-size:12.5px; padding:9px 16px; font-weight:800;" onclick="document.getElementById('proNewRealisationFile').click()">
+                ➕ Ajouter une photo de travail
+              </button>
+              <input type="file" id="proNewRealisationFile" accept="image/*" style="display:none;" onchange="handleProUploadNewRealisation(event)">
+            </div>
+          </div>
+
+          ${photos.length === 0 ? `
+            <div style="background:#fffbeb; border:2px dashed #f59e0b; border-radius:14px; padding:36px 20px; text-align:center;">
+              <div style="font-size:42px; margin-bottom:10px;">📸</div>
+              <h4 style="font-size:16px; font-weight:800; color:#78350f; margin-bottom:6px;">Aucune photo de réalisation enregistrée</h4>
+              <p style="font-size:13px; color:#92400e; max-width:440px; margin:0 auto 18px; line-height:1.5;">
+                Montrez vos travaux terminés, réparations ou vue de votre atelier. C'est facultatif, mais les profils avec photos reçoivent beaucoup plus d'appels !
+              </p>
+              <button type="button" class="btn btn-yellow" style="font-size:13px; padding:10px 22px; font-weight:800;" onclick="document.getElementById('proNewRealisationFile').click()">
+                Sélectionner une photo de mon travail
+              </button>
+            </div>
+          ` : `
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:16px;">
+              ${photos.map((pUrl, i) => `
+                <div style="position:relative; border-radius:12px; overflow:hidden; border:2px solid #e2e8f0; aspect-ratio:4/3; box-shadow:0 3px 10px rgba(0,0,0,0.08); background:#000;">
+                  <img src="${pUrl}" alt="Réalisation ${i+1}" style="width:100%; height:100%; object-fit:cover;">
+                  <button type="button" onclick="handleProDeleteRealisation(${i})" title="Supprimer cette photo" style="position:absolute; top:8px; right:8px; width:28px; height:28px; background:rgba(239,68,68,0.92); color:#fff; border:none; border-radius:50%; font-size:13px; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+                    ✕
+                  </button>
+                  <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.68); color:#fff; font-size:11px; padding:4px 8px; text-align:center; font-weight:700;">
+                    Chantier #${i+1}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        `;
+        return;
+      }
+
+      // VUE 1 : Opportunités & Interventions
+      if (activeProTab === 'opportunities') {
+        if (opportunities.length === 0) {
+          container.innerHTML = `
+            <div style="background:#fff; padding:40px 20px; border-radius:14px; text-align:center; border:1px solid var(--color-border);">
+              <div style="font-size:36px; margin-bottom:10px;">✨</div>
+              <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin-bottom:6px;">Aucune intervention en attente dans votre zone</h3>
+              <p style="font-size:13px; color:var(--color-text-muted);">Dès qu'un client dépose un besoin ou sollicite une intervention, elle apparaîtra ici en temps réel.</p>
+              <button class="btn btn-yellow" style="margin-top:16px; font-size:12.5px; padding:10px 18px;" onclick="renderProDashboard()">
+                🔄 Actualiser le flux des demandes
+              </button>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = `
+          <!-- Filtres de spécialités pour opportunités -->
+          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid #f1f5f9;">
+            <button type="button" class="btn" style="font-size:11.5px; padding:5px 12px; background:var(--color-navy-dark); color:var(--color-yellow); border-radius:999px;" onclick="filterProOpportunities('all')">Toutes les offres (${opportunities.length})</button>
+            <button type="button" class="btn" style="font-size:11.5px; padding:5px 12px; background:#f1f5fa; color:var(--color-navy-dark); border-radius:999px;" onclick="filterProOpportunities('Plomberie')">🔧 Plomberie</button>
+            <button type="button" class="btn" style="font-size:11.5px; padding:5px 12px; background:#f1f5fa; color:var(--color-navy-dark); border-radius:999px;" onclick="filterProOpportunities('Électricité')">⚡ Électricité</button>
+            <button type="button" class="btn" style="font-size:11.5px; padding:5px 12px; background:#f1f5fa; color:var(--color-navy-dark); border-radius:999px;" onclick="filterProOpportunities('Informatique')">💻 Informatique</button>
+            <button type="button" class="btn" style="font-size:11.5px; padding:5px 12px; background:#f1f5fa; color:var(--color-navy-dark); border-radius:999px;" onclick="filterProOpportunities('Bâtiment')">🏗️ Bâtiment</button>
+            <button type="button" class="btn" style="font-size:11.5px; padding:5px 12px; background:#f1f5fa; color:var(--color-navy-dark); border-radius:999px;" onclick="filterProOpportunities('Transport')">🚚 Transport</button>
+            <button type="button" class="btn" style="font-size:11.5px; padding:5px 12px; background:#f1f5fa; color:var(--color-navy-dark); border-radius:999px;" onclick="filterProOpportunities('Nettoyage')">🗑️ Nettoyage</button>
+          </div>
+        ` + opportunities.map(d => {
+          const isTargetedToMe = (Number(d.targetProId) === Number(currentPro.id)) || (d.targetProName && (d.targetProName === currentPro.name || d.targetProName === currentPro.companyName));
+          const myQuote = d.quotes ? d.quotes.find(q => Number(q.proId) === Number(currentPro.id)) : null;
+          const hasAlreadyQuoted = !!myQuote;
+          const cleanPhone = (d.clientPhone || '').replace(/\s+/g, '');
+          const waPhone = (d.clientPhone || '').replace(/[^0-9]/g, '');
+          const applicantsCount = d.quotes ? d.quotes.length : 0;
+
+          return `
+            <article class="demande-card" style="${isTargetedToMe ? 'border:2px solid #ef4444; background:#fffdfd; box-shadow:0 8px 24px rgba(239,68,68,0.12);' : ''}">
+              ${isTargetedToMe ? `
+                <div style="background:#fee2e2; border-bottom:1px solid #fecaca; padding:10px 16px; margin:-16px -16px 14px -16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div style="color:#991b1b; font-weight:800; font-size:12.5px; display:flex; align-items:center; gap:6px;">
+                    <span>🚨</span> <span>DEMANDE D'INTERVENTION DIRECTE : Ce client a spécifiquement choisi votre profil !</span>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <a href="tel:${cleanPhone}" class="btn btn-green-solid" style="font-size:11px; padding:5px 12px; text-decoration:none;">📞 Appeler le client</a>
+                    <a href="https://wa.me/${waPhone}" target="_blank" class="btn btn-green-outline" style="font-size:11px; padding:5px 12px; text-decoration:none;">💬 WhatsApp</a>
+                  </div>
+                </div>
+              ` : ''}
+
+              <div class="demande-header">
+                <div>
+                  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+                    <span class="demande-ref">${d.id} · Métier : <b>${d.category}</b></span>
+                    ${applicantsCount > 0 ? `
+                      <span class="mission-postulants-badge ${applicantsCount >= 3 ? 'high' : ''}">
+                        🔥 ${applicantsCount} artisan(s) ont postulé
+                      </span>
+                    ` : `
+                      <span class="mission-postulants-badge" style="background:#ecfdf5; color:#065f46; border-color:#a7f3d0;">
+                        ⚡ 0 postulant · Répondez en premier !
+                      </span>
+                    `}
+                  </div>
+                  <h2 class="demande-title" style="font-size:17px; margin:4px 0 6px;">${d.title}</h2>
+                  <div class="demande-meta">
+                    <span>📍 Quartier : <b>${d.quartier} (${d.city})</b></span>
+                    <span style="color:#065f46; font-weight:700;">💰 Budget prévu : <b>${d.budget || "15 000 — 30 000 FCFA"}</b></span>
+                    <span>⏰ Délai : <b>${d.urgency}</b></span>
+                    <span>👤 Client : <b>${d.clientName}</b></span>
+                    <span>🗓️ Reçue : ${d.createdAt}</span>
+                  </div>
+                </div>
+
+                <span class="status-badge ${isTargetedToMe ? 'en_cours' : 'en_attente'}" style="${isTargetedToMe ? 'background:#fee2e2; color:#991b1b;' : ''}">
+                  <span class="status-dot-active" style="background:${isTargetedToMe ? '#ef4444' : '#b45309'};"></span>
+                  ${isTargetedToMe ? 'Intervention directe' : 'Offre ouverte'}
+                </span>
+              </div>
+
+              <p style="font-size:13.5px; color:#334155; line-height:1.6; margin-bottom:14px; background:#f8fafd; padding:12px; border-radius:8px;">
+                <b>Description du besoin :</b> "${d.description}"
+              </p>
+
+              <!-- Statut de candidature de cet artisan -->
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; padding-top:12px; border-top:1px solid #f1f5f9;">
+                <div style="font-size:12px; color:#5c6e88;">
+                  ${d.quotes && d.quotes.length > 0 ? `👥 <b>${d.quotes.length} propositions</b> en concurrence pour ce chantier` : '⚡ Déposez votre devis sans commission pour être contacté immédiatement'}
+                </div>
+
+                <div style="display:flex; gap:8px;">
+                  ${hasAlreadyQuoted ? `
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <span style="font-size:12.5px; font-weight:800; color:var(--color-green); background:var(--color-green-light); padding:7px 14px; border-radius:var(--radius-full); border:1px solid var(--color-green-border);">
+                        ✓ Vous avez postulé (${myQuote.amount} · ${myQuote.delay})
+                      </span>
+                    </div>
+                  ` : (!currentPro.verified || currentPro.applicationStatus !== 'valide') ? `
+                    <button class="btn" onclick="alertUnverifiedPro()" style="background:#fff7ed; color:#c2410c; border:1.5px solid #fb923c; font-size:12px; font-weight:800; padding:8px 14px; border-radius:8px; cursor:pointer;" title="Action bloquée : Votre Carte Nationale d'Identité doit être validée par l'administrateur">
+                      🔒 CNI en attente de validation admin
+                    </button>
+                  ` : `
+                    <button class="btn btn-yellow" onclick="openSendQuoteModal('${d.id}', '${d.title.replace(/'/g, "\\'")}')" style="box-shadow:0 4px 12px var(--color-yellow-glow);">
+                      💼 Postuler / Envoyer mon devis →
+                    </button>
+                  `}
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      // VUE 2 : En cours
+      else if (activeProTab === 'in_progress') {
+        if (inProgress.length === 0) {
+          container.innerHTML = `
+            <div style="background:#fff; padding:40px 20px; border-radius:14px; text-align:center; border:1px solid var(--color-border);">
+              <div style="font-size:36px; margin-bottom:10px;">🛠️</div>
+              <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin-bottom:6px;">Aucun chantier en cours actuellement</h3>
+              <p style="font-size:13px; color:var(--color-text-muted);">Répondez aux opportunités disponibles pour décrocher de nouvelles interventions.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = inProgress.map(d => `
+          <article class="demande-card">
+            <div class="demande-header">
+              <div>
+                <span class="demande-ref">${d.id} · ${d.category}</span>
+                <h2 class="demande-title">${d.title}</h2>
+                <div class="demande-meta">
+                  <span>📍 Adresse : <b>${d.quartier} (${d.city})</b></span>
+                  <span>👤 Client : <b>${d.clientName}</b></span>
+                  <span>💰 Tarif convenu : <b>${d.agreedPrice || "À convenir"}</b></span>
+                </div>
+              </div>
+
+              <span class="status-badge en_cours">
+                <span class="status-dot-active" style="background:#7e22ce;"></span>
+                Chantier en cours
+              </span>
+            </div>
+
+            <div style="background:#f5f3ff; border:1px solid #ddd6fe; border-radius:12px; padding:16px; margin:14px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+              <div>
+                <div style="font-weight:800; font-size:13.5px; color:#6b21a8;">Coordonnées directes du client :</div>
+                <div style="font-size:12.5px; color:#5b21b6; margin-top:2px;">Téléphone : <b>${d.clientPhone}</b></div>
+              </div>
+
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-green-solid" onclick="contactProvider('${d.clientName}', '${d.clientPhone}', 'call')">
+                  📞 Appeler le client
+                </button>
+                <button class="btn btn-green-outline" onclick="contactProvider('${d.clientName}', '${d.clientPhone}', 'whatsapp')">
+                  💬 Écrire sur WhatsApp
+                </button>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end;">
+              <button class="btn btn-yellow" onclick="handleProCompleteIntervention('${d.id}')">
+                ✅ Marquer cette intervention comme terminée
+              </button>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      // VUE 3 : Historique & Avis
+      else if (activeProTab === 'history') {
+        if (completed.length === 0) {
+          container.innerHTML = `
+            <div style="background:#fff; padding:40px 20px; border-radius:14px; text-align:center; border:1px solid var(--color-border);">
+              <div style="font-size:36px; margin-bottom:10px;">⭐</div>
+              <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin-bottom:6px;">Aucune intervention terminée pour le moment</h3>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = completed.map(d => `
+          <article class="demande-card">
+            <div class="demande-header">
+              <div>
+                <span class="demande-ref">${d.id} · Clôturée : ${d.completedAt || "Récemment"}</span>
+                <h2 class="demande-title">${d.title}</h2>
+                <div class="demande-meta">
+                  <span>Client : <b>${d.clientName}</b></span>
+                  <span>📍 ${d.quartier}</span>
+                  <span>Montant encaissé : <b>${d.agreedPrice || "Terminé"}</b></span>
+                </div>
+              </div>
+
+              <span class="status-badge terminee">
+                ✓ Intervention réussie
+              </span>
+            </div>
+
+            ${d.review ? `
+              <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:14px; margin-top:10px;">
+                <div style="font-weight:800; color:#166534; font-size:13px;">
+                  Avis du client : ★ ${d.review.rating} / 5 (${d.review.date})
+                </div>
+                <div style="font-size:12.5px; color:#14532d; font-style:italic; margin-top:3px;">
+                  "${d.review.comment}"
+                </div>
+              </div>
+            ` : `
+              <div style="font-size:12px; color:#64748b; font-style:italic; margin-top:8px;">
+                Le client n'a pas encore laissé de note pour cette intervention.
+              </div>
+            `}
+          </article>
+        `).join('');
+      }
+    }
+
+    // Ouvrir modale devis
+    function openSendQuoteModal(demandeId, title) {
+      const currentPro = (typeof getCurrentPro === 'function') ? getCurrentPro() : null;
+      if (currentPro && (!currentPro.verified || currentPro.applicationStatus !== 'valide')) {
+        alertUnverifiedPro();
+        return;
+      }
+
+      document.getElementById('quoteTargetDemandeId').value = demandeId;
+      document.getElementById('modalSendQuoteSub').textContent = `Proposition pour : "${title}"`;
+      document.getElementById('quoteAmountInput').value = "15 000 FCFA";
+      document.getElementById('quoteDelayInput').value = "Intervention possible sous 1h";
+      document.getElementById('quoteMessageInput').value = "Bonjour, je suis disponible avec mon outillage pour intervenir rapidement et garantir la réparation.";
+      openModal('modalSendQuote');
+    }
+
+    function alertUnverifiedPro() {
+      const pro = (typeof getCurrentPro === 'function') ? getCurrentPro() : null;
+      const cni = pro?.cniNumber || "votre pièce d'identité";
+      showToast("⚠️ Action impossible : Votre Carte Nationale d'Identité (" + cni + ") doit d'abord être validée par l'administrateur.");
+      openModal('modalCniPendingNotice');
+    }
+
+    function renderProProfileInfo() {
+      const pro = (typeof getCurrentPro === 'function') ? getCurrentPro() : null;
+      if (!pro) return;
+
+      const avatarEl = document.getElementById('proProfileAvatar');
+      const nameEl = document.getElementById('proProfileName');
+      const badgeEl = document.getElementById('proProfileBadge');
+      const detailsEl = document.getElementById('proProfileDetails');
+      const ratingEl = document.getElementById('proProfileRating');
+      const reviewsEl = document.getElementById('proProfileReviews');
+      const statusBannerEl = document.getElementById('proAccountStatusBanner');
+
+      if (avatarEl) {
+        const photoUrl = (pro.photo && (pro.photo.startsWith('data:') || pro.photo.startsWith('http'))) ? pro.photo : ('../' + (pro.photo || 'images/rachid.jpg'));
+        avatarEl.src = photoUrl;
+      }
+
+      if (nameEl) {
+        nameEl.textContent = pro.companyName || pro.name;
+      }
+
+      if (badgeEl) {
+        if (pro.verified) {
+          badgeEl.className = 'badge-verifie';
+          badgeEl.style.background = '#ffffff';
+          badgeEl.style.color = 'var(--color-green)';
+          badgeEl.textContent = '✓ CNI Vérifiée & Profil Actif';
+        } else {
+          badgeEl.className = '';
+          badgeEl.style.background = '#fef3c7';
+          badgeEl.style.color = '#b45309';
+          badgeEl.style.padding = '3px 10px';
+          badgeEl.style.borderRadius = '999px';
+          badgeEl.style.fontSize = '11px';
+          badgeEl.style.fontWeight = '800';
+          badgeEl.textContent = '⏳ CNI en attente de validation admin';
+        }
+      }
+
+      // Rendu de la bannière de statut CNI & validation
+      if (statusBannerEl) {
+        if (!pro.verified) {
+          const audit = pro.aiAudit || (typeof generateAiAuditReport === 'function' ? generateAiAuditReport(pro) : { score: 96, status: 'favorable', phoneNetwork: 'Airtel / Moov Tchad (+235)' });
+          const score = audit.score || 96;
+          const phoneNetwork = audit.phoneNetwork || "Airtel / Moov Tchad (+235)";
+          const cniNum = pro.cniNumber || audit.cniNumber || "CNI-TD-2024-884920";
+
+          statusBannerEl.innerHTML = `
+            <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #f59e0b; border-radius: 16px; padding: 22px; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.12);">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+                <div style="flex:1; min-width:280px;">
+                  <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                    <span style="font-size:24px;">🪪</span>
+                    <h2 style="font-size:17px; font-weight:800; color:#92400e; margin:0;">
+                      Carte Nationale d'Identité N° ${cniNum} transmise — En attente de validation par l'administrateur
+                    </h2>
+                  </div>
+                  <p style="font-size:13px; color:#78350f; line-height:1.5; margin:0 0 14px 0;">
+                    <b>Règle de sécurité KHIDMA Tchad :</b> Pour que vous puissiez proposer vos services et soumettre des devis aux clients, votre Carte Nationale d'Identité doit obligatoirement être vérifiée et validée par l'administrateur. 
+                    <i>Tant que votre candidature n'a pas été validée, la proposition de services reste verrouillée.</i>
+                  </p>
+
+                  <!-- ÉTAPES DU PROCESSUS -->
+                  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:14px;">
+                    <div style="background:#ffffff; border:1px solid #fcd34d; border-radius:10px; padding:10px 12px; font-size:12px;">
+                      <div style="color:#059669; font-weight:800;">✓ Étape 1 : Dépôt CNI</div>
+                      <div style="color:#475569; font-size:11px;">Pièce N° ${cniNum} fournie</div>
+                    </div>
+                    <div style="background:#ffffff; border:2px solid #f59e0b; border-radius:10px; padding:10px 12px; font-size:12px; box-shadow:0 2px 8px rgba(245,158,11,0.15);">
+                      <div style="color:#b45309; font-weight:800; display:flex; align-items:center; gap:4px;">
+                        <span>⏳ Étape 2 : Examen Admin</span>
+                        <span style="background:#fef3c7; color:#b45309; font-size:9.5px; padding:2px 6px; border-radius:999px;">En cours</span>
+                      </div>
+                      <div style="color:#475569; font-size:11px;">Vérification de la pièce d'identité</div>
+                    </div>
+                    <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:10px 12px; font-size:12px; opacity:0.85;">
+                      <div style="color:#64748b; font-weight:800;">🔒 Étape 3 : Proposer mes services</div>
+                      <div style="color:#64748b; font-size:11px;">Débloqué après accord admin</div>
+                    </div>
+                  </div>
+
+                  <!-- CONTRÔLES DÉTECTÉS -->
+                  <div style="background:rgba(255,255,255,0.7); border:1px dashed #d97706; border-radius:10px; padding:10px 14px; font-size:12px; color:#92400e; margin-bottom:14px;">
+                    <b>État du dossier :</b> Carte Nationale d'Identité (${cniNum}) transmise · Ligne ${phoneNetwork} certifiée · Spécialité (${pro.category}) · Zone (${pro.city} - ${pro.quartier}).
+                  </div>
+
+                  <!-- BOUTONS D'ACTION VALIDATION ADMIN -->
+                  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="btn btn-yellow" style="font-size:13px; padding:10px 18px; font-weight:800;" onclick="refreshProStatus()">
+                      🔄 Actualiser l'état de validation
+                    </button>
+                    <a href="admin.html" class="btn btn-outline-white" style="color:#92400e; border-color:#f59e0b; background:#fff; font-size:13px; padding:10px 16px; text-decoration:none;">
+                      🛡️ Espace Administrateur (Daniel Onguiba Boutna)
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          statusBannerEl.innerHTML = `
+            <div style="background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%); border: 1.5px solid #10b981; border-radius: 14px; padding: 14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; box-shadow:var(--shadow-sm);">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size:24px;">🟢</span>
+                <div>
+                  <div style="font-weight:800; font-size:14px; color:#065f46;">Carte Nationale d'Identité Validée par l'Administrateur !</div>
+                  <div style="font-size:12px; color:#047857;">Votre profil est certifié. Vous pouvez maintenant proposer vos services, envoyer des devis et intervenir sur tous les chantiers.</div>
+                </div>
+              </div>
+              <a href="../index.html#prestataires" class="btn btn-yellow" style="font-size:12px; padding:8px 16px; text-decoration:none; font-weight:700;">
+                Voir ma fiche sur le site public →
+              </a>
+            </div>
+          `;
+        }
+      }
+
+      if (detailsEl) {
+        detailsEl.textContent = `${pro.role || pro.category} · 📍 ${pro.city} (${pro.quartier}) · 📞 ${pro.phone} · 🪪 CNI : ${pro.cniNumber || 'Enregistrée'}`;
+      }
+
+      if (ratingEl) {
+        ratingEl.textContent = `★ ${pro.rating || 5.0} / 5`;
+      }
+
+      if (reviewsEl) {
+        reviewsEl.textContent = `${pro.reviewsCount || 0} avis clients`;
+      }
+
+      const topbarName = document.getElementById('proTopbarAccountName');
+      if (topbarName) {
+        topbarName.textContent = 'Artisan : ' + (pro.companyName || pro.name);
+      }
+    }
+
+    // Validation instantanée démo depuis l'espace pro
+    function handleProInstantAiValidation() {
+      const pro = (typeof getCurrentPro === 'function') ? getCurrentPro() : null;
+      if (!pro) return;
+
+      if (typeof runAiVerification === 'function') {
+        runAiVerification(pro.id);
+      } else if (typeof toggleProviderVerification === 'function') {
+        toggleProviderVerification(pro.id, true);
+      }
+
+      showToast("🎉 Félicitations ! Votre profil est validé par l'IA et visible par tous les clients sur KHIDMA Tchad !");
+      renderProProfileInfo();
+      renderProDashboard();
+    }
+
+    function handleProChangePhoto(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 400;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          document.getElementById('proProfileAvatar').src = compressedDataUrl;
+          if (typeof updateCurrentProPhoto === 'function') {
+            updateCurrentProPhoto(compressedDataUrl);
+          }
+          showToast('📷 Photo de profil mise à jour avec succès !');
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function loadProDemandesFromAPI() {
+      try {
+        const isOnline = window.KhidmaAPI && await window.KhidmaAPI.checkHealth();
+        if (isOnline) {
+          const result = await window.KhidmaAPI.demandes.getAll();
+          if (result.success && Array.isArray(result.data)) {
+            localStorage.setItem('proxitchad_demandes_v2', JSON.stringify(result.data));
+          }
+        }
+      } catch(e) {
+        console.warn('Sync API demandes pro:', e.message);
+      }
+      renderProDashboard();
+    }
+
+    async function handleProSubmitQuote(e) {
+      e.preventDefault();
+      const pro = (typeof getCurrentPro === 'function') ? getCurrentPro() : { id: 1, name: "Rachid Plomberie", rating: 4.8, phone: "+235 66 12 34 56" };
+
+      // Blocage strict si non validé par l'administrateur
+      if (pro && (!pro.verified || pro.applicationStatus !== 'valide')) {
+        closeModal('modalSendQuote');
+        alertUnverifiedPro();
+        return;
+      }
+
+      const demandeId = document.getElementById('quoteTargetDemandeId').value;
+      const amount = document.getElementById('quoteAmountInput').value;
+      const delay = document.getElementById('quoteDelayInput').value;
+      const message = document.getElementById('quoteMessageInput').value;
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '⏳ Envoi du devis en cours...'; }
+
+      const quoteData = {
+        proId: pro.id,
+        proName: pro.companyName || pro.name,
+        proRating: pro.rating || 4.8,
+        proPhone: pro.phone,
+        amount,
+        delay,
+        message
+      };
+
+      try {
+        const isOnline = window.KhidmaAPI && await window.KhidmaAPI.checkHealth();
+        if (isOnline) {
+          const res = await window.KhidmaAPI.quotes.submit(demandeId, quoteData);
+          if (!res.success) {
+            throw new Error(res.error || "Impossible d'envoyer le devis.");
+          }
+        } else if (typeof submitProQuote === 'function') {
+          await submitProQuote(demandeId, quoteData);
+        }
+
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText; }
+        closeModal('modalSendQuote');
+        showToast('🎉 Votre devis a été envoyé au client avec succès !');
+        e.target.reset();
+        await loadProDemandesFromAPI();
+      } catch(err) {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText; }
+        showToast('❌ Erreur : ' + err.message);
+      }
+    }
+
+    async function handleProCompleteIntervention(demandeId) {
+      if (confirm("Confirmez-vous que le travail a été réalisé avec succès et le règlement perçu ?")) {
+        try {
+          const isOnline = window.KhidmaAPI && await window.KhidmaAPI.checkHealth();
+          if (isOnline) {
+            await window.KhidmaAPI.demandes.complete(demandeId);
+          } else if (typeof completeIntervention === 'function') {
+            await completeIntervention(demandeId);
+          }
+          showToast('✅ Chantier clôturé avec succès ! Le client est invité à laisser un avis.');
+          await loadProDemandesFromAPI();
+        } catch(err) {
+          showToast('❌ Erreur : ' + err.message);
+        }
+      }
+    }
+
+    function handleProLogout() {
+      if (window.KhidmaAPI && window.KhidmaAPI.session) {
+        window.KhidmaAPI.session.clearSession();
+      }
+      localStorage.removeItem('proxitchad_active_role');
+      localStorage.removeItem('proxitchad_current_pro_id');
+      localStorage.removeItem('KHIDMA Tchad_active_role');
+      localStorage.removeItem('KHIDMA Tchad_current_pro_id');
+      localStorage.removeItem('khidma_auth_user');
+      localStorage.removeItem('khidma_current_user');
+      localStorage.removeItem('khidma_jwt_token');
+      localStorage.removeItem('khidma_user_role');
+      showToast('🚪 Déconnexion réussie. À bientôt !');
+      setTimeout(() => {
+        window.location.href = '../index.html';
+      }, 700);
+    }
+
+    // Actualiser le statut du prestataire (CNI, validation, profil)
+    async function refreshProStatus() {
+      showToast('🔄 Actualisation de votre statut en cours...');
+      try {
+        const isOnline = window.KhidmaAPI && await window.KhidmaAPI.checkHealth();
+        if (isOnline) {
+          const pro = (typeof getCurrentPro === 'function') ? getCurrentPro() : null;
+          if (pro && pro.id) {
+            const res = await window.KhidmaAPI.providers.getOne(pro.id);
+            if (res.success && res.data) {
+              const all = typeof getAllProviders === 'function' ? getAllProviders() : [];
+              const idx = all.findIndex(p => Number(p.id) === Number(pro.id));
+              if (idx !== -1) {
+                all[idx] = { ...all[idx], ...res.data };
+                localStorage.setItem('proxitchad_providers_v2', JSON.stringify(all));
+              }
+            }
+          }
+        }
+      } catch(e) { console.warn('Refresh status err:', e); }
+
+      renderProProfileInfo();
+      renderProDashboard();
+      showToast('✅ Statut actualisé avec succès !');
+    }
+
+    // Téléverser une nouvelle réalisation depuis l'Espace Pro
+    function handleProUploadNewRealisation(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const pro = (typeof getCurrentPro === 'function') ? getCurrentPro() : null;
+      if (!pro) return;
+
+      if (!pro.realisationsPhotos) pro.realisationsPhotos = [];
+      if (pro.realisationsPhotos.length >= 6) {
+        showToast('⚠️ Limite de 6 photos de réalisations atteinte.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 800;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressed = canvas.toDataURL('image/jpeg', 0.82);
+
+          pro.realisationsPhotos.push(compressed);
+
+          // Sauvegarde locale et/ou API
+          const all = typeof getAllProviders === 'function' ? getAllProviders() : [];
+          const idx = all.findIndex(p => Number(p.id) === Number(pro.id));
+          if (idx !== -1) {
+            all[idx] = pro;
+            localStorage.setItem('proxitchad_providers_v2', JSON.stringify(all));
+          }
+
+          showToast('📸 Photo de réalisation ajoutée avec succès !');
+          renderProDashboard();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      event.target.value = '';
+    }
+
+    // Supprimer une réalisation
+    function handleProDeleteRealisation(index) {
+      if (!confirm("Voulez-vous supprimer cette photo de vos réalisations ?")) return;
+      const pro = (typeof getCurrentPro === 'function') ? getCurrentPro() : null;
+      if (!pro || !pro.realisationsPhotos) return;
+
+      pro.realisationsPhotos.splice(index, 1);
+      const all = typeof getAllProviders === 'function' ? getAllProviders() : [];
+      const idx = all.findIndex(p => Number(p.id) === Number(pro.id));
+      if (idx !== -1) {
+        all[idx] = pro;
+        localStorage.setItem('proxitchad_providers_v2', JSON.stringify(all));
+      }
+
+      showToast('🗑️ Photo supprimée.');
+      renderProDashboard();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Garde de connexion : vérifier qu'un pro ou admin est connecté
+      const currentUser = (window.KhidmaAPI && window.KhidmaAPI.session) ? window.KhidmaAPI.session.getUser() : null;
+      const currentProId = localStorage.getItem('proxitchad_current_pro_id') || 
+                           localStorage.getItem('KHIDMA Tchad_current_pro_id') || 
+                           (currentUser && (currentUser.role === 'pro' || currentUser.role === 'admin') ? currentUser.id : null) ||
+                           (localStorage.getItem('khidma_auth_user') && JSON.parse(localStorage.getItem('khidma_auth_user')).role === 'pro' ? '1' : null);
+      const guardEl = document.getElementById('proLoginGuard');
+      const dashEl = document.getElementById('proDashboardContent');
+
+      if (!currentProId) {
+        // Afficher garde, cacher dashboard
+        if (guardEl) guardEl.style.display = 'block';
+        if (dashEl) dashEl.style.display = 'none';
+      } else {
+        // Normal
+        if (guardEl) guardEl.style.display = 'none';
+        if (dashEl) dashEl.style.display = 'block';
+        renderProProfileInfo();
+        loadProDemandesFromAPI();
+      }
+    });
+
+    window.addEventListener('khidma:api_ready', (e) => {
+      if (e.detail && e.detail.online) {
+        renderProProfileInfo();
+        loadProDemandesFromAPI();
+      }
+    });
+  </script>
+  <!-- MODALE BLOCAGE CNI EN ATTENTE DE VALIDATION -->
+  <div class="modal-overlay" id="modalCniPendingNotice">
+    <div class="modal-card" style="max-width:500px; text-align:center;">
+      <button class="modal-close-btn" onclick="closeModal('modalCniPendingNotice')">✕</button>
+      <div style="width:64px; height:64px; background:#fef3c7; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:32px; margin-bottom:12px; box-shadow:0 4px 12px rgba(245,158,11,0.2);">🔒</div>
+      <h3 class="modal-title" style="margin-bottom:8px; color:var(--color-navy-dark); font-size:19px;">Validation CNI Obligatoire</h3>
+      <p class="modal-sub" style="margin-bottom:16px; font-size:13px;">
+        Votre Carte Nationale d'Identité est en cours de vérification par l'administrateur.
+      </p>
+      <div style="background:#fffbeb; border:1.5px solid #fcd34d; border-radius:12px; padding:16px; margin-bottom:20px; font-size:12.5px; color:#78350f; text-align:left; line-height:1.55;">
+        🛡️ <b>Règle de sécurité KHIDMA Tchad :</b><br>
+        Pour garantir la sécurité et la sérénité des particuliers et des entreprises au Tchad, vous ne pouvez pas proposer vos services ni envoyer de devis tant que l'administrateur n'a pas formellement validé votre Carte Nationale d'Identité.
+      </div>
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button type="button" class="btn btn-yellow" style="padding:11px 20px; font-size:13px; font-weight:800;" onclick="closeModal('modalCniPendingNotice'); refreshProStatus();">
+          🔄 Actualiser mon statut CNI
+        </button>
+        <a href="admin.html" class="btn btn-outline-white" style="color:#0f2c59; border-color:#94a3b8; padding:11px 16px; font-size:13px; font-weight:700; text-decoration:none;">
+          🛡️ Espace Administrateur
+        </a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

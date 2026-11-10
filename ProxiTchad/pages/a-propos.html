@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À Propos & FAQ — KHIDMA Tchad</title>
+  <meta name="description" content="Découvrez la mission de KHIDMA Tchad, notre engagement pour la valorisation des compétences locales au Tchad et nos réponses aux questions fréquentes.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="../index.html" class="brand-logo">
+        <div class="brand-icon">
+          <div class="brand-icon-inner"></div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+          <span class="brand-sub">Les bons professionnels, près de vous.</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" aria-label="Menu principal">
+        <a href="../index.html" class="nav-link">Accueil</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="client.html" class="nav-link" style="color:var(--color-yellow); font-weight:700;">👤 Espace Client</a>
+        <a href="pro.html" class="nav-link">🧰 Espace Pro</a>
+        <a href="devenir-prestataire.html" class="nav-link" onclick="return handleDevenirPrestataireClick(event)">Devenir prestataire</a>
+        <a href="publier-demande.html" class="nav-link">Publier une demande</a>
+        <a href="a-propos.html" class="nav-link active">À propos</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-outline-white btn-connexion" onclick="openModal('modalConnexion')">Connexion</button>
+        <button class="mobile-menu-toggle" onclick="toggleMobileDrawer(true)" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO PRÉSENTATION ==================== -->
+  <section style="background: linear-gradient(135deg, #051a3d 0%, #07224f 60%, #0b3578 100%); color: #fff; padding: 60px 0 70px; position:relative; overflow:hidden;">
+    <div style="position:absolute; top:-60px; right:-60px; width:300px; height:300px; background:radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 70%); pointer-events:none;"></div>
+    
+    <div class="container container-narrow text-center" style="position:relative; z-index:2;">
+      <span class="hero-tagline" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:var(--color-yellow);">
+        NOTRE MISSION & ENGAGEMENT LOCAL
+      </span>
+      <h1 style="font-size:36px; font-weight:800; line-height:1.25; margin:16px 0 16px;">
+        Connecter les foyers aux meilleurs artisans et techniciens du Tchad
+      </h1>
+      <p style="color:#d1e2f7; font-size:16px; line-height:1.65; max-width:680px; margin:0 auto 28px;">
+        KHIDMA Tchad est la plateforme numérique de référence conçue pour simplifier la recherche de services de proximité fiables, réactifs et vérifiés à N'Djamena et dans toutes les grandes villes tchadiennes.
+      </p>
+
+      <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+        <a href="../index.html#prestataires" class="btn btn-yellow" style="padding:12px 24px; font-size:14px; text-decoration:none;">
+          Trouver un professionnel →
+        </a>
+        <a href="devenir-prestataire.html" class="btn btn-outline-white" style="padding:12px 24px; font-size:14px; text-decoration:none;" onclick="return handleDevenirPrestataireClick(event)">
+          Rejoindre le réseau des artisans
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BANDE DE CHIFFRES CLÉS ==================== -->
+  <div style="background:#fff; border-bottom:1px solid var(--color-border); box-shadow:var(--shadow-sm); margin-top:-20px; position:relative; z-index:3; border-radius:16px; max-width:980px; margin-left:auto; margin-right:auto;">
+    <div style="display:grid; grid-template-columns:repeat(4, 1fr); padding:24px 16px; text-align:center;">
+      <div style="border-right:1px solid #f1f5f9;">
+        <div style="font-size:28px; font-weight:800; color:var(--color-navy-dark);">500+</div>
+        <div style="font-size:12px; color:var(--color-text-muted); font-weight:600;">Interventions réussies</div>
+      </div>
+      <div style="border-right:1px solid #f1f5f9;">
+        <div style="font-size:28px; font-weight:800; color:#10b981;">98%</div>
+        <div style="font-size:12px; color:var(--color-text-muted); font-weight:600;">Satisfaction clients</div>
+      </div>
+      <div style="border-right:1px solid #f1f5f9;">
+        <div style="font-size:28px; font-weight:800; color:var(--color-yellow);">0 FCFA</div>
+        <div style="font-size:12px; color:var(--color-text-muted); font-weight:600;">Commission client</div>
+      </div>
+      <div>
+        <div style="font-size:28px; font-weight:800; color:#3b82f6;">4</div>
+        <div style="font-size:12px; color:var(--color-text-muted); font-weight:600;">Grandes Villes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NOS PILIERS FONDAMENTAUX ==================== -->
+  <section style="padding: 60px 0 40px;">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:36px;">
+        <span class="hero-tagline">POURQUOI KHIDMA Tchad ?</span>
+        <h2 class="section-title-main" style="justify-content:center;">Trois piliers au service de la communauté</h2>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;">
+        <!-- Pilier 1 -->
+        <div style="background:#fff; padding:28px; border-radius:18px; border:1px solid var(--color-border); box-shadow:var(--shadow-md); transition:transform 0.2s, box-shadow 0.2s;">
+          <div style="width:52px; height:52px; border-radius:14px; background:#eff6ff; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:16px;">
+            🛡️
+          </div>
+          <h3 style="font-size:17px; font-weight:800; color:var(--color-navy-dark); margin-bottom:8px;">Vérification rigoureuse & CNI</h3>
+          <p style="font-size:13.5px; color:var(--color-text-muted); line-height:1.6;">
+            Chaque artisan inscrit passe par un contrôle de profil : Carte Nationale d'Identité vérifiée par l'administration, localisation géographique réelle et compétences.
+          </p>
+        </div>
+
+        <!-- Pilier 2 -->
+        <div style="background:#fff; padding:28px; border-radius:18px; border:1px solid var(--color-border); box-shadow:var(--shadow-md); transition:transform 0.2s, box-shadow 0.2s;">
+          <div style="width:52px; height:52px; border-radius:14px; background:#ecfdf5; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:16px;">
+            💬
+          </div>
+          <h3 style="font-size:17px; font-weight:800; color:var(--color-navy-dark); margin-bottom:8px;">Contact direct & WhatsApp</h3>
+          <p style="font-size:13.5px; color:var(--color-text-muted); line-height:1.6;">
+            Aucun intermédiaire ni commission cachée : vous communiquez directement avec les artisans par appel téléphonique ou messagerie WhatsApp pour convenir du devis.
+          </p>
+        </div>
+
+        <!-- Pilier 3 -->
+        <div style="background:#fff; padding:28px; border-radius:18px; border:1px solid var(--color-border); box-shadow:var(--shadow-md); transition:transform 0.2s, box-shadow 0.2s;">
+          <div style="width:52px; height:52px; border-radius:14px; background:#fef3c7; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:16px;">
+            📍
+          </div>
+          <h3 style="font-size:17px; font-weight:800; color:var(--color-navy-dark); margin-bottom:8px;">Ancrage 100% Local</h3>
+          <p style="font-size:13.5px; color:var(--color-text-muted); line-height:1.6;">
+            Pensé spécifiquement pour le contexte tchadien : géolocalisation par quartier (Moursal, Sabangali, Dembé, Chagoua...) et paiements simples par Airtel Money, Moov Money ou espèces.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COUVERTURE DES VILLES DU TCHAD ==================== -->
+  <section style="padding: 50px 0 60px; background: #ffffff;">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 36px;">
+        <span class="hero-tagline">PRÉSENCE NATIONALE</span>
+        <h2 class="section-title-main" style="justify-content:center;">KHIDMA Tchad dans les 4 grandes villes</h2>
+        <p style="font-size:14px; color:var(--color-text-muted); max-width:620px; margin:8px auto 0;">
+          Une infrastructure de proximité conçue pour répondre aux besoins d'artisans et de services dans les principaux pôles urbains du pays.
+        </p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px;">
+        <!-- N'Djamena -->
+        <div style="border-radius:16px; overflow:hidden; border:1px solid var(--color-border); box-shadow:var(--shadow-md); background:#fff; display:flex; flex-direction:column;">
+          <div style="height:160px; position:relative; overflow:hidden;">
+            <img src="../images/ndjamena.jpg" alt="N'Djamena" style="width:100%; height:100%; object-fit:cover;">
+            <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.7) 0%, transparent 60%);"></div>
+            <span style="position:absolute; bottom:12px; left:14px; color:#fff; font-size:18px; font-weight:800;">N'Djamena</span>
+            <span style="position:absolute; top:12px; right:12px; background:#10b981; color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:999px;">80+ artisans</span>
+          </div>
+          <div style="padding:16px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+            <p style="font-size:12.5px; color:var(--color-text-muted); line-height:1.5; margin-bottom:12px;">
+              Capitale politique et carrefour des services. 11 quartiers couverts : Moursal, Sabangali, Chagoua, Kabalaye...
+            </p>
+            <a href="../index.html#prestataires" class="btn btn-yellow" style="font-size:11.5px; padding:7px 12px; text-align:center; text-decoration:none;">
+              Voir les artisans →
+            </a>
+          </div>
+        </div>
+
+        <!-- Moundou -->
+        <div style="border-radius:16px; overflow:hidden; border:1px solid var(--color-border); box-shadow:var(--shadow-md); background:#fff; display:flex; flex-direction:column;">
+          <div style="height:160px; position:relative; overflow:hidden;">
+            <img src="../images/moundou.jpg" alt="Moundou" style="width:100%; height:100%; object-fit:cover;">
+            <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.7) 0%, transparent 60%);"></div>
+            <span style="position:absolute; bottom:12px; left:14px; color:#fff; font-size:18px; font-weight:800;">Moundou</span>
+            <span style="position:absolute; top:12px; right:12px; background:#10b981; color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:999px;">20+ artisans</span>
+          </div>
+          <div style="padding:16px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+            <p style="font-size:12.5px; color:var(--color-text-muted); line-height:1.5; margin-bottom:12px;">
+              Capitale économique du Sud et pôle agro-industriel. Quartiers : Centre-Ville, Doyon, Gueldjem, Dombao.
+            </p>
+            <a href="../index.html#prestataires" class="btn btn-yellow" style="font-size:11.5px; padding:7px 12px; text-align:center; text-decoration:none;">
+              Voir les artisans →
+            </a>
+          </div>
+        </div>
+
+        <!-- Sarh -->
+        <div style="border-radius:16px; overflow:hidden; border:1px solid var(--color-border); box-shadow:var(--shadow-md); background:#fff; display:flex; flex-direction:column;">
+          <div style="height:160px; position:relative; overflow:hidden;">
+            <img src="../images/sarh.jpg" alt="Sarh" style="width:100%; height:100%; object-fit:cover;">
+            <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.7) 0%, transparent 60%);"></div>
+            <span style="position:absolute; bottom:12px; left:14px; color:#fff; font-size:18px; font-weight:800;">Sarh</span>
+            <span style="position:absolute; top:12px; right:12px; background:#10b981; color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:999px;">12+ artisans</span>
+          </div>
+          <div style="padding:16px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+            <p style="font-size:12.5px; color:var(--color-text-muted); line-height:1.5; margin-bottom:12px;">
+              Cité verte du Moyen-Chari au riche tissu artisanal. Quartiers : Maïngara, Kassaï, Balimba.
+            </p>
+            <a href="../index.html#prestataires" class="btn btn-yellow" style="font-size:11.5px; padding:7px 12px; text-align:center; text-decoration:none;">
+              Voir les artisans →
+            </a>
+          </div>
+        </div>
+
+        <!-- Abéché -->
+        <div style="border-radius:16px; overflow:hidden; border:1px solid var(--color-border); box-shadow:var(--shadow-md); background:#fff; display:flex; flex-direction:column;">
+          <div style="height:160px; position:relative; overflow:hidden;">
+            <img src="../images/abeche.jpg" alt="Abéché" style="width:100%; height:100%; object-fit:cover;">
+            <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.7) 0%, transparent 60%);"></div>
+            <span style="position:absolute; bottom:12px; left:14px; color:#fff; font-size:18px; font-weight:800;">Abéché</span>
+            <span style="position:absolute; top:12px; right:12px; background:#10b981; color:#fff; font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:999px;">10+ artisans</span>
+          </div>
+          <div style="padding:16px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+            <p style="font-size:12.5px; color:var(--color-text-muted); line-height:1.5; margin-bottom:12px;">
+              Grand carrefour historique et commercial du Ouaddaï à l'Est. Quartiers : Baguirmi, Salamate, Goz-Amir.
+            </p>
+            <a href="../index.html#prestataires" class="btn btn-yellow" style="font-size:11.5px; padding:7px 12px; text-align:center; text-decoration:none;">
+              Voir les artisans →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUESTIONS FRÉQUENTES (FAQ) ==================== -->
+  <section style="padding: 40px 0 70px; background:#f8fafc;">
+    <div class="container container-narrow">
+      <div class="text-center" style="margin-bottom:30px;">
+        <span class="hero-tagline">VOUS AVEZ DES QUESTIONS ?</span>
+        <h2 class="section-title-main" style="justify-content:center;">Foire Aux Questions (FAQ)</h2>
+        <p style="font-size:13.5px; color:var(--color-text-muted); max-width:560px; margin:0 auto;">
+          Retrouvez les réponses aux questions les plus courantes posées par nos utilisateurs et professionnels partenaires.
+        </p>
+      </div>
+      
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <!-- Question 1 -->
+        <details style="background:#fff; padding:20px 22px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-sm); cursor:pointer;">
+          <summary style="font-weight:700; color:var(--color-navy-dark); font-size:15px; display:flex; justify-content:space-between; align-items:center;">
+            <span>Comment sont vérifiés les artisans sur KHIDMA Tchad ?</span>
+            <span style="color:var(--color-blue); font-size:16px;">▾</span>
+          </summary>
+          <div style="margin-top:12px; font-size:13.5px; color:var(--color-text-muted); line-height:1.65; border-top:1px solid #f1f5f9; padding-top:12px;">
+            Notre équipe locale vérifie obligatoirement la Carte Nationale d'Identité (CNI) du prestataire, son attestation ou expérience professionnelle, son atelier ou quartier de base, ainsi que les retours de ses précédents clients. Seuls les profils validés reçoivent le badge officiel « Vérifié ».
+          </div>
+        </details>
+
+        <!-- Question 2 -->
+        <details style="background:#fff; padding:20px 22px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-sm); cursor:pointer;">
+          <summary style="font-weight:700; color:var(--color-navy-dark); font-size:15px; display:flex; justify-content:space-between; align-items:center;">
+            <span>L'utilisation de la plateforme est-elle payante pour les clients ?</span>
+            <span style="color:var(--color-blue); font-size:16px;">▾</span>
+          </summary>
+          <div style="margin-top:12px; font-size:13.5px; color:var(--color-text-muted); line-height:1.65; border-top:1px solid #f1f5f9; padding-top:12px;">
+            Non ! La recherche de professionnels, l'accès direct aux numéros de téléphone/WhatsApp et la publication de demandes d'interventions sont <b>100% gratuites</b> pour tous les particuliers et entreprises du Tchad.
+          </div>
+        </details>
+
+        <!-- Question 3 -->
+        <details style="background:#fff; padding:20px 22px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-sm); cursor:pointer;">
+          <summary style="font-weight:700; color:var(--color-navy-dark); font-size:15px; display:flex; justify-content:space-between; align-items:center;">
+            <span>Comment s'effectue le paiement des prestations ?</span>
+            <span style="color:var(--color-blue); font-size:16px;">▾</span>
+          </summary>
+          <div style="margin-top:12px; font-size:13.5px; color:var(--color-text-muted); line-height:1.65; border-top:1px solid #f1f5f9; padding-top:12px;">
+            Le paiement se fait directement entre vous et l'artisan sans commission intermédiaire, selon les modalités convenues entre vous (en espèces à la livraison du travail bien fait, ou par transfert Airtel Money / Moov Money).
+          </div>
+        </details>
+
+        <!-- Question 4 -->
+        <details style="background:#fff; padding:20px 22px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-sm); cursor:pointer;">
+          <summary style="font-weight:700; color:var(--color-navy-dark); font-size:15px; display:flex; justify-content:space-between; align-items:center;">
+            <span>Je suis artisan ou réparateur : comment recevoir des clients ?</span>
+            <span style="color:var(--color-blue); font-size:16px;">▾</span>
+          </summary>
+          <div style="margin-top:12px; font-size:13.5px; color:var(--color-text-muted); line-height:1.65; border-top:1px solid #f1f5f9; padding-top:12px;">
+            Il vous suffit de cliquer sur <a href="devenir-prestataire.html" style="color:var(--color-blue); font-weight:700;" onclick="return handleDevenirPrestataireClick(event)">Devenir Prestataire</a>, remplir votre formulaire avec votre Carte Nationale d'Identité (CNI), numéro WhatsApp, quartier et ajouter votre photo de profil. Dès validation par l'administration, votre profil est visible sur le site et vous pouvez postuler aux chantiers.
+          </div>
+        </details>
+
+        <!-- Question 5 -->
+        <details style="background:#fff; padding:20px 22px; border-radius:14px; border:1px solid var(--color-border); box-shadow:var(--shadow-sm); cursor:pointer;">
+          <summary style="font-weight:700; color:var(--color-navy-dark); font-size:15px; display:flex; justify-content:space-between; align-items:center;">
+            <span>Comment laisser un avis après une intervention ?</span>
+            <span style="color:var(--color-blue); font-size:16px;">▾</span>
+          </summary>
+          <div style="margin-top:12px; font-size:13.5px; color:var(--color-text-muted); line-height:1.65; border-top:1px solid #f1f5f9; padding-top:12px;">
+            Depuis votre <a href="client.html" style="color:var(--color-blue); font-weight:700;">Espace Client</a>, lorsque votre intervention est marquée comme terminée, vous pouvez attribuer une note de 1 à 5 étoiles et laisser votre commentaire vérifié afin d'aider les autres habitants de votre quartier.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION ASSISTANCE / CONTACT RAPIDE ==================== -->
+  <section style="padding: 40px 0 60px;">
+    <div class="container container-narrow">
+      <div style="background:linear-gradient(135deg, #0c254e 0%, #1e3a8a 100%); color:#fff; border-radius:20px; padding:36px; text-align:center; box-shadow:var(--shadow-lg);">
+        <div style="font-size:36px; margin-bottom:10px;">💬</div>
+        <h3 style="font-size:22px; font-weight:800; margin-bottom:8px;">Une question ou besoin d'assistance ?</h3>
+        <p style="color:#d1e2f7; font-size:14px; max-width:520px; margin:0 auto 20px; line-height:1.6;">
+          Notre équipe d'assistance KHIDMA Tchad est disponible pour vous accompagner à N'Djamena, du lundi au samedi de 08h à 18h.
+        </p>
+        <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+          <a href="https://wa.me/23566000000?text=Bonjour%20KHIDMA%20Tchad,%20j%27ai%20une%20question" target="_blank" class="btn btn-green-solid" style="padding:12px 22px; font-size:13.5px; text-decoration:none;">
+            💬 Nous écrire sur WhatsApp
+          </a>
+          <a href="tel:+23566000000" class="btn btn-outline-white" style="padding:12px 22px; font-size:13.5px; text-decoration:none;">
+            📞 +235 66 00 00 00
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-brand">
+          <div class="footer-logo">
+            <div class="brand-icon"><div class="brand-icon-inner"></div></div>
+            <span class="footer-brand-name">KHIDMA Tchad</span>
+          </div>
+          <p class="footer-about-text">
+            Plateforme numérique leader au Tchad pour la mise en relation directe avec les artisans et techniciens qualifiés de vos quartiers.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="services.html">Tous les Services</a></li>
+            <li><a href="client.html">Espace Client</a></li>
+            <li><a href="pro.html">Espace Professionnel</a></li>
+            <li><a href="a-propos.html">À propos &amp; FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Services Clés</h4>
+          <ul class="footer-links-list">
+            <li><a href="services.html">Plomberie &amp; Sanitaire</a></li>
+            <li><a href="services.html">Électricité &amp; Énergie</a></li>
+            <li><a href="services.html">Informatique &amp; Réseaux</a></li>
+            <li><a href="services.html">Transport &amp; Déménagement</a></li>
+            <li><a href="publier-demande.html">Déposer une demande</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contact &amp; Support</h4>
+          <ul class="footer-contact-info">
+            <li>📍 N'Djamena, République du Tchad</li>
+            <li>📞 +235 66 00 00 00</li>
+            <li>💬 WhatsApp : Disponible 7j/7</li>
+            <li>✉️ contact@khidma-tchad.td</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <span>&copy; 2025 KHIDMA Tchad. Tous droits réservés. Conçu pour le Tchad.</span>
+        <div class="footer-bottom-links">
+          <a href="a-propos.html">Conditions d'utilisation</a>
+          <span>·</span>
+          <a href="a-propos.html">Confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALE DE CONNEXION ==================== -->
+  <div class="modal-overlay" id="modalConnexion">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalConnexion')">✕</button>
+      <h3 class="modal-title">Connexion à votre compte</h3>
+      <p class="modal-sub">Accédez rapidement à votre espace KHIDMA Tchad :</p>
+      
+      <!-- Boutons de connexion sociale (Google & Facebook) -->
+      <div class="social-login-grid">
+        <button type="button" class="btn-social-auth btn-social-google" onclick="handleSocialLogin('google')">
+          <svg width="19" height="19" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Continuer avec Google</span>
+        </button>
+
+        <button type="button" class="btn-social-auth btn-social-facebook" onclick="handleSocialLogin('facebook')">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span>Continuer avec Facebook</span>
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>ou avec vos identifiants</span>
+      </div>
+      
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-bottom:16px;">
+        <button type="button" id="tabLoginPro" class="btn" style="background:var(--color-navy-dark); color:var(--color-yellow); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid var(--color-yellow); border-radius:8px; cursor:pointer;" onclick="switchLoginRole('pro')">
+          🧰 Prestataire
+        </button>
+        <button type="button" id="tabLoginClient" class="btn" style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px; cursor:pointer;" onclick="switchLoginRole('client')">
+          👤 Client
+        </button>
+        <button type="button" id="tabLoginAdmin" class="btn" style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px; cursor:pointer;" onclick="switchLoginRole('admin')">
+          🛡️ Admin
+        </button>
+      </div>
+
+      <form onsubmit="handleConnexionSubmit(event)">
+        <input type="hidden" id="loginRoleInput" name="loginRole" value="pro">
+
+        <div id="loginNoticePro" style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:12px; color:#1e40af;">
+          🔧 <b>Espace Prestataire :</b> Connectez-vous avec votre numéro de téléphone d'artisan.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" id="loginIdentifierLabel">Numéro WhatsApp ou Téléphone de l'artisan</label>
+          <input type="text" id="loginIdentifierInput" name="identifier" class="form-control" placeholder="+235 66 12 34 56 ou votre numéro" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de passe du compte</label>
+          <input type="password" id="loginPasswordInput" name="password" class="form-control" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px;">
+          Accéder à mes interventions artisan →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MENU LATÉRAL COULISSANT MOBILE ==================== -->
+  <div class="mobile-drawer-overlay" id="mobileDrawer" onclick="closeMobileDrawer(event)">
+    <aside class="mobile-drawer-content">
+      <div class="drawer-header">
+        <div class="brand-logo">
+          <div class="brand-icon"><div class="brand-icon-inner"></div></div>
+          <div class="brand-text">
+            <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+            <span class="brand-sub">Les bons professionnels, près de vous.</span>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="toggleMobileDrawer(false)">✕</button>
+      </div>
+
+      <nav class="drawer-links">
+        <a href="../index.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🏠</span> <span>Accueil</span>
+        </a>
+        <a href="services.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🛠️</span> <span>Tous les Services</span>
+        </a>
+        <a href="client.html" class="drawer-link" onclick="toggleMobileDrawer(false)" style="border-left:3px solid var(--color-yellow);">
+          <span class="drawer-icon">👤</span> <span>Espace Client</span>
+        </a>
+        <a href="pro.html" class="drawer-link" onclick="toggleMobileDrawer(false)" style="border-left:3px solid #10b981;">
+          <span class="drawer-icon">🧰</span> <span>Espace Professionnel</span>
+        </a>
+        <a href="devenir-prestataire.html" class="drawer-link" onclick="toggleMobileDrawer(false); return handleDevenirPrestataireClick(event)">
+          <span class="drawer-icon">🤝</span> <span>Devenir Prestataire</span>
+        </a>
+        <a href="publier-demande.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">📝</span> <span>Publier une Demande</span>
+        </a>
+        <a href="a-propos.html" class="drawer-link active" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">ℹ️</span> <span>À propos &amp; FAQ</span>
+        </a>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- ==================== BARRE MOBILE BASSE ==================== -->
+  <nav class="mobile-bottom-bar" aria-label="Navigation mobile rapide">
+    <a href="../index.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="services.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Services</span>
+    </a>
+    <a href="publier-demande.html" class="bottom-nav-item bottom-nav-center">
+      <div class="center-pill-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </div>
+      <span>Demande</span>
+    </a>
+    <a href="pro.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span>Espace Pro</span>
+    </a>
+    <button type="button" class="bottom-nav-item" onclick="toggleMobileDrawer(true)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <div class="toast-notice" id="toastNotice"><span id="toastMessage">Action effectuée</span></div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="../js/data.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/modals.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/handlers.js"></script>
+</body>
+</html>

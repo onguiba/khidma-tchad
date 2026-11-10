@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KHIDMA Tchad — Trouvez les meilleurs prestataires près de vous</title>
+  <meta name="description"
+    content="Plateforme de services au Tchad. Trouvez des plombiers, électriciens, informaticiens, agents de nettoyage et artisans vérifiés près de chez vous à N'Djamena, Moundou, Sarh et Abéché.">
+  <meta name="keywords"
+    content="prestataire Tchad, artisan N'Djamena, plombier Tchad, électricien Tchad, service à domicile Tchad">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS Modulaire -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <!-- ==================== HEADER & NAVIGATION ==================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-bar">
+      <!-- Logo -->
+      <a href="#accueil" class="brand-logo" aria-label="KHIDMA Tchad - Accueil">
+        <div class="brand-icon">
+          <div class="brand-icon-inner"></div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+          <span class="brand-sub">Les meilleurs prestataires, près de vous.</span>
+        </div>
+      </a>
+
+      <!-- Menu Principal Desktop -->
+      <nav class="nav-menu" aria-label="Menu principal">
+        <a href="#accueil" class="nav-link active">Accueil</a>
+        <a href="#missions" class="nav-link nav-highlight">🔥 Demandes en direct</a>
+        <a href="pages/services.html" class="nav-link">Services</a>
+        <a href="pages/client.html" class="nav-link">👤 Espace Client</a>
+        <a href="pages/pro.html" class="nav-link">🧰 Espace Pro</a>
+        <a href="pages/publier-demande.html" class="nav-link">Publier un besoin</a>
+      </nav>
+
+      <!-- Actions droite -->
+      <div class="header-actions">
+        <div class="location-selector" onclick="openModal('modalVille')" title="Changer de ville">
+          <span>📍</span>
+          <span id="headerSelectedCity">N'Djamena</span>
+          <span style="font-size:9px;">▾</span>
+        </div>
+        <button class="search-btn-icon" onclick="focusSearch()" aria-label="Rechercher">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-outline-white btn-connexion"
+          onclick="openModal('modalConnexion')">Connexion</button>
+        <a href="pages/devenir-prestataire.html" class="btn btn-yellow btn-inscription"
+          onclick="return handleDevenirPrestataireClick(event)">Devenir Prestataire</a>
+        <button class="mobile-burger" onclick="toggleMobileDrawer(true)" aria-label="Ouvrir le menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== BANDE STATS CONFIANCE ==================== -->
+  <div class="stats-trust-strip">
+    <div class="container stats-trust-inner">
+      <div class="stat-trust-item">
+        <div class="stat-trust-val" id="statTotalPros">120+</div>
+        <div>Prestataires vérifiés</div>
+      </div>
+      <div class="stat-trust-sep"></div>
+      <div class="stat-trust-item">
+        <div class="stat-trust-val">4</div>
+        <div>Villes couvertes</div>
+      </div>
+      <div class="stat-trust-sep"></div>
+      <div class="stat-trust-item">
+        <div class="stat-trust-val">98%</div>
+        <div>Satisfaction client</div>
+      </div>
+      <div class="stat-trust-sep"></div>
+      <div class="stat-trust-item">
+        <div class="stat-trust-val">12min</div>
+        <div>Délai moyen de réponse</div>
+      </div>
+      <div class="stat-trust-sep"></div>
+      <div class="stat-trust-item">
+        <div class="stat-trust-val">🛡️ IA</div>
+        <div>Vérification automatique</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero-section" id="accueil">
+    <div class="hero-decoration-dots"></div>
+    <div class="container hero-container">
+
+      <!-- Texte & Recherche -->
+      <div class="hero-content">
+        <span class="hero-tagline">
+          <span>🇹🇩</span> Plateforme N°1 de Services au Tchad
+        </span>
+        <h1 class="hero-title">
+          Trouvez des professionnels
+          <span>de confiance près de chez vous !</span>
+        </h1>
+        <p class="hero-desc">
+          Plombiers, électriciens, informaticiens, agents de nettoyage, transporteurs… Tous vérifiés par IA. Au Tchad,
+          en un seul endroit.
+        </p>
+
+        <!-- Barre de recherche -->
+        <form class="hero-search-box" id="heroSearchForm" onsubmit="handleHeroSearch(event)">
+          <div class="search-input-group">
+            <label class="search-label" for="serviceSearchInput">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Quel service ?
+            </label>
+            <input type="text" id="serviceSearchInput" class="search-field" placeholder="Ex : Plombier, électricien…"
+              autocomplete="off">
+          </div>
+          <div class="search-input-group">
+            <label class="search-label" for="citySearchInput">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              Ville ou quartier
+            </label>
+            <input type="text" id="citySearchInput" class="search-field" placeholder="Ex : N'Djamena, Moursal…"
+              autocomplete="off">
+          </div>
+          <button type="submit" class="btn-search-hero">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            Rechercher
+          </button>
+        </form>
+
+        <!-- CTA Demande -->
+        <div style="margin-top:16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-yellow" onclick="openModal('modalDemande')"
+            style="padding:11px 22px; font-size:13.5px; box-shadow:var(--shadow-glow-yellow);">
+            📤 Publier une demande de service
+          </button>
+          <span style="font-size:12px; color:rgba(255,255,255,0.6);">
+            Les artisans qualifiés vous contactent directement.
+          </span>
+        </div>
+
+        <!-- Badges confiance -->
+        <div class="hero-trust-badges">
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            Professionnels vérifiés IA
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Contact direct WhatsApp
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+            </svg>
+            Proximité géographique
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24">
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+              </polygon>
+            </svg>
+            Avis clients vérifiés
+          </div>
+        </div>
+      </div>
+
+      <!-- Visuel droite -->
+      <div class="hero-visual">
+        <div class="hero-slogan-script">Au service du Tchad !</div>
+        <div class="hero-artisan-wrapper">
+          <img src="images/hero_artisan.jpg" alt="Artisan professionnel au Tchad" class="hero-artisan-img">
+          <!-- Badge flottant haut -->
+          <div class="hero-badge-float badge-top">
+            <div class="badge-dot"></div>
+            <span>3 artisans disponibles maintenant</span>
+          </div>
+          <!-- Badge flottant bas -->
+          <div class="hero-badge-float badge-bottom">
+            <span style="font-size:16px;">⭐</span>
+            <div>
+              <div style="font-size:11px; font-weight:800; color:#0f2340;">4.9 / 5</div>
+              <div style="font-size:10px; color:#64748b;">Note moyenne</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TICKER EN DIRECT ==================== -->
+  <div class="live-ticker-strip">
+    <div class="container live-ticker-inner">
+      <span class="ticker-pulse-badge">🔴 EN DIRECT</span>
+      <div class="ticker-scroll-wrapper">
+        <span class="ticker-text">
+          &nbsp;&nbsp;&nbsp;
+          <b>Moussa Élec</b> vient de postuler pour un tableau électrique à Sabangali (25 000 FCFA) &nbsp;•&nbsp;
+          <b>Rachid Plomberie</b> répare une fuite à Moursal (15 000 FCFA) &nbsp;•&nbsp;
+          <b>4 artisans</b> en concurrence pour une climatisation à Chagoua &nbsp;•&nbsp;
+          <b>TechTchad</b> installe un réseau Wi-Fi à Kabalaye (35 000 FCFA) &nbsp;•&nbsp;
+          ⚡ Temps moyen pour recevoir 3 devis : <b>12 minutes</b> seulement ! &nbsp;•&nbsp;
+          <b>Abdel Bâtiment</b> commence une rénovation à Amriguébé (180 000 FCFA) &nbsp;•&nbsp;
+          <b>PropreNet</b> collecte des ordures dans le quartier Diguel &nbsp;•&nbsp;
+          <b>Moussa Élec</b> vient de postuler pour un tableau électrique à Sabangali (25 000 FCFA) &nbsp;•&nbsp;
+          <b>Rachid Plomberie</b> répare une fuite à Moursal (15 000 FCFA) &nbsp;•&nbsp;
+          <b>4 artisans</b> en concurrence pour une climatisation à Chagoua &nbsp;•&nbsp;
+          <b>TechTchad</b> installe un réseau Wi-Fi à Kabalaye (35 000 FCFA) &nbsp;•&nbsp;
+          ⚡ Temps moyen pour recevoir 3 devis : <b>12 minutes</b> seulement !
+          &nbsp;&nbsp;&nbsp;
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== NOS CATÉGORIES DE SERVICES ==================== -->
+  <section class="section-categories" id="services">
+    <div class="container">
+      <div class="section-header-row">
+        <h2 class="section-title-main">Nos catégories de services</h2>
+        <a href="pages/services.html" class="section-link-more">Voir toutes les catégories <span>→</span></a>
+      </div>
+
+      <div class="categories-grid" id="categoriesGrid">
+        <!-- 1. Plomberie -->
+        <div class="category-card" onclick="filterByCategory('Plomberie', this)">
+          <div class="cat-circle cat-c-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path
+                d="M12 3v2h2v2h-4V5H6a2 2 0 0 0-2 2v2h2v4a3 3 0 0 0 3 3h3v2.1a3 3 0 1 0 2 0V18h2a3 3 0 0 0 3-3V9h2V7a2 2 0 0 0-2-2h-4V3h-2z" />
+            </svg>
+          </div>
+          <span class="cat-title">Plomberie</span>
+        </div>
+        <!-- 2. Électricité -->
+        <div class="category-card" onclick="filterByCategory('Électricité', this)">
+          <div class="cat-circle cat-c-amber">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13 2L3 14h8l-2 8 10-12h-8l2-8z" />
+            </svg>
+          </div>
+          <span class="cat-title">Électricité</span>
+        </div>
+        <!-- 3. Informatique -->
+        <div class="category-card" onclick="filterByCategory('Informatique', this)">
+          <div class="cat-circle cat-c-teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+              <line x1="2" y1="20" x2="22" y2="20"></line>
+              <line x1="9" y1="16" x2="9" y2="20"></line>
+              <line x1="15" y1="16" x2="15" y2="20"></line>
+            </svg>
+          </div>
+          <span class="cat-title">Informatique</span>
+        </div>
+        <!-- 4. Nettoyage -->
+        <div class="category-card" onclick="filterByCategory('Nettoyage', this)">
+          <div class="cat-circle cat-c-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </div>
+          <span class="cat-title">Nettoyage</span>
+        </div>
+        <!-- 5. Transport -->
+        <div class="category-card" onclick="filterByCategory('Transport', this)">
+          <div class="cat-circle cat-c-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13" rx="2"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+          </div>
+          <span class="cat-title">Transport</span>
+        </div>
+        <!-- 6. Bâtiment -->
+        <div class="category-card" onclick="filterByCategory('Bâtiment', this)">
+          <div class="cat-circle cat-c-orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <span class="cat-title">Bâtiment</span>
+        </div>
+        <!-- 7. Santé -->
+        <div class="category-card" onclick="filterByCategory('Santé', this)">
+          <div class="cat-circle cat-c-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path
+                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+              </path>
+              <line x1="12" y1="8" x2="12" y2="13"></line>
+              <line x1="9.5" y1="10.5" x2="14.5" y2="10.5"></line>
+            </svg>
+          </div>
+          <span class="cat-title">Santé</span>
+        </div>
+        <!-- 8. Éducation -->
+        <div class="category-card" onclick="filterByCategory('Éducation', this)">
+          <div class="cat-circle cat-c-indigo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <span class="cat-title">Éducation</span>
+        </div>
+        <!-- 9. Événementiel -->
+        <div class="category-card" onclick="filterByCategory('Événementiel', this)">
+          <div class="cat-circle cat-c-magenta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <span class="cat-title">Événementiel</span>
+        </div>
+        <!-- 10. Agriculture -->
+        <div class="category-card" onclick="filterByCategory('Agriculture', this)">
+          <div class="cat-circle cat-c-emerald">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+            </svg>
+          </div>
+          <span class="cat-title">Agriculture</span>
+        </div>
+        <!-- 11. Autres -->
+        <div class="category-card" onclick="filterByCategory('Autres', this)">
+          <div class="cat-circle cat-c-slate">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="5" cy="12" r="2.2"></circle>
+              <circle cx="12" cy="12" r="2.2"></circle>
+              <circle cx="19" cy="12" r="2.2"></circle>
+            </svg>
+          </div>
+          <span class="cat-title">Autres</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-missions" id="missions">
+    <div class="container">
+      <div class="section-header-row" style="margin-bottom:8px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:4px; height:28px; background:var(--color-yellow); border-radius:2px;"></div>
+          <span style="font-size:24px;">🔥</span>
+          <h2 class="section-title-main" style="margin:0;">Chantiers & Demandes en direct</h2>
+        </div>
+        <button type="button" class="btn btn-yellow" onclick="openModal('modalDemande')"
+          style="font-size:12.5px; padding:9px 18px;">
+          ➕ Publier une demande
+        </button>
+      </div>
+      <p style="font-size:13.5px; color:var(--color-text-muted); margin-bottom:20px;">
+        Particuliers et entreprises déposent leurs besoins en temps réel. Les artisans vérifiés postulent avec leurs
+        devis et délais d'intervention.
+      </p>
+
+      <div class="mission-filter-pills" style="margin-bottom:18px;">
+        <button type="button" class="pill-filter active" onclick="renderHomepageMissions('all', this)">Toutes</button>
+        <button type="button" class="pill-filter" onclick="renderHomepageMissions('Plomberie', this)">🔧
+          Plomberie</button>
+        <button type="button" class="pill-filter" onclick="renderHomepageMissions('Électricité', this)">⚡
+          Électricité</button>
+        <button type="button" class="pill-filter" onclick="renderHomepageMissions('Informatique', this)">💻
+          Informatique</button>
+        <button type="button" class="pill-filter" onclick="renderHomepageMissions('Nettoyage', this)">🗑️
+          Nettoyage</button>
+        <button type="button" class="pill-filter" onclick="renderHomepageMissions('Transport', this)">🚚
+          Transport</button>
+        <button type="button" class="pill-filter" onclick="renderHomepageMissions('Bâtiment', this)">🏗️
+          Bâtiment</button>
+      </div>
+
+      <div class="missions-grid" id="homepageMissionsGrid"></div>
+
+      <div
+        style="background:linear-gradient(135deg,#e8f2ff 0%,#dbeafe 100%); border:1px solid #bfdbfe; border-radius:16px; padding:22px 28px; margin-top:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+        <div>
+          <div style="font-weight:800; font-size:15.5px; color:var(--color-navy-dark);">💼 Vous êtes artisan ou
+            technicien au Tchad ?</div>
+          <div style="font-size:13px; color:#1e40af; margin-top:3px;">Postulez gratuitement à tous ces chantiers, fixez
+            vos prix et traitez directement avec les clients.</div>
+        </div>
+        <a href="pages/pro.html" class="btn btn-yellow"
+          style="font-size:13.5px; padding:11px 24px; text-decoration:none;">
+          Accéder à l'Espace Pro →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROFESSIONNELS RECOMMANDÉS ==================== -->
+  <section class="section-providers" id="prestataires">
+    <div class="container">
+      <div class="section-header-row">
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <div style="width:4px; height:28px; background:var(--color-yellow); border-radius:2px;"></div>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <h2 class="section-title-main">Professionnels recommandés</h2>
+          <span
+            style="background:rgba(22,163,74,0.1); color:#16a34a; border:1px solid rgba(22,163,74,0.25); font-size:11px; font-weight:800; padding:3px 10px; border-radius:999px;">
+            🛡️ 100% Certifiés Audit IA
+          </span>
+        </div>
+        <a href="pages/services.html" class="section-link-more">Voir tous les professionnels <span>→</span></a>
+      </div>
+
+      <div class="providers-grid" id="providersContainer">
+        <!-- Rendu dynamique des véritables prestataires vérifiés -->
+      </div>
+
+      <div id="noResultsNotice"
+        style="display:none; text-align:center; padding:32px; background:#fff; border-radius:16px; margin-top:16px; border:1px solid var(--color-border);">
+        <p style="font-weight:700; color:var(--color-navy-dark); font-size:15px;">Aucun professionnel ne correspond à ce
+          filtre.</p>
+        <button onclick="filterByCategory('all')"
+          style="margin-top:10px; color:var(--color-blue); font-weight:700; text-decoration:underline;">Voir tous les
+          prestataires</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMMENT ÇA MARCHE + PRO PROMO ==================== -->
+  <section class="section-how-and-promo" id="comment-ca-marche">
+    <div class="container how-promo-grid">
+      <!-- 3 Étapes -->
+      <div class="how-steps-card">
+        <h2 class="how-title">Comment ça marche ?</h2>
+        <div class="steps-row">
+          <div class="step-unit">
+            <div class="step-icon-num">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <h3 class="step-title">1. Recherchez</h3>
+            <p class="step-desc">Trouvez le professionnel qu'il vous faut dans votre ville ou quartier.</p>
+          </div>
+          <div class="step-unit">
+            <div class="step-icon-num">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <h3 class="step-title">2. Choisissez</h3>
+            <p class="step-desc">Comparez les profils certifiés, les avis clients et disponibilités.</p>
+          </div>
+          <div class="step-unit">
+            <div class="step-icon-num">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.21 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.12 1.5h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z">
+                </path>
+              </svg>
+            </div>
+            <h3 class="step-title">3. Contactez</h3>
+            <p class="step-desc">Appelez ou envoyez un message WhatsApp directement au pro.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Encart Pro -->
+      <aside class="pro-promo-card">
+        <div class="pro-promo-content">
+          <h3 class="pro-promo-title">Vous êtes professionnel ?</h3>
+          <p class="pro-promo-desc">Rejoignez KHIDMA Tchad et trouvez de nouveaux clients chaque jour. Inscription
+            gratuite et vérification IA rapide.</p>
+          <a href="pages/devenir-prestataire.html" class="btn-promo-join"
+            onclick="return handleDevenirPrestataireClick(event)">Devenir prestataire <span>→</span></a>
+        </div>
+        <div class="pro-promo-avatar-wrap">
+          <img src="images/femme_pro.jpg" alt="Professionnelle avec tablette" class="pro-promo-avatar-img">
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ==================== MONTAGE DOUBLE SMARTPHONE (STYLE ALLOVOISINS POUR KHIDMA TCHAD) ==================== -->
+  <section class="section-app-showcase" id="application-mobile">
+    <div class="container">
+      <div class="showcase-header">
+        <span class="showcase-eyebrow">📲 L'Expérience Mobile KHIDMA Tchad</span>
+        <h2 class="showcase-title">Vos artisans et services de proximité, <br><span
+            style="color:var(--color-blue);">directement dans votre poche</span></h2>
+        <p class="showcase-subtitle">
+          Inspiré des plus grandes plateformes de mise en relation : publiez votre besoin en 30 secondes, recevez des
+          devis en temps réel et suivez l'arrivée de votre artisan sur la carte locale.
+        </p>
+      </div>
+
+      <div class="phones-montage-container">
+
+        <!-- ================= SMARTPHONE GAUCHE (FEED & RECHERCHE) ================= -->
+        <div class="iphone-frame">
+          <div class="iphone-screen iphone-screen-left">
+            <div class="iphone-dynamic-island">
+              <div class="dynamic-island-lens"></div>
+            </div>
+
+            <div class="iphone-status-bar">
+              <span>9:41</span>
+              <span style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>📶</span>
+                <span>🔋 100%</span>
+              </span>
+            </div>
+
+            <div class="phone-inner-content">
+              <!-- En-tête de marque KHIDMA Tchad -->
+              <div class="phone-app-brand">
+                <div class="phone-brand-logo">
+                  <span
+                    style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:6px; background:linear-gradient(135deg, #0b4da2 0%, #051a3d 100%); color:var(--color-yellow); font-weight:900; font-size:13px;">K</span>
+                  <span class="phone-brand-text">KHIDMA <span style="color:var(--color-yellow);">Tchad</span></span>
+                </div>
+              </div>
+              <div class="phone-brand-tagline">FACILITATEUR DE SERVICES &amp; PROJETS</div>
+
+              <div class="phone-headline">
+                Prestations de services <br>et dépannages d'urgence
+              </div>
+
+              <!-- Carte interface mobile -->
+              <div class="mock-app-card">
+                <div class="mock-tab-row">
+                  <span class="mock-tab active">Autour de chez moi</span>
+                  <span class="mock-tab">Mon périmètre</span>
+                </div>
+
+                <div class="mock-search-input-pill" onclick="openModal('modalDemande')" style="cursor:pointer;">
+                  <span>🔍</span>
+                  <span>De quoi avez-vous besoin aujourd'hui ?</span>
+                </div>
+
+                <div
+                  style="font-size:10px; font-weight:800; color:#475569; margin-bottom:8px; display:flex; justify-content:space-between;">
+                  <span>🌍 Demande publique</span>
+                  <span style="color:#94a3b8; font-weight:500;">il y a 8 min</span>
+                </div>
+
+                <!-- Demande 1 -->
+                <div class="mock-demand-item">
+                  <div class="mock-demand-user">
+                    <img src="images/femme_pro.jpg" class="mock-user-img" alt="User">
+                    <div>
+                      <div class="mock-user-meta">Zara Brahim</div>
+                      <div class="mock-time">📍 Sabangali, N'Djamena</div>
+                    </div>
+                  </div>
+                  <div class="mock-demand-desc">
+                    Bonjour, je cherche un plombier qualifié pour réparer une fuite d'eau au compteur avant ce soir.
+                  </div>
+                  <div class="mock-demand-footer">
+                    <span>🔧 Plomberie • Sur devis</span>
+                    <span style="color:var(--color-blue); font-weight:800;">3 propositions</span>
+                  </div>
+                </div>
+
+                <!-- Demande 2 (Aperçu) -->
+                <div class="mock-demand-item" style="margin-bottom:0; opacity:0.9;">
+                  <div class="mock-demand-user">
+                    <div
+                      style="width:28px; height:28px; border-radius:50%; background:#0b4da2; color:#fff; display:grid; place-items:center; font-weight:800; font-size:12px;">
+                      M</div>
+                    <div>
+                      <div class="mock-user-meta">Mahamat Saleh</div>
+                      <div class="mock-time">📍 Moursal, N'Djamena</div>
+                    </div>
+                  </div>
+                  <div class="mock-demand-desc">
+                    Recherche électricien pour câblage d'un tableau et inverseur...
+                  </div>
+                </div>
+              </div>
+
+              <!-- Badge Flottant Rose/Rouge Style AlloVoisins (120+ Artisans Vérifiés) -->
+              <div class="floating-pink-badge">
+                <b>120+</b>
+                <span>artisans vérifiés</span>
+                <span>près de chez vous !</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= SMARTPHONE DROIT (RÉPONSES, CARTE & NOTIFS) ================= -->
+        <div class="iphone-frame">
+          <div class="iphone-screen iphone-screen-right">
+            <div class="iphone-dynamic-island">
+              <div class="dynamic-island-lens"></div>
+            </div>
+
+            <div class="iphone-status-bar">
+              <span>9:41</span>
+              <span style="display:flex; align-items:center; gap:4px; font-size:10px;">
+                <span>5G</span>
+                <span>🔋 98%</span>
+              </span>
+            </div>
+
+            <div class="phone-inner-content">
+              <!-- Notifications en temps réel -->
+              <div class="phone-notif-stack">
+                <div class="phone-notif-item">
+                  <div class="phone-notif-icon">💬</div>
+                  <div>
+                    <div class="phone-notif-title">Mahamat Nour (Plombier)</div>
+                    <div class="phone-notif-sub">vient de répondre à votre demande.</div>
+                  </div>
+                </div>
+                <div class="phone-notif-item">
+                  <div class="phone-notif-icon" style="background:#22c55e; color:#fff;">⚡</div>
+                  <div>
+                    <div class="phone-notif-title">Brahim Froid &amp; Climatisation</div>
+                    <div class="phone-notif-sub">vous a envoyé un devis : 25 000 FCFA.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Photo d'intervention sur le terrain au Tchad -->
+              <img src="images/rachid.jpg" alt="Intervention artisan" class="phone-work-photo">
+
+              <!-- Carte interactive des artisans à proximité -->
+              <div class="phone-map-card">
+                <div class="phone-map-view">
+                  <div class="map-pin-pulse">
+                    <span class="map-pin-dot"></span>
+                    <span>N'Djamena (Sabangali) • 1,2 km</span>
+                  </div>
+                </div>
+                <div
+                  style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:10px; color:#475569; font-weight:700;">
+                  <span>📍 Catégorie : Artisan tout corps d'état</span>
+                  <span style="color:#16a34a;">4 pros actifs</span>
+                </div>
+              </div>
+
+              <!-- Slogan & Call to Action dans l'écran -->
+              <div class="phone-cta-text">
+                <div class="phone-cta-heading">
+                  Postez votre demande et recevez rapidement les offres de nos membres !
+                </div>
+                <button type="button" class="btn btn-yellow"
+                  style="width:100%; padding:10px; font-size:12px; border-radius:12px;"
+                  onclick="openModal('modalDemande')">
+                  Publier mon besoin gratuitement →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TÉMOIGNAGES CLIENTS (STYLE ALLOVOISINS) ==================== -->
+  <section class="section-testimonials" id="avis">
+    <div class="container">
+      <div class="testimonials-header">
+        <span class="section-eyebrow">⭐ Ils ont fait confiance à KHIDMA Tchad</span>
+        <h2>Ce que disent nos clients</h2>
+        <p>Des milliers de Tchadiens ont trouvé leur prestataire grâce à notre plateforme.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Témoignage 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"J'ai trouvé un plombier en moins de 10 minutes ! Rachid est arrivé rapidement et
+            a réglé ma fuite en 30 minutes. Excellent service !"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar-placeholder">N</div>
+            <div>
+              <div class="testimonial-author-name">Nathalie Ndouba</div>
+              <div class="testimonial-author-location">📍 Moursal, N'Djamena</div>
+              <span class="testimonial-service-tag">🔧 Plomberie</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Témoignage 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"La plateforme est très simple à utiliser. J'ai publié ma demande et reçu 4 devis
+            en 15 minutes. J'ai choisi le moins cher et c'était parfait."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar-placeholder">A</div>
+            <div>
+              <div class="testimonial-author-name">Alhadj Mahamat</div>
+              <div class="testimonial-author-location">📍 Sabangali, N'Djamena</div>
+              <span class="testimonial-service-tag">⚡ Électricité</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Témoignage 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Grâce à KHIDMA Tchad, j'ai trouvé un informaticien certifié pour réparer mon
+            ordinateur. Il s'est déplacé à domicile. Je recommande vivement !"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar-placeholder">F</div>
+            <div>
+              <div class="testimonial-author-name">Fatimé Oumar</div>
+              <div class="testimonial-author-location">📍 Chagoua, N'Djamena</div>
+              <span class="testimonial-service-tag">💻 Informatique</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NOS VILLES (COUVERTURE GÉOGRAPHIQUE) ==================== -->
+  <section class="section-cities" id="villes">
+    <div class="container">
+      <div class="cities-header">
+        <span
+          style="display:inline-flex; align-items:center; gap:6px; background:rgba(245,166,35,0.1); border:1px solid rgba(245,166,35,0.25); border-radius:999px; padding:5px 14px; font-size:11px; font-weight:800; color:var(--color-yellow-deep); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.8px;">
+          📍 Couverture nationale
+        </span>
+        <h2
+          style="font-size:clamp(22px,3vw,32px); font-weight:800; color:var(--color-navy-dark); letter-spacing:-0.5px;">
+          KHIDMA Tchad dans votre ville</h2>
+        <p
+          style="font-size:14px; color:var(--color-text-muted); margin-top:8px; max-width:520px; margin-left:auto; margin-right:auto;">
+          Trouvez des prestataires vérifiés dans les quatre principales villes du Tchad.
+        </p>
+      </div>
+
+      <div class="cities-grid">
+        <!-- N'Djamena -->
+        <div class="city-card" onclick="filterCity(this, 'N\'Djamena')" title="Voir les prestataires à N'Djamena">
+          <img src="images/ndjamena.jpg" onerror="this.onerror=null; this.src='images/n\'djamena.jpg';"
+            alt="N'Djamena — Capitale du Tchad" class="city-card-bg">
+          <div class="city-card-overlay"></div>
+          <div class="city-card-info">
+            <span class="city-name">N'Djamena</span>
+            <div class="city-provider-count">
+              <span>👨‍🔧</span> <span>80+ prestataires</span>
+            </div>
+          </div>
+          <span class="city-badge-live">🟢 Actif</span>
+        </div>
+
+        <!-- Moundou -->
+        <div class="city-card" onclick="filterCity(this, 'Moundou')" title="Voir les prestataires à Moundou">
+          <img src="images/moundou.jpg" alt="Moundou — Capitale économique du Tchad" class="city-card-bg">
+          <div class="city-card-overlay"></div>
+          <div class="city-card-info">
+            <span class="city-name">Moundou</span>
+            <div class="city-provider-count">
+              <span>👨‍🔧</span> <span>20+ prestataires</span>
+            </div>
+          </div>
+          <span class="city-badge-live">🟢 Actif</span>
+        </div>
+
+        <!-- Sarh -->
+        <div class="city-card" onclick="filterCity(this, 'Sarh')" title="Voir les prestataires à Sarh">
+          <img src="images/sarh.jpg" alt="Sarh — Ville verte du Sud" class="city-card-bg">
+          <div class="city-card-overlay"></div>
+          <div class="city-card-info">
+            <span class="city-name">Sarh</span>
+            <div class="city-provider-count">
+              <span>👨‍🔧</span> <span>12+ prestataires</span>
+            </div>
+          </div>
+          <span class="city-badge-live">🟢 Actif</span>
+        </div>
+
+        <!-- Abéché -->
+        <div class="city-card" onclick="filterCity(this, 'Abéché')" title="Voir les prestataires à Abéché">
+          <img src="images/abeche.jpg" onerror="this.onerror=null; this.src='images/abeché.jpg';"
+            alt="Abéché — Grand carrefour historique de l'Est" class="city-card-bg">
+          <div class="city-card-overlay"></div>
+          <div class="city-card-info">
+            <span class="city-name">Abéché</span>
+            <div class="city-provider-count">
+              <span>👨‍🔧</span> <span>10+ prestataires</span>
+            </div>
+          </div>
+          <span class="city-badge-live">🟢 Actif</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BANNIÈRE DE CONFIANCE / ENGAGEMENT ==================== -->
+  <section class="section-trust-banner">
+    <div class="container trust-banner-grid">
+      <div class="trust-banner-text">
+        <h2>Pourquoi choisir <span style="color:var(--color-yellow);">KHIDMA Tchad</span> ?</h2>
+        <p>
+          Nous connectons les habitants du Tchad avec des professionnels qualifiés, locaux et vérifiés par notre système
+          d'intelligence artificielle. Plus de doutes, plus de risques.
+        </p>
+        <div class="trust-banner-actions">
+          <a href="pages/devenir-prestataire.html" class="btn btn-yellow"
+            style="text-decoration:none; padding:12px 24px; font-size:14px;"
+            onclick="return handleDevenirPrestataireClick(event)">
+            Rejoindre la plateforme →
+          </a>
+          <button type="button" class="btn btn-outline-white" style="padding:12px 24px; font-size:14px;"
+            onclick="openModal('modalDemande')">
+            Publier ma demande
+          </button>
+        </div>
+      </div>
+      <div class="trust-features-grid">
+        <div class="trust-feature-item">
+          <div class="trust-feature-icon">🤖</div>
+          <div class="trust-feature-title">Vérification IA</div>
+          <div class="trust-feature-desc">Chaque candidature est analysée automatiquement par notre IA avant validation.
+          </div>
+        </div>
+        <div class="trust-feature-item">
+          <div class="trust-feature-icon">📍</div>
+          <div class="trust-feature-title">Proximité locale</div>
+          <div class="trust-feature-desc">Trouvez des professionnels dans votre quartier, pas à l'autre bout de la
+            ville.</div>
+        </div>
+        <div class="trust-feature-item">
+          <div class="trust-feature-icon">💬</div>
+          <div class="trust-feature-title">Contact direct</div>
+          <div class="trust-feature-desc">Appelez ou contactez via WhatsApp sans intermédiaire ni frais cachés.</div>
+        </div>
+        <div class="trust-feature-item">
+          <div class="trust-feature-icon">⭐</div>
+          <div class="trust-feature-title">Avis clients</div>
+          <div class="trust-feature-desc">Choisissez en confiance grâce aux évaluations des autres clients.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER RICHE ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main-grid">
+        <!-- Colonne Brand -->
+        <div class="footer-brand-col">
+          <a href="#accueil" class="brand-logo">
+            <div class="brand-icon">
+              <div class="brand-icon-inner"></div>
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+              <span class="brand-sub">Les meilleurs prestataires, près de vous.</span>
+            </div>
+          </a>
+          <p class="footer-brand-desc">
+            KHIDMA Tchad est la première plateforme de mise en relation de services au Tchad. Nous connectons clients et
+            prestataires vérifiés dans toutes les villes du pays.
+          </p>
+          <div class="footer-social-icons">
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-btn" title="Facebook">f</a>
+            <a href="https://whatsapp.com" target="_blank" rel="noopener" class="social-btn" title="WhatsApp">💬</a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-btn" title="YouTube">▶</a>
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" title="Instagram">📷</a>
+          </div>
+        </div>
+
+        <!-- Colonne Liens Rapides -->
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <div class="footer-nav-list">
+            <a href="#accueil">🏠 Accueil</a>
+            <a href="pages/services.html">🛠️ Tous les services</a>
+            <a href="#missions">🔥 Demandes en direct</a>
+            <a href="#prestataires">👨‍🔧 Professionnels</a>
+            <a href="#avis">⭐ Avis clients</a>
+            <a href="pages/a-propos.html">ℹ️ À propos</a>
+          </div>
+        </div>
+
+        <!-- Colonne Espaces -->
+        <div>
+          <div class="footer-col-title">Vos Espaces</div>
+          <div class="footer-nav-list">
+            <a href="pages/client.html">👤 Espace Client</a>
+            <a href="pages/pro.html">🧰 Espace Professionnel</a>
+            <a href="pages/devenir-prestataire.html">🤝 Devenir Prestataire</a>
+            <a href="pages/publier-demande.html">📝 Publier une Demande</a>
+            <a href="pages/admin.html">🔐 Espace Admin</a>
+          </div>
+        </div>
+
+        <!-- Colonne Contact -->
+        <div>
+          <div class="footer-col-title">Contact & Support</div>
+          <div class="footer-nav-list">
+            <a href="https://wa.me/23566000000" target="_blank">💬 WhatsApp Support</a>
+            <a href="mailto:contact@khidma-tchad.com">✉️ contact@khidma-tchad.com</a>
+            <a href="pages/a-propos.html">📋 FAQ</a>
+            <a href="pages/a-propos.html">⚖️ Conditions d'utilisation</a>
+            <a href="pages/a-propos.html">🔒 Politique de confidentialité</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <span>© 2025 KHIDMA Tchad. Tous droits réservés.</span>
+        <span>
+          <span>🇹🇩 Plateforme locale de mise en relation de services au Tchad</span>
+          <span
+            style="width:1px; height:12px; background:rgba(255,255,255,0.15); display:inline-block; margin:0 8px;"></span>
+          <span>Fait avec ❤️ pour le Tchad</span>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALES ==================== -->
+
+  <!-- Modale Contact -->
+  <div class="modal-overlay" id="modalContact">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalContact')">✕</button>
+      <h3 class="modal-title" id="contactModalTitle">Contacter le professionnel</h3>
+      <p class="modal-sub" id="contactModalSub">Choisissez votre moyen de contact préféré :</p>
+      <div style="background:#f4f7fc; padding:16px; border-radius:12px; margin-bottom:18px;">
+        <div style="font-weight:800; font-size:14px; color:var(--color-navy-dark);" id="contactModalProName">Rachid
+          Plomberie</div>
+        <div style="font-size:12.5px; color:var(--color-text-muted); margin-top:3px;" id="contactModalPhone">+235 66 12
+          34 56</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a id="btnDirectCall" href="tel:+23566123456" class="btn-submit-form"
+          style="display:flex; align-items:center; justify-content:center; gap:8px; background:var(--color-green); text-decoration:none;">📞
+          Lancer l'appel direct</a>
+        <a id="btnDirectWhatsApp" href="https://wa.me/23566123456" target="_blank" class="btn-submit-form"
+          style="display:flex; align-items:center; justify-content:center; gap:8px; background:#25D366; text-decoration:none;">💬
+          Écrire sur WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Ville -->
+  <div class="modal-overlay" id="modalVille">
+    <div class="modal-card" style="max-width:520px;">
+      <button class="modal-close-btn" onclick="closeModal('modalVille')">✕</button>
+      <h3 class="modal-title">Sélectionnez votre zone</h3>
+      <p class="modal-sub">Définissez votre localisation pour afficher les prestataires les plus proches.</p>
+
+      <!-- Sélection visuelle avec photos des 4 villes du Tchad -->
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:18px;">
+        <div onclick="selectCityQuick('N\'Djamena')" class="city-modal-thumb" data-city="N'Djamena"
+          style="cursor:pointer; border-radius:12px; overflow:hidden; border:2px solid #cbdcf4; position:relative; aspect-ratio:4/3; transition:all 0.2s;"
+          title="Choisir N'Djamena">
+          <img src="images/ndjamena.jpg" alt="N'Djamena"
+            style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div
+            style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.88) 0%, rgba(5,26,61,0.2) 60%, transparent 100%); display:flex; align-items:flex-end; justify-content:center; padding:4px;">
+            <span style="color:#fff; font-size:11px; font-weight:800;">N'Djamena</span>
+          </div>
+        </div>
+
+        <div onclick="selectCityQuick('Moundou')" class="city-modal-thumb" data-city="Moundou"
+          style="cursor:pointer; border-radius:12px; overflow:hidden; border:2px solid #cbdcf4; position:relative; aspect-ratio:4/3; transition:all 0.2s;"
+          title="Choisir Moundou">
+          <img src="images/moundou.jpg" alt="Moundou" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div
+            style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.88) 0%, rgba(5,26,61,0.2) 60%, transparent 100%); display:flex; align-items:flex-end; justify-content:center; padding:4px;">
+            <span style="color:#fff; font-size:11px; font-weight:800;">Moundou</span>
+          </div>
+        </div>
+
+        <div onclick="selectCityQuick('Sarh')" class="city-modal-thumb" data-city="Sarh"
+          style="cursor:pointer; border-radius:12px; overflow:hidden; border:2px solid #cbdcf4; position:relative; aspect-ratio:4/3; transition:all 0.2s;"
+          title="Choisir Sarh">
+          <img src="images/sarh.jpg" alt="Sarh" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div
+            style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.88) 0%, rgba(5,26,61,0.2) 60%, transparent 100%); display:flex; align-items:flex-end; justify-content:center; padding:4px;">
+            <span style="color:#fff; font-size:11px; font-weight:800;">Sarh</span>
+          </div>
+        </div>
+
+        <div onclick="selectCityQuick('Abéché')" class="city-modal-thumb" data-city="Abéché"
+          style="cursor:pointer; border-radius:12px; overflow:hidden; border:2px solid #cbdcf4; position:relative; aspect-ratio:4/3; transition:all 0.2s;"
+          title="Choisir Abéché">
+          <img src="images/abeche.jpg" alt="Abéché" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div
+            style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.88) 0%, rgba(5,26,61,0.2) 60%, transparent 100%); display:flex; align-items:flex-end; justify-content:center; padding:4px;">
+            <span style="color:#fff; font-size:11px; font-weight:800;">Abéché</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Ville principale</label>
+        <select class="form-control" id="selectCityField" onchange="updateQuartiersList()">
+          <option value="N'Djamena">N'Djamena</option>
+          <option value="Moundou">Moundou</option>
+          <option value="Sarh">Sarh</option>
+          <option value="Abéché">Abéché</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Quartier</label>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;" id="quartiersPills"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Connexion -->
+  <div class="modal-overlay" id="modalConnexion">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalConnexion')">✕</button>
+      <h3 class="modal-title">Connexion à votre compte</h3>
+      <p class="modal-sub">Accédez rapidement à votre espace KHIDMA Tchad :</p>
+
+      <!-- Boutons de connexion sociale (Google & Facebook) -->
+      <div class="social-login-grid">
+        <button type="button" class="btn-social-auth btn-social-google" onclick="handleSocialLogin('google')">
+          <svg width="19" height="19" viewBox="0 0 24 24">
+            <path fill="#4285F4"
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+            <path fill="#34A853"
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+            <path fill="#FBBC05"
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+            <path fill="#EA4335"
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+          </svg>
+          <span>Continuer avec Google</span>
+        </button>
+
+        <button type="button" class="btn-social-auth btn-social-facebook" onclick="handleSocialLogin('facebook')">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+          </svg>
+          <span>Continuer avec Facebook</span>
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>ou avec vos identifiants</span>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-bottom:16px;">
+        <button type="button" id="tabLoginPro" class="btn"
+          style="background:var(--color-navy-dark); color:var(--color-yellow); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid var(--color-yellow); border-radius:8px;"
+          onclick="switchLoginRole('pro')">🧰 Prestataire</button>
+        <button type="button" id="tabLoginClient" class="btn"
+          style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px;"
+          onclick="switchLoginRole('client')">👤 Client</button>
+        <button type="button" id="tabLoginAdmin" class="btn"
+          style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px;"
+          onclick="switchLoginRole('admin')">🛡️ Admin</button>
+      </div>
+      <form onsubmit="handleConnexionSubmit(event)">
+        <input type="hidden" id="loginRoleInput" name="loginRole" value="pro">
+        <div id="loginNoticePro"
+          style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:12px; color:#1e40af;">
+          🔧 <b>Espace Prestataire :</b> Connectez-vous avec votre numéro de téléphone pour gérer vos interventions.
+        </div>
+        <div class="form-group">
+          <label class="form-label" id="loginIdentifierLabel">Numéro de téléphone</label>
+          <input type="text" id="loginIdentifierInput" name="identifier" class="form-control"
+            placeholder="+235 66 12 34 56" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mot de passe</label>
+          <input type="password" id="loginPasswordInput" name="password" class="form-control" placeholder="••••••••"
+            required>
+        </div>
+        <button type="submit" id="btnLoginSubmit" class="btn btn-yellow"
+          style="width:100%; padding:13px; font-size:14px;">
+          Accéder à mon compte →
+        </button>
+        <div style="text-align:center; margin-top:14px; font-size:12px; color:var(--color-text-muted);">
+          Pas encore inscrit ? <a href="pages/devenir-prestataire.html"
+            style="color:var(--color-blue); font-weight:700;">Rejoindre KHIDMA Tchad</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale Inscription Prestataire -->
+  <div class="modal-overlay" id="modalInscription">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalInscription')">✕</button>
+      <h3 class="modal-title">Rejoindre KHIDMA Tchad</h3>
+      <p class="modal-sub">Inscrivez votre activité et recevez de nouveaux clients directement sur votre téléphone.</p>
+      <form onsubmit="handleInscriptionSubmit(event)">
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Photo de profil / Logo</span>
+            <span style="font-size:11px; color:var(--color-blue); font-weight:700;">Recommandé</span>
+          </label>
+          <div class="photo-upload-wrapper" onclick="document.getElementById('modalProPhotoFile').click()"
+            style="padding:10px 14px;">
+            <div class="photo-upload-inner">
+              <div class="photo-preview-placeholder" id="modalProPhotoPlaceholder"
+                style="width:52px; height:52px; font-size:22px;">📷</div>
+              <img id="modalProPhotoPreview" class="photo-preview-avatar" src="" alt="Aperçu"
+                style="width:52px; height:52px; display:none;">
+              <div class="photo-upload-info">
+                <div class="photo-upload-title" style="font-size:12.5px;">
+                  <span>Ajouter une photo de profil</span>
+                  <span id="modalProPhotoBadge" class="photo-upload-badge-loaded"
+                    style="display:none; font-size:10px; padding:1px 6px;">✓ Prête</span>
+                </div>
+                <div class="photo-upload-hint" style="font-size:11px;">Format JPG ou PNG</div>
+              </div>
+            </div>
+          </div>
+          <input type="file" id="modalProPhotoFile" accept="image/*" style="display:none;"
+            onchange="handleProPhotoSelect(event, 'modalProPhotoPreview', 'modalProPhotoPlaceholder', 'modalProPhotoBase64', 'modalProPhotoBadge');">
+          <input type="hidden" id="modalProPhotoBase64" name="proPhotoBase64" value="">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nom de votre entreprise ou Nom complet</label>
+          <input type="text" name="proName" class="form-control" placeholder="Ex : Moussa Dépannage Élec" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Domaine d'activité</label>
+          <select name="proCategory" class="form-control" required>
+            <option value="">Sélectionner une spécialité</option>
+            <option>Plomberie</option>
+            <option>Électricité</option>
+            <option>Informatique & Télécom</option>
+            <option>Nettoyage & Propreté</option>
+            <option>Transport & Logistique</option>
+            <option>Bâtiment & Rénovation</option>
+            <option>Autre métier</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Numéro WhatsApp (pour contact direct)</label>
+          <input type="tel" name="proPhone" class="form-control" placeholder="+235 66 XX XX XX" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ville & Quartier d'intervention</label>
+          <input type="text" name="proQuartier" class="form-control" placeholder="Ex : N'Djamena – Sabangali" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mot de passe de votre compte</label>
+          <input type="password" name="proPassword" class="form-control" placeholder="Créez votre mot de passe secret"
+            required>
+        </div>
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px; margin-top:8px;">
+          Créer mon compte & publier mon profil →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale Publier une Demande -->
+  <div class="modal-overlay" id="modalDemande">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalDemande')">✕</button>
+      <h3 class="modal-title">📤 Publier une demande de service</h3>
+      <p class="modal-sub">Décrivez votre besoin. Les artisans disponibles dans votre zone vous contacteront avec leurs
+        propositions.</p>
+      <form onsubmit="handleDemandeSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Type de service recherché</label>
+          <select class="form-control" required>
+            <option value="">— Choisir la catégorie —</option>
+            <option>Plomberie</option>
+            <option>Électricité</option>
+            <option>Informatique & Téléphonie</option>
+            <option>Nettoyage & Déchets</option>
+            <option>Transport & Déménagement</option>
+            <option>Bâtiment & Rénovation</option>
+            <option>Santé & Bien-être</option>
+            <option>Éducation & Formation</option>
+            <option>Événementiel</option>
+            <option>Agriculture & Élevage</option>
+            <option>Autre service</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Votre quartier ou zone</label>
+          <input type="text" class="form-control" placeholder="Ex : Moursal, Sabangali, Diguel..." required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Délai souhaité</label>
+          <select class="form-control">
+            <option>Urgent (Aujourd'hui)</option>
+            <option>Dans les 48 heures</option>
+            <option>Cette semaine</option>
+            <option>Simple demande de devis</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description de votre besoin</label>
+          <textarea class="form-control" rows="3"
+            placeholder="Ex : Panne de courant, 2 pièces sans lumière... Précisez le problème." required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Votre numéro WhatsApp</label>
+          <input type="tel" class="form-control" placeholder="+235 66 XX XX XX" required>
+        </div>
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px; margin-top:6px;">
+          📤 Publier ma demande aux artisans proches →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale Intervention ciblée -->
+  <div class="modal-overlay" id="modalIntervention">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalIntervention')">✕</button>
+      <h3 class="modal-title">🔵 Demander une intervention</h3>
+      <p class="modal-sub" id="interventionModalSub">Votre demande sera transmise en priorité à ce professionnel.</p>
+      <input type="hidden" id="interventionProId" value="">
+      <input type="hidden" id="interventionProName" value="">
+      <form onsubmit="handleDirectInterventionSubmit(event)">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Votre nom</label>
+            <input type="text" id="intervClientName" class="form-control" placeholder="Ex : Hamid Mahamat" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp / Téléphone</label>
+            <input type="tel" id="intervClientPhone" class="form-control" placeholder="+235 66 XX XX XX" required>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Ville</label>
+            <select id="intervClientCity" class="form-control">
+              <option>N'Djamena</option>
+              <option>Moundou</option>
+              <option>Sarh</option>
+              <option>Abéché</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quartier précis</label>
+            <input type="text" id="intervClientQuartier" class="form-control" placeholder="Ex : Moursal" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description du problème</label>
+          <textarea id="intervClientDesc" class="form-control" rows="3"
+            placeholder="Décrivez le problème, le type de matériel..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Urgence</label>
+          <select id="intervClientUrgency" class="form-control">
+            <option>Urgent (Aujourd'hui)</option>
+            <option>Dans les 48 heures</option>
+            <option>Cette semaine</option>
+            <option>Simple demande de devis</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px; margin-top:6px;">
+          ✅ Envoyer ma demande à ce professionnel →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale Candidature Rapide Pro -->
+  <div class="modal-overlay" id="modalQuickApply">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalQuickApply')">✕</button>
+      <h3 class="modal-title">💼 Postuler à ce chantier</h3>
+      <p class="modal-sub" id="quickApplyMissionTitle">Proposez votre devis et délai au client.</p>
+      <div
+        style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:12.5px; font-weight:700; color:#1e40af;" id="quickApplyMissionBudget">Budget prévu : À
+          convenir</span>
+        <span
+          style="font-size:11px; background:#dbeafe; color:#1e3a8a; padding:3px 8px; border-radius:6px; font-weight:800;">⚡
+          Mise en relation directe</span>
+      </div>
+      <form onsubmit="handleQuickApplySubmit(event)">
+        <input type="hidden" id="quickApplyDemandeId" value="">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Votre nom ou atelier</label>
+            <input type="text" id="quickApplyProName" class="form-control" placeholder="Ex : Rachid Plomberie" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Numéro WhatsApp</label>
+            <input type="tel" id="quickApplyProPhone" class="form-control" placeholder="+235 66 XX XX XX" required>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Tarif proposé (FCFA)</label>
+            <input type="text" id="quickApplyAmount" class="form-control" placeholder="Ex : 20 000 FCFA" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Délai d'intervention</label>
+            <input type="text" id="quickApplyDelay" class="form-control" placeholder="Ex : Sous 1h" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Votre message pour le client</label>
+          <textarea id="quickApplyMessage" class="form-control" rows="3"
+            placeholder="Expliquez votre expérience et garantie..."
+            required>Bonjour, je suis disponible immédiatement avec tout le matériel nécessaire.</textarea>
+        </div>
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:14px; font-size:14px; margin-top:8px;">
+          Envoyer ma proposition au client →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notice" id="toastNotice" role="status">
+    <span id="toastMessage">Action effectuée</span>
+  </div>
+
+  <!-- Menu latéral mobile -->
+  <div class="mobile-drawer-overlay" id="mobileDrawer" onclick="closeMobileDrawer(event)">
+    <aside class="mobile-drawer-content">
+      <div class="drawer-header">
+        <div class="brand-logo">
+          <div class="brand-icon">
+            <div class="brand-icon-inner"></div>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+            <span class="brand-sub">Les meilleurs prestataires, près de vous.</span>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="toggleMobileDrawer(false)" aria-label="Fermer">✕</button>
+      </div>
+      <div class="drawer-user-card">
+        <div class="drawer-user-info">
+          <div class="drawer-avatar">👤</div>
+          <div>
+            <div style="font-weight:800; font-size:14px; color:#ffffff;">Bienvenue sur KHIDMA Tchad</div>
+            <div style="font-size:11px; color:#cbdcf4;">Trouvez un artisan ou recevez des clients</div>
+          </div>
+        </div>
+        <div class="drawer-auth-buttons">
+          <button class="btn btn-outline-white" style="font-size:12px; padding:7px 12px;"
+            onclick="toggleMobileDrawer(false); openModal('modalConnexion');">Connexion</button>
+          <button class="btn btn-yellow" style="font-size:12px; padding:7px 12px;"
+            onclick="toggleMobileDrawer(false); openModal('modalInscription');">Inscription</button>
+        </div>
+      </div>
+      <nav class="drawer-links">
+        <a href="#accueil" class="drawer-link active" onclick="toggleMobileDrawer(false)"><span
+            class="drawer-icon">🏠</span> <span>Accueil</span></a>
+        <a href="#missions" class="drawer-link" onclick="toggleMobileDrawer(false)"
+          style="color:var(--color-yellow);"><span class="drawer-icon">🔥</span> <span>Demandes en direct</span></a>
+        <a href="pages/services.html" class="drawer-link" onclick="toggleMobileDrawer(false)"><span
+            class="drawer-icon">🛠️</span> <span>Tous les Services</span></a>
+        <a href="pages/devenir-prestataire.html" class="drawer-link"
+          onclick="toggleMobileDrawer(false); return handleDevenirPrestataireClick(event)"><span
+            class="drawer-icon">🤝</span> <span>Devenir Prestataire</span></a>
+        <a href="pages/publier-demande.html" class="drawer-link" onclick="toggleMobileDrawer(false)"><span
+            class="drawer-icon">📝</span> <span>Publier une Demande</span></a>
+        <a href="pages/a-propos.html" class="drawer-link" onclick="toggleMobileDrawer(false)"><span
+            class="drawer-icon">ℹ️</span> <span>À propos & FAQ</span></a>
+        <div style="height:1px; background:rgba(255,255,255,0.12); margin:10px 0;"></div>
+        <div
+          style="font-size:10px; font-weight:800; color:#8eafd4; text-transform:uppercase; padding:4px 0 6px; letter-spacing:0.08em;">
+          Mes espaces</div>
+        <a href="pages/client.html" class="drawer-link" onclick="toggleMobileDrawer(false)"
+          style="border-left:3px solid var(--color-yellow);"><span class="drawer-icon">👤</span> <span>Espace
+            Client</span></a>
+        <a href="pages/pro.html" class="drawer-link" onclick="toggleMobileDrawer(false)"
+          style="border-left:3px solid #16a34a;"><span class="drawer-icon">🧰</span> <span>Espace
+            Professionnel</span></a>
+      </nav>
+      <div class="drawer-footer">
+        <div class="drawer-location-badge" onclick="toggleMobileDrawer(false); openModal('modalVille');">
+          <span>📍 Zone active : </span><b id="drawerSelectedCity">N'Djamena</b>
+          <span style="font-size:11px; text-decoration:underline;">Modifier</span>
+        </div>
+        <a href="https://wa.me/23566000000" target="_blank" class="drawer-support-btn">
+          <span>💬</span> <span>Assistance WhatsApp directe</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Barre navigation mobile flottante basse -->
+  <nav class="mobile-bottom-bar" aria-label="Navigation mobile rapide">
+    <a href="#accueil" class="bottom-nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Accueil</span>
+    </a>
+    <a href="pages/services.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+      <span>Services</span>
+    </a>
+    <a href="javascript:void(0)" onclick="openModal('modalDemande')" class="bottom-nav-item bottom-nav-center">
+      <div class="center-pill-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </div>
+      <span>Demande</span>
+    </a>
+    <a href="#prestataires" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      <span>Pros</span>
+    </a>
+    <button type="button" class="bottom-nav-item" onclick="toggleMobileDrawer(true)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <!-- ==================== SCRIPTS JS ==================== -->
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/modals.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/handlers.js"></script>
+
+  <script>
+    // Filtre par ville depuis les cartes de villes
+    function filterCity(el, cityName) {
+      document.getElementById('citySearchInput') && (document.getElementById('citySearchInput').value = cityName);
+      document.getElementById('headerSelectedCity') && (document.getElementById('headerSelectedCity').textContent = cityName);
+      if (typeof handleHeroSearch === 'function') handleHeroSearch();
+      document.getElementById('prestataires').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Filtre pills missions
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.pill-filter').forEach(btn => {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('.pill-filter').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

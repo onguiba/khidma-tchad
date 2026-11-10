@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publier une Demande de Service — KHIDMA Tchad</title>
+  <meta name="description" content="Déposez votre besoin en plomberie, électricité, informatique ou transport au Tchad et recevez des propositions rapides des artisans locaux.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="../index.html" class="brand-logo">
+        <div class="brand-icon">
+          <div class="brand-icon-inner"></div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+          <span class="brand-sub">Les bons professionnels, près de vous.</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" aria-label="Menu principal">
+        <a href="../index.html" class="nav-link">Accueil</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="client.html" class="nav-link" style="color:var(--color-yellow); font-weight:700;">👤 Espace Client</a>
+        <a href="pro.html" class="nav-link">🧰 Espace Pro</a>
+        <a href="devenir-prestataire.html" class="nav-link" onclick="return handleDevenirPrestataireClick(event)">Devenir prestataire</a>
+        <a href="publier-demande.html" class="nav-link active">Publier une demande</a>
+        <a href="a-propos.html" class="nav-link">À propos</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-outline-white btn-connexion" onclick="openModal('modalConnexion')">Connexion</button>
+        <button class="mobile-menu-toggle" onclick="toggleMobileDrawer(true)" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- FORMULAIRE DE PUBLICATION -->
+  <section style="padding: 40px 0 80px;">
+    <div class="container container-narrow">
+
+      <!-- Bandeau explicatif du système de postulants -->
+      <div style="background: linear-gradient(135deg, #051a3d 0%, #0a2d6c 100%); color:#ffffff; border-radius:18px; padding:24px 28px; margin-bottom:24px; box-shadow:0 8px 30px rgba(6, 29, 67, 0.25);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+          <span style="background:rgba(255,201,40,0.2); border:1px solid var(--color-yellow); color:var(--color-yellow); font-size:11px; font-weight:800; padding:4px 10px; border-radius:999px;">
+            ⚡ MISE EN RELATION IMMÉDIATE AU TCHAD
+          </span>
+          <span style="font-size:12px; color:#cbdcf4;">⏱️ Premier devis reçu en <b>moins de 5 min</b></span>
+        </div>
+        <h2 style="font-size:22px; font-weight:800; color:#ffffff; margin-bottom:8px;">
+          Déposez votre besoin, recevez plusieurs propositions d'artisans
+        </h2>
+        <p style="font-size:13px; color:#d1e2f7; line-height:1.6; margin:0;">
+          Dès validation de votre formulaire, les meilleurs professionnels vérifiés de votre ville recevront votre demande. Vous pourrez comparer leurs devis, délais et avis clients pour faire votre choix en toute liberté.
+        </p>
+      </div>
+
+      <div style="background:#fff; padding:36px; border-radius:20px; border:1px solid var(--color-border); box-shadow:var(--shadow-lg);">
+        <span class="hero-tagline">BESOIN D'UNE INTERVENTION RAPIDE ?</span>
+        <h1 style="font-size:26px; font-weight:800; color:var(--color-navy-dark); margin:6px 0 10px;">Publier une demande de service</h1>
+        <p style="font-size:13.5px; color:var(--color-text-muted); margin-bottom:26px; line-height:1.6;">
+          Détaillez votre panne ou vos travaux. Les artisans qualifiés et disponibles dans votre zone recevront votre demande et prendront contact avec vous.
+        </p>
+
+        <form onsubmit="handleDemandeSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Votre nom complet ou société</label>
+            <input type="text" name="clientName" class="form-control" placeholder="Ex : Nathalie Ndouba" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Titre ou résumé de votre besoin</label>
+            <input type="text" name="title" class="form-control" placeholder="Ex : Réparation fuite d'eau évier cuisine" required>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label class="form-label">Catégorie de métier</label>
+              <select name="category" class="form-control" required>
+                <option value="">Choisir la catégorie</option>
+                <option>Plomberie</option>
+                <option>Électricité</option>
+                <option>Informatique &amp; Téléphonie</option>
+                <option>Nettoyage &amp; Déchets</option>
+                <option>Transport &amp; Déménagement</option>
+                <option>Bâtiment &amp; Rénovation</option>
+                <option>Santé &amp; Bien-être</option>
+                <option>Éducation &amp; Formation</option>
+                <option>Événementiel</option>
+                <option>Agriculture &amp; Élevage</option>
+                <option>Autre service</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Délai souhaité / Degré d'urgence</label>
+              <select name="urgency" class="form-control" required>
+                <option>Urgent (Aujourd'hui)</option>
+                <option>Dans les 48 heures</option>
+                <option>Cette semaine</option>
+                <option>Simple demande de devis</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label class="form-label">Votre ville</label>
+              <select name="city" class="form-control" required>
+                <option>N'Djamena</option>
+                <option>Moundou</option>
+                <option>Sarh</option>
+                <option>Abéché</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Votre quartier précis</label>
+              <input type="text" name="quartier" class="form-control" placeholder="Ex : Moursal, Sabangali, Diguel..." required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Votre budget indicatif (en FCFA)</span>
+              <span style="font-size:11px; color:var(--color-blue); font-weight:700;">Aide les artisans à vous faire les meilleures offres</span>
+            </label>
+            <input type="text" name="budget" class="form-control" placeholder="Ex : 15 000 — 25 000 FCFA" value="15 000 — 30 000 FCFA">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description détaillée du problème à résoudre</label>
+            <textarea name="description" class="form-control" rows="4" placeholder="Expliquez ce qu'il faut réparer ou installer, l'outillage souhaité, photos ou état des lieux..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Votre numéro de téléphone / WhatsApp pour vous joindre</label>
+            <input type="tel" name="clientPhone" class="form-control" placeholder="+235 66 XX XX XX" required>
+          </div>
+
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:18px; display:flex; align-items:center; gap:12px;">
+            <span style="font-size:22px;">🛡️</span>
+            <div style="font-size:12px; color:var(--color-text-secondary); line-height:1.5;">
+              <b>100% Gratuit et sans engagement.</b> Vous recevrez les candidatures directement dans votre espace client et pourrez appeler ou écrire sur WhatsApp aux artisans de votre choix.
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-yellow" style="width:100%; padding:14px; font-size:15px;">
+            Publier ma demande &amp; recevoir les candidatures des artisans →
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container text-center">
+      <div class="footer-bottom-row" style="border:none; justify-content:center;">
+        <span>\u00a9 2025 KHIDMA Tchad. Tous droits réservés. Plateforme de mise en relation de services au Tchad.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALE CONNEXION -->
+  <div class="modal-overlay" id="modalConnexion">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalConnexion')">✕</button>
+      <h3 class="modal-title">Connexion à votre compte</h3>
+      <p class="modal-sub">Accédez rapidement à votre espace KHIDMA Tchad :</p>
+      
+      <!-- Boutons de connexion sociale (Google & Facebook) -->
+      <div class="social-login-grid">
+        <button type="button" class="btn-social-auth btn-social-google" onclick="handleSocialLogin('google')">
+          <svg width="19" height="19" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Continuer avec Google</span>
+        </button>
+
+        <button type="button" class="btn-social-auth btn-social-facebook" onclick="handleSocialLogin('facebook')">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span>Continuer avec Facebook</span>
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>ou avec vos identifiants</span>
+      </div>
+      
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-bottom:16px;">
+        <button type="button" id="tabLoginPro" class="btn" style="background:var(--color-navy-dark); color:var(--color-yellow); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid var(--color-yellow); border-radius:8px; cursor:pointer;" onclick="switchLoginRole('pro')">
+          🧰 Prestataire
+        </button>
+        <button type="button" id="tabLoginClient" class="btn" style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px; cursor:pointer;" onclick="switchLoginRole('client')">
+          👤 Client
+        </button>
+        <button type="button" id="tabLoginAdmin" class="btn" style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px; cursor:pointer;" onclick="switchLoginRole('admin')">
+          🛡️ Admin
+        </button>
+      </div>
+
+      <form onsubmit="handleConnexionSubmit(event)">
+        <input type="hidden" id="loginRoleInput" name="loginRole" value="pro">
+
+        <div id="loginNoticePro" style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:12px; color:#1e40af;">
+          🔧 <b>Espace Prestataire :</b> Connectez-vous avec votre numéro de téléphone d'artisan.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" id="loginIdentifierLabel">Numéro WhatsApp ou Téléphone de l'artisan</label>
+          <input type="text" id="loginIdentifierInput" name="identifier" class="form-control" placeholder="+235 66 12 34 56 ou votre numéro" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de passe du compte</label>
+          <input type="password" id="loginPasswordInput" name="password" class="form-control" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px;">
+          Se connecter →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MENU LATÉRAL COULISSANT MOBILE -->
+  <div class="mobile-drawer-overlay" id="mobileDrawer" onclick="closeMobileDrawer(event)">
+    <aside class="mobile-drawer-content">
+      <div class="drawer-header">
+        <div class="brand-logo">
+          <div class="brand-icon"><div class="brand-icon-inner"></div></div>
+          <div class="brand-text">
+            <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+            <span class="brand-sub">Les bons professionnels, près de vous.</span>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="toggleMobileDrawer(false)">✕</button>
+      </div>
+
+      <nav class="drawer-links">
+        <a href="../index.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🏠</span> <span>Accueil</span>
+        </a>
+        <a href="services.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🛠️</span> <span>Tous les Services</span>
+        </a>
+        <a href="client.html" class="drawer-link" onclick="toggleMobileDrawer(false)" style="border-left:3px solid var(--color-yellow);">
+          <span class="drawer-icon">👤</span> <span>Espace Client</span>
+        </a>
+        <a href="pro.html" class="drawer-link" onclick="toggleMobileDrawer(false)" style="border-left:3px solid #10b981;">
+          <span class="drawer-icon">🧰</span> <span>Espace Professionnel</span>
+        </a>
+        <a href="devenir-prestataire.html" class="drawer-link" onclick="toggleMobileDrawer(false); return handleDevenirPrestataireClick(event)">
+          <span class="drawer-icon">🤝</span> <span>Devenir Prestataire</span>
+        </a>
+        <a href="publier-demande.html" class="drawer-link active" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">📝</span> <span>Publier une Demande</span>
+        </a>
+        <a href="a-propos.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">ℹ️</span> <span>À propos &amp; FAQ</span>
+        </a>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- BARRE MOBILE BASSE -->
+  <nav class="mobile-bottom-bar" aria-label="Navigation mobile rapide">
+    <a href="../index.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="services.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Services</span>
+    </a>
+    <a href="publier-demande.html" class="bottom-nav-item bottom-nav-center active">
+      <div class="center-pill-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </div>
+      <span>Demande</span>
+    </a>
+    <a href="pro.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span>Espace Pro</span>
+    </a>
+    <button type="button" class="bottom-nav-item" onclick="toggleMobileDrawer(true)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <div class="toast-notice" id="toastNotice"><span id="toastMessage">Action effectuée</span></div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/modals.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/handlers.js"></script>
+</body>
+</html>

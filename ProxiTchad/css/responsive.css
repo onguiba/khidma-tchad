@@ -1,0 +1,928 @@
+/* ============================================================
+   PROXITCHAD - RESPONSIVE & ADAPTIVE CSS v2.0
+   Adaptabilité Universelle : Mobile (<600px), Tablette (600-992px),
+   PC / Ordinateur portable (992px-1280px), et Grands Écrans (>1280px)
+============================================================ */
+
+/* ============================================================
+   1. RÈGLES GLOBALES PC & GRAND ÉCRAN (Desktop First & Fluid)
+============================================================ */
+@media (min-width: 1201px) {
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 48px;
+    padding: 48px 0 54px;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 12px;
+  }
+
+  .providers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .mobile-bottom-bar,
+  .mobile-burger,
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+
+  .nav-menu {
+    display: flex !important;
+  }
+}
+
+/* ============================================================
+   2. ÉCRANS MOYENS, LAPTOPS & PETITS DESKTOPS (992px - 1200px)
+============================================================ */
+@media (max-width: 1200px) and (min-width: 901px) {
+  .categories-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+
+  .providers-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .hero-container {
+    gap: 28px;
+  }
+
+  .mobile-bottom-bar,
+  .mobile-burger,
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+
+  .nav-menu {
+    display: flex !important;
+  }
+}
+
+/* ============================================================
+   3. TABLETTES & IPADS (601px - 900px)
+============================================================ */
+@media (max-width: 900px) {
+  body {
+    padding-bottom: 84px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-menu {
+    display: none !important;
+  }
+
+  .mobile-burger,
+  .mobile-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: background var(--transition-fast);
+  }
+
+  .mobile-burger:hover,
+  .mobile-menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .mobile-bottom-bar {
+    display: flex !important;
+  }
+
+  /* Hero Tablette */
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-top: 24px;
+    padding-bottom: 28px;
+    gap: 24px;
+  }
+
+  .hero-content {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .hero-desc {
+    margin: 0 auto 20px;
+  }
+
+  .hero-trust-badges {
+    justify-content: center;
+  }
+
+  .hero-search-box {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .search-input-group:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+  }
+
+  .btn-search-hero {
+    height: 48px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .hero-slogan-script {
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .hero-artisan-wrapper {
+    max-width: 380px;
+    max-height: 240px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .providers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .how-promo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Bande de statistiques de confiance en tablette */
+  .stats-trust-inner {
+    gap: 18px;
+    justify-content: center;
+  }
+
+  /* Grilles inline adaptatives */
+  div[style*="grid-template-columns:repeat(3, 1fr)"],
+  div[style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  div[style*="grid-template-columns:repeat(4, 1fr)"],
+  div[style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  section div[style*="grid-template-columns: 1.2fr 0.8fr"],
+  section div[style*="grid-template-columns:1.2fr 0.8fr"] {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   4. SMARTPHONES & MOBILES (<600px : iPhones, Androids, 360-480px)
+============================================================ */
+@media (max-width: 600px) {
+  body {
+    padding-bottom: 90px; /* Assure que le bas de page ne soit jamais masqué par la barre */
+  }
+
+  .container {
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Empêche le zoom automatique sur iPhone dans les formulaires */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Header compact Mobile */
+  .nav-bar {
+    height: 58px;
+    gap: 8px;
+  }
+
+  .brand-logo {
+    gap: 8px;
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .brand-name {
+    font-size: 16.5px;
+    letter-spacing: -0.3px;
+  }
+
+  .brand-sub {
+    display: none !important;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .location-selector {
+    display: none !important;
+  }
+
+  .btn-connexion {
+    display: none !important;
+  }
+
+  .btn-inscription {
+    padding: 6px 12px;
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+
+  .search-btn-icon {
+    padding: 6px;
+  }
+
+  /* Hero Section Mobile */
+  .hero-section {
+    min-height: auto;
+    padding: 12px 0 24px;
+    width: 100%;
+  }
+
+  .hero-container {
+    padding-top: 10px;
+    padding-bottom: 16px;
+    gap: 14px;
+  }
+
+  .hero-tagline {
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+    padding: 3px 10px;
+  }
+
+  .hero-title {
+    font-size: clamp(21px, 6.4vw, 26px);
+    line-height: 1.22;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .hero-desc {
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin-bottom: 16px;
+    color: #dbe7fa;
+  }
+
+  /* Boîte de recherche Hero Mobile */
+  .hero-search-box {
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px rgba(4, 18, 44, 0.35);
+    padding: 10px;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .search-input-group {
+    padding: 6px 8px;
+  }
+
+  .search-label {
+    font-size: 10.5px;
+  }
+
+  .search-field {
+    font-size: 13.5px;
+  }
+
+  .btn-search-hero {
+    height: 46px;
+    font-size: 13.5px;
+    border-radius: 10px;
+  }
+
+  /* Bande de statistiques de confiance en grille 2x2 propre */
+  .stats-trust-strip {
+    padding: 12px 0;
+  }
+
+  .stats-trust-inner {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px 14px !important;
+    padding: 4px 0 !important;
+  }
+
+  .stat-trust-sep {
+    display: none !important; /* Supprime le trait vertical isolé sur mobile */
+  }
+
+  .stat-trust-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 11.5px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+
+  .stat-trust-val {
+    font-size: 18px;
+  }
+
+  /* Badges de confiance sous le hero */
+  .hero-trust-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+    text-align: left;
+  }
+
+  .trust-item {
+    font-size: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px 8px;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Visuel Hero Mobile */
+  .hero-visual {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-slogan-script {
+    font-size: 16px;
+    margin-bottom: -4px;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .hero-artisan-wrapper {
+    max-width: 290px;
+    max-height: 180px;
+    border-radius: var(--radius-md);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Grille des Catégories Mobile (3 colonnes tactiles) */
+  .section-categories {
+    padding: 24px 0 16px;
+  }
+
+  .section-title-main {
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  .section-link-more {
+    font-size: 11.5px;
+    white-space: nowrap;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .category-card {
+    padding: 10px 4px 8px;
+    border-radius: var(--radius-sm);
+    min-height: 82px;
+  }
+
+  .cat-circle {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 5px;
+  }
+
+  .cat-circle svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cat-title {
+    font-size: 10px;
+    max-width: 76px;
+    line-height: 1.25;
+  }
+
+  /* Prestataires Mobile (1 colonne carte immersive) */
+  .section-providers {
+    padding: 16px 0 28px;
+  }
+
+  .providers-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .provider-card {
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 16px rgba(10, 35, 75, 0.08);
+  }
+
+  .provider-thumbnail-wrap {
+    height: 165px;
+  }
+
+  .provider-name {
+    font-size: 15px;
+  }
+
+  .provider-actions-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px;
+  }
+
+  .btn-green-solid, 
+  .btn-wa-green, 
+  .btn-green-outline {
+    padding: 11px 8px !important;
+    font-size: 12.5px !important;
+    min-height: 44px !important; /* Norme ergonomique tactile Apple & Android */
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-intervention {
+    padding: 10px 12px !important;
+    font-size: 12px !important;
+    min-height: 42px !important;
+  }
+
+  /* Section Comment ça marche */
+  .how-steps-card {
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .how-title {
+    font-size: 17px;
+    margin-bottom: 14px;
+  }
+
+  .step-icon-num {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 8px;
+  }
+
+  .step-title {
+    font-size: 13px;
+  }
+
+  .step-desc {
+    font-size: 11.5px;
+  }
+
+  /* Encart Devenir Pro Mobile */
+  .pro-promo-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 22px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .pro-promo-content {
+    max-width: 100%;
+  }
+
+  .pro-promo-title {
+    font-size: 18px;
+  }
+
+  .pro-promo-desc {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+
+  .pro-promo-avatar-wrap {
+    width: 100px;
+    height: 115px;
+    margin: 12px auto 0;
+  }
+
+  /* Footer Mobile */
+  .site-footer {
+    padding: 24px 0 32px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    font-size: 11px;
+  }
+
+  /* Formulaires : passage automatique en 1 colonne sur smartphone */
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"],
+  div[style*="grid-template-columns:repeat(2, 1fr)"],
+  div[style*="grid-template-columns: repeat(2, 1fr)"],
+  div[style*="grid-template-columns:repeat(3, 1fr)"],
+  div[style*="grid-template-columns: repeat(3, 1fr)"],
+  div[style*="grid-template-columns:repeat(4, 1fr)"],
+  div[style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Tableaux de bord Mobile (Pro, Client, Admin) */
+  .dashboard-topbar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dashboard-topbar-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dashboard-nav-tabs {
+    padding: 0 12px;
+    gap: 14px;
+  }
+
+  .dashboard-tab-item {
+    font-size: 12px;
+    padding: 12px 2px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .stat-kpi-card {
+    padding: 12px !important;
+    gap: 10px !important;
+  }
+
+  .kpi-icon-wrap {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 18px !important;
+  }
+
+  .kpi-val {
+    font-size: 18px !important;
+  }
+
+  .kpi-label {
+    font-size: 10.5px !important;
+  }
+
+  .demande-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px;
+  }
+
+  .quote-item-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px;
+  }
+
+  /* Modales Bottom-Sheet Mobile */
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-card {
+    max-width: 100%;
+    border-radius: 24px 24px 0 0;
+    padding: 24px 18px 36px;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.4);
+    animation: sheetSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 86vh;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @keyframes sheetSlideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-card::before {
+    content: '';
+    display: block;
+    width: 44px;
+    height: 4.5px;
+    background: #cbd5e1;
+    border-radius: 3px;
+    margin: -8px auto 16px;
+  }
+
+  /* Toast Notification Mobile */
+  .toast-notice {
+    bottom: 84px;
+    width: calc(100% - 32px);
+    max-width: 360px;
+    font-size: 12.5px;
+    padding: 12px 16px;
+  }
+
+  /* Grille des missions mobile */
+  .missions-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .mission-action-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .btn-postuler-mission {
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Carte de candidature admin responsive */
+  .admin-candidate-card > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Témoignages Mobile */
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  /* Villes Mobile */
+  .cities-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px;
+  }
+
+  .city-name { font-size: 15px; }
+
+  /* Bannière de confiance Mobile */
+  .trust-banner-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px;
+  }
+
+  .trust-features-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px;
+  }
+
+  .trust-banner-text h2 { font-size: 22px; }
+
+  .trust-banner-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .trust-banner-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Footer Mobile */
+  .footer-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px;
+  }
+
+  /* Badges héro flottants Mobile */
+  .hero-badge-float {
+    display: none;
+  }
+
+  /* Mission filter pills */
+  .mission-filter-pills {
+    gap: 6px;
+  }
+
+  .pill-filter {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+
+  /* Section testimonials */
+  .section-testimonials { padding: 40px 0; }
+  .testimonials-header h2 { font-size: 20px; }
+
+  /* Section cities */
+  .section-cities { padding: 40px 0; }
+
+  /* Section trust banner */
+  .section-trust-banner { padding: 40px 0; }
+}
+
+/* ============================================================
+   5. TRÈS PETITS ÉCRANS (< 380px : Galaxy A, iPhone SE)
+============================================================ */
+@media (max-width: 380px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px;
+  }
+
+  .cat-circle { width: 32px; height: 32px; }
+  .cat-circle svg { width: 15px; height: 15px; }
+  .cat-title { font-size: 9px; }
+
+  .cities-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-title {
+    font-size: clamp(19px, 5.5vw, 22px);
+  }
+
+  .brand-name { font-size: 15px; }
+}
+
+/* ============================================================
+   6. TABLETTES — TÉMOIGNAGES & VILLES
+============================================================ */
+@media (max-width: 900px) and (min-width: 601px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .cities-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .trust-banner-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .trust-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-main-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+
+/* ============================================================
+   8. MOBILES — FORMULAIRE PRESTATAIRE, CNI & RÉALISATIONS
+============================================================ */
+@media (max-width: 600px) {
+  /* Réduction des marges des conteneurs de formulaire sur mobile */
+  #formSection .container-narrow > div,
+  .container-narrow > div {
+    padding: 20px 14px !important;
+    border-radius: 16px !important;
+  }
+
+  /* Upload photo de profil & CNI sur mobile */
+  .photo-upload-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .photo-upload-info {
+    text-align: center !important;
+  }
+
+  .photo-action-btns {
+    justify-content: center !important;
+  }
+
+  /* Galerie des réalisations sur mobile (3 colonnes compactes) */
+  #proRealisationsGallery {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* Modale d'inspection CNI admin sur mobile */
+  #modalInspectCni .modal-card {
+    padding: 20px 14px 32px !important;
+  }
+
+  /* Défilement horizontal des tableaux admin sur mobile */
+  .table-responsive,
+  table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Barre de navigation mobile inférieure fixée */
+  .mobile-bottom-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 60px !important;
+    background: #051a3d !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    z-index: 99999 !important;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.3) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+
+  .bottom-nav-item {
+    color: #93c5fd !important;
+    font-size: 10.5px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    gap: 2px !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 4px !important;
+  }
+
+  .bottom-nav-item.active {
+    color: #facc15 !important;
+    font-weight: 800 !important;
+  }
+
+  .bottom-nav-item svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+

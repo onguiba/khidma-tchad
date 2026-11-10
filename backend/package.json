@@ -1,0 +1,22 @@
+{
+  "name": "khidma-tchad-backend",
+  "version": "1.0.0",
+  "description": "Backend API REST pour la plateforme KHIDMA Tchad",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": ["khidma", "tchad", "api", "backend"],
+  "author": "KHIDMA Tchad",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.5.0"
+  }
+}

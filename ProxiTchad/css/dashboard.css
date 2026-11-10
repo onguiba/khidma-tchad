@@ -1,0 +1,371 @@
+/* ============================================================
+   PROXITCHAD - DASHBOARDS CSS
+   Styles dédiés aux Espaces Client, Professionnel & Administrateur
+============================================================ */
+
+/* ============================================================
+   1. STRUCTURE & HEADER DU TABLEAU DE BORD
+============================================================ */
+.dashboard-page {
+  background-color: #f3f6fa;
+  min-height: 100vh;
+}
+
+.dashboard-topbar {
+  background: var(--color-navy);
+  color: var(--color-white);
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dashboard-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dashboard-space-badge {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-yellow);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.dashboard-space-badge.admin {
+  background: #f43f5e;
+  color: #ffffff;
+}
+
+.dashboard-space-badge.pro {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.dashboard-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-status-pill {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot-active {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+/* ============================================================
+   2. ONGLETS DE NAVIGATION DU DASHBOARD
+============================================================ */
+.dashboard-nav-tabs {
+  background: #ffffff;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 24px;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.dashboard-tab-item {
+  padding: 16px 4px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-tab-item:hover {
+  color: var(--color-blue);
+}
+
+.dashboard-tab-item.active {
+  color: var(--color-blue);
+  border-bottom-color: var(--color-blue);
+}
+
+.tab-counter {
+  background: #eef4fc;
+  color: var(--color-blue);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* ============================================================
+   3. CARTES STATISTIQUES (KPIS)
+============================================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 24px 0 28px;
+}
+
+.stat-kpi-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.stat-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpi-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.kpi-icon-wrap.blue { background: #e8f2fe; color: #1886e0; }
+.kpi-icon-wrap.amber { background: #fef3c7; color: #d97706; }
+.kpi-icon-wrap.green { background: #dcfce7; color: #16a34a; }
+.kpi-icon-wrap.purple { background: #f3e8ff; color: #9333ea; }
+
+.kpi-val {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-navy-dark);
+  line-height: 1.1;
+}
+
+.kpi-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-top: 3px;
+}
+
+/* ============================================================
+   4. CARTES DE DEMANDES & BADGES DE STATUT
+============================================================ */
+.demande-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.demande-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.demande-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.demande-ref {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  letter-spacing: 0.5px;
+}
+
+.demande-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-navy-dark);
+  margin: 4px 0 6px;
+}
+
+.demande-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+
+.demande-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Badges de Statut */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge.en_attente, .status-badge.en_attente_pro {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.status-badge.devis_recus {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.status-badge.en_cours {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+
+.status-badge.terminee {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/* Devis reçus dans la demande */
+.quotes-sublist {
+  background: #f8fafd;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.quotes-sublist-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-navy-dark);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quote-item-card {
+  background: #ffffff;
+  border: 1px solid #e0e9f4;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.quote-pro-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quote-pro-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-navy);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.quote-amount-pill {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-green);
+  background: var(--color-green-light);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* Widget d'avis étoiles */
+.star-rating-picker {
+  display: flex;
+  gap: 8px;
+  font-size: 28px;
+  color: #cbd5e1;
+  cursor: pointer;
+  margin: 10px 0 16px;
+}
+
+.star-rating-picker span.active {
+  color: var(--color-star);
+}
+
+/* ============================================================
+   5. RESPONSIVE POUR DASHBOARDS
+============================================================ */
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .demande-header {
+    flex-direction: column;
+  }
+  .quote-item-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dashboard-topbar-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

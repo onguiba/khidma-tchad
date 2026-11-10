@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace Client — KHIDMA Tchad</title>
+  <meta name="description" content="Suivez vos demandes d'intervention, comparez les devis des artisans et gérez vos travaux au Tchad.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="dashboard-page">
+
+  <!-- ==================== TOPBAR ESPACE CLIENT ==================== -->
+  <header class="dashboard-topbar">
+    <div class="container dashboard-topbar-inner">
+      <div class="dashboard-title-group">
+        <a href="../index.html" class="brand-logo">
+          <div class="brand-icon"><div class="brand-icon-inner"></div></div>
+          <div class="brand-text">
+            <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+            <span class="brand-sub">Les meilleurs prestataires, près de vous.</span>
+          </div>
+        </a>
+        <span class="dashboard-space-badge">👤 Espace Client</span>
+      </div>
+
+      <div class="dashboard-topbar-actions">
+        <!-- Raccourci de bascule d'espace pour tester -->
+        <div style="display:flex; align-items:center; gap:8px;">
+          <a href="pro.html" class="btn btn-outline-white" style="font-size:11.5px; padding:6px 12px;">🧰 Vue Pro</a>
+          <a href="../index.html" class="btn btn-yellow" style="font-size:11.5px; padding:6px 14px;">🏠 Site Public</a>
+          <button id="btnClientLogout" class="btn btn-outline-white" style="font-size:11.5px; padding:6px 12px; display:none; cursor:pointer; border:1px solid rgba(255,255,255,0.3);" onclick="handleClientLogout()">🚪 Déconnexion</button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== CONTENU DU TABLEAU DE BORD ==================== -->
+  <main class="container" style="padding-top:24px; padding-bottom:60px;">
+    
+    <!-- En-tête de bienvenue & Action principale -->
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
+      <div>
+        <h1 id="clientWelcomeGreeting" style="font-size:24px; font-weight:800; color:var(--color-navy-dark);">Bonjour, Nathalie Ndouba 👋</h1>
+        <p style="font-size:13.5px; color:var(--color-text-muted);">Suivez vos interventions en direct à N'Djamena et comparez les devis des artisans.</p>
+      </div>
+
+      <button class="btn btn-yellow" onclick="openModal('modalClientNewDemand')" style="padding:12px 22px; font-size:13.5px;">
+        ➕ Publier une nouvelle demande
+      </button>
+    </div>
+
+    <!-- Statistiques rapides (KPIs) -->
+    <div class="stats-grid">
+      <div class="stat-kpi-card">
+        <div class="kpi-icon-wrap blue">📝</div>
+        <div>
+          <div class="kpi-val" id="kpiTotalDemandes">0</div>
+          <div class="kpi-label">Demandes publiées</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card">
+        <div class="kpi-icon-wrap amber">💬</div>
+        <div>
+          <div class="kpi-val" id="kpiDevisRecus">0</div>
+          <div class="kpi-label">Devis reçus à comparer</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card">
+        <div class="kpi-icon-wrap purple">⚡</div>
+        <div>
+          <div class="kpi-val" id="kpiEnCours">0</div>
+          <div class="kpi-label">Interventions en cours</div>
+        </div>
+      </div>
+
+      <div class="stat-kpi-card">
+        <div class="kpi-icon-wrap green">✅</div>
+        <div>
+          <div class="kpi-val" id="kpiTerminees">0</div>
+          <div class="kpi-label">Travaux terminés</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onglets de filtrage des demandes -->
+    <div class="dashboard-nav-tabs" style="border-radius:12px 12px 0 0; margin-bottom:18px;">
+      <div class="dashboard-tab-item active" onclick="switchClientFilter('all', this)">
+        Toutes mes demandes <span class="tab-counter" id="tabCountAll">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchClientFilter('devis_recus', this)">
+        Devis reçus <span class="tab-counter" id="tabCountQuotes" style="background:#fef3c7; color:#b45309;">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchClientFilter('en_cours', this)">
+        En cours <span class="tab-counter" id="tabCountProgress">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchClientFilter('terminee', this)">
+        Terminées & Avis <span class="tab-counter" id="tabCountDone">0</span>
+      </div>
+    </div>
+
+    <!-- Liste des demandes du client -->
+    <div id="clientDemandesList">
+      <!-- Rendu dynamique depuis le State -->
+    </div>
+
+  </main>
+
+  <!-- ==================== MODALE NOUVELLE DEMANDE (CLIENT) ==================== -->
+  <div class="modal-overlay" id="modalClientNewDemand">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalClientNewDemand')">✕</button>
+      <h3 class="modal-title">Publier une demande de service</h3>
+      <p class="modal-sub">Les professionnels qualifiés de votre quartier recevront votre demande et vous proposeront leurs devis.</p>
+
+      <form onsubmit="handleClientCreateDemand(event)">
+        <div class="form-group">
+          <label class="form-label">Titre de votre problème / besoin</label>
+          <input type="text" id="clientDemandTitle" class="form-control" placeholder="Ex : Fuite d'eau urgente cuisine" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Catégorie</label>
+            <select id="clientDemandCategory" class="form-control" required>
+              <option>Plomberie</option>
+              <option>Électricité</option>
+              <option>Informatique</option>
+              <option>Nettoyage</option>
+              <option>Transport</option>
+              <option>Bâtiment</option>
+              <option>Santé</option>
+              <option>Éducation</option>
+              <option>Événementiel</option>
+              <option>Agriculture</option>
+              <option>Autres</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Urgence</label>
+            <select id="clientDemandUrgency" class="form-control">
+              <option>Urgent (Aujourd'hui)</option>
+              <option>Dans les 48 heures</option>
+              <option>Cette semaine</option>
+              <option>Devis prévisionnel</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Ville</label>
+            <select id="clientDemandCity" class="form-control">
+              <option>N'Djamena</option>
+              <option>Moundou</option>
+              <option>Sarh</option>
+              <option>Abéché</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quartier</label>
+            <input type="text" id="clientDemandQuartier" class="form-control" placeholder="Ex : Moursal, Sabangali..." value="Moursal" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description détaillée</label>
+          <textarea id="clientDemandDesc" class="form-control" rows="3" placeholder="Expliquez ce qui ne fonctionne pas, le type de matériel à remplacer, etc." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px; margin-top:8px;">
+          Diffuser ma demande aux artisans proches →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODALE LAISSER UN AVIS (CLIENT) ==================== -->
+  <div class="modal-overlay" id="modalReview">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalReview')">✕</button>
+      <h3 class="modal-title">Évaluer l'intervention</h3>
+      <p class="modal-sub">Votre avis aide la communauté KHIDMA Tchad à valoriser les meilleurs artisans.</p>
+
+      <form onsubmit="handleClientSubmitReview(event)">
+        <input type="hidden" id="reviewDemandeId">
+        
+        <div style="text-align:center; margin:16px 0;">
+          <div class="form-label">Attribuez une note globale</div>
+          <div class="star-rating-picker" id="starPicker">
+            <span onclick="setRating(1)">★</span>
+            <span onclick="setRating(2)">★</span>
+            <span onclick="setRating(3)">★</span>
+            <span onclick="setRating(4)">★</span>
+            <span onclick="setRating(5)" class="active">★</span>
+          </div>
+          <input type="hidden" id="ratingValue" value="5">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Votre commentaire sur le travail effectué</label>
+          <textarea id="reviewComment" class="form-control" rows="3" placeholder="Ponctualité, qualité du travail, respect du tarif convenu..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:12px;">
+          Enregistrer mon avis vérifié
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-notice" id="toastNotice"><span id="toastMessage">Action effectuée</span></div>
+
+  <!-- SCRIPTS -->
+  <script src="../js/data.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/modals.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/handlers.js"></script>
+  <script>
+    let activeFilter = 'all';
+    let currentRating = 5;
+
+    // ============================================================
+    // SESSION & UTILISATEUR CONNECTÉ
+    // ============================================================
+    function getClientSession() {
+      // Lire depuis KhidmaSession (clé correcte: khidma_current_user)
+      try {
+        const userData = localStorage.getItem('khidma_current_user');
+        if (userData) return JSON.parse(userData);
+      } catch(e) {}
+      // Fallback ancien système
+      try {
+        const old = localStorage.getItem('khidma_auth_user');
+        if (old) return JSON.parse(old);
+      } catch(e) {}
+      return null;
+    }
+
+    function isClientLoggedIn() {
+      return !!localStorage.getItem('khidma_jwt_token');
+    }
+
+    function handleClientLogout() {
+      localStorage.removeItem('khidma_jwt_token');
+      localStorage.removeItem('khidma_current_user');
+      localStorage.removeItem('khidma_user_role');
+      localStorage.removeItem('proxitchad_active_role');
+      showToast('👋 Vous avez été déconnecté.');
+      setTimeout(() => { window.location.href = '../index.html'; }, 900);
+    }
+
+    // ============================================================
+    // RATINGS
+    // ============================================================
+    function setRating(val) {
+      currentRating = val;
+      document.getElementById('ratingValue').value = val;
+      const stars = document.querySelectorAll('#starPicker span');
+      stars.forEach((s, idx) => {
+        if (idx < val) {
+          s.classList.add('active');
+        } else {
+          s.classList.remove('active');
+        }
+      });
+    }
+
+    function switchClientFilter(filter, el) {
+      activeFilter = filter;
+      document.querySelectorAll('.dashboard-tab-item').forEach(t => t.classList.remove('active'));
+      if (el) el.classList.add('active');
+      renderClientDemandes();
+    }
+
+    // ============================================================
+    // CHARGEMENT DES DEMANDES DEPUIS L'API BACKEND
+    // ============================================================
+    async function loadClientDemandesFromAPI() {
+      const session = getClientSession();
+      const clientPhone = session ? (session.phone || '').replace(/[\s\-]/g, '') : '';
+
+      try {
+        const isOnline = window.KhidmaAPI && await window.KhidmaAPI.checkHealth();
+        if (isOnline && clientPhone) {
+          // Charger les demandes du client connecté depuis le backend
+          const result = await window.KhidmaAPI.demandes.getAll({ clientPhone });
+          if (result.success && Array.isArray(result.data)) {
+            // Sauvegarder dans localStorage pour le rendu synchrone
+            localStorage.setItem('proxitchad_demandes_v2', JSON.stringify(result.data));
+            renderClientDemandes();
+            return;
+          }
+        }
+        // Si pas en ligne ou pas de téléphone, charger toutes les demandes
+        if (isOnline) {
+          const result = await window.KhidmaAPI.demandes.getAll();
+          if (result.success && Array.isArray(result.data)) {
+            localStorage.setItem('proxitchad_demandes_v2', JSON.stringify(result.data));
+            renderClientDemandes();
+            return;
+          }
+        }
+      } catch(e) {
+        console.warn('Chargement API échoué, utilisation des données locales:', e.message);
+      }
+      // Fallback: rendu avec données locales
+      renderClientDemandes();
+    }
+
+    // ============================================================
+    // RENDU DES DEMANDES
+    // ============================================================
+    function renderClientDemandes() {
+      const demandes = getAllDemandes();
+      
+      // Mise à jour des KPIs
+      document.getElementById('kpiTotalDemandes').textContent = demandes.length;
+      document.getElementById('kpiDevisRecus').textContent = demandes.filter(d => d.status === 'devis_recus').length;
+      document.getElementById('kpiEnCours').textContent = demandes.filter(d => d.status === 'en_cours').length;
+      document.getElementById('kpiTerminees').textContent = demandes.filter(d => d.status === 'terminee').length;
+
+      document.getElementById('tabCountAll').textContent = demandes.length;
+      document.getElementById('tabCountQuotes').textContent = demandes.filter(d => d.status === 'devis_recus').length;
+      document.getElementById('tabCountProgress').textContent = demandes.filter(d => d.status === 'en_cours').length;
+      document.getElementById('tabCountDone').textContent = demandes.filter(d => d.status === 'terminee').length;
+
+      // Filtrage
+      const filtered = demandes.filter(d => {
+        if (activeFilter === 'all') return true;
+        if (activeFilter === 'devis_recus') return d.status === 'devis_recus';
+        if (activeFilter === 'en_cours') return d.status === 'en_cours';
+        if (activeFilter === 'terminee') return d.status === 'terminee';
+        return true;
+      });
+
+      const container = document.getElementById('clientDemandesList');
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="background:#fff; padding:40px 20px; border-radius:14px; text-align:center; border:1px solid var(--color-border);">
+            <div style="font-size:36px; margin-bottom:10px;">📋</div>
+            <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin-bottom:6px;">Aucune demande dans cette catégorie</h3>
+            <p style="font-size:13px; color:var(--color-text-muted); margin-bottom:16px;">Vous pouvez publier un nouveau besoin pour recevoir des propositions de professionnels locaux.</p>
+            <button class="btn btn-yellow" onclick="openModal('modalClientNewDemand')">➕ Déposer une demande de service</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(d => {
+        let statusBadgeText = "En attente de devis";
+        let statusBadgeClass = "en_attente";
+        if (d.status === 'devis_recus') {
+          statusBadgeText = `Devis reçus (${(d.quotes || []).length})`;
+          statusBadgeClass = "devis_recus";
+        } else if (d.status === 'en_cours') {
+          statusBadgeText = "Intervention en cours";
+          statusBadgeClass = "en_cours";
+        } else if (d.status === 'terminee') {
+          statusBadgeText = "Travail terminé";
+          statusBadgeClass = "terminee";
+        }
+
+        // Section devis reçus
+        let quotesHtml = '';
+        if (d.quotes && d.quotes.length > 0) {
+          quotesHtml = `
+            <div class="quotes-sublist">
+              <div class="quotes-sublist-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <div>
+                  <span style="font-size:13.5px; font-weight:800; color:var(--color-navy-dark);">
+                    🔥 ${d.quotes.length} professionnel(s) ont postulé à votre demande :
+                  </span>
+                  <span style="font-size:11px; color:#5c6e88; display:block;">Comparez les tarifs, avis et délais pour faire votre choix</span>
+                </div>
+              </div>
+
+              ${d.quotes.map(q => {
+                const phoneClean = (q.proPhone || '').replace(/\s+/g, '');
+                const phoneWa = (q.proPhone || '').replace(/[^0-9]/g, '');
+                const waMsg = encodeURIComponent(`Bonjour ${q.proName}, je fais suite à votre devis de ${q.amount} sur KHIDMA Tchad pour mon besoin : ${d.title}.`);
+
+                return `
+                  <div class="quote-item-card" style="background:#ffffff; border:1px solid #cbdcf4; border-radius:12px; padding:16px; margin-top:10px; box-shadow:var(--shadow-sm); transition:all 0.2s;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+                      <div class="quote-pro-info" style="display:flex; align-items:flex-start; gap:12px;">
+                        <div class="quote-pro-avatar" style="width:44px; height:44px; border-radius:50%; background:var(--color-navy); color:#ffffff; font-size:18px; font-weight:800; display:grid; place-items:center; flex-shrink:0;">
+                          ${(q.proName || 'A').charAt(0)}
+                        </div>
+                        <div>
+                          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                            <span style="font-weight:800; font-size:15px; color:var(--color-navy-dark);">${q.proName}</span>
+                            <span class="badge-verifie" style="position:static; font-size:10px; padding:2px 8px;">✓ Vérifié</span>
+                          </div>
+                          <div style="font-size:12px; color:#5c6e88; margin-top:2px;">
+                            <span style="color:var(--color-star); font-weight:700;">★ ${q.proRating || 4.8}</span> 
+                            <span>(${q.proReviews || 50} avis)</span> 
+                            &nbsp;·&nbsp; <span>📍 Même quartier</span> 
+                            &nbsp;·&nbsp; <span style="font-weight:700; color:var(--color-green);">⏰ ${q.delay}</span>
+                          </div>
+                          <div style="font-size:13px; color:#334155; margin-top:6px; background:#f8fafc; padding:8px 12px; border-radius:8px; border-left:3px solid var(--color-blue);">
+                            "${q.message}"
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style="text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+                        <div class="quote-amount-pill" style="font-size:16px; font-weight:800; color:#065f46; background:#ecfdf5; border:1px solid #a7f3d0; padding:6px 14px; border-radius:999px;">
+                          ${q.amount}
+                        </div>
+                        <span style="font-size:10.5px; color:var(--color-text-muted);">Reçu : ${q.date || "Récemment"}</span>
+                      </div>
+                    </div>
+
+                    <!-- Actions pour ce postulant -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-top:12px; padding-top:10px; border-top:1px solid #f1f5f9;">
+                      <div style="display:flex; gap:6px;">
+                        <a href="tel:${phoneClean}" class="btn btn-green-solid" style="font-size:11px; padding:5px 12px; text-decoration:none;">
+                          📞 Appeler (${q.proPhone})
+                        </a>
+                        <a href="https://wa.me/${phoneWa}?text=${waMsg}" target="_blank" class="btn btn-green-outline" style="font-size:11px; padding:5px 12px; text-decoration:none;">
+                          💬 Écrire sur WhatsApp
+                        </a>
+                      </div>
+
+                      ${d.status !== 'en_cours' && d.status !== 'terminee' ? `
+                        <button class="btn btn-yellow" style="padding:8px 18px; font-size:12.5px;" onclick="handleClientAcceptQuote('${d.id}', '${q.id}', '${q.proName}')">
+                          ✓ Retenir et accepter ce devis
+                        </button>
+                      ` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        } else if (d.status === 'en_attente') {
+          quotesHtml = `
+            <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:14px; margin-top:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div style="font-size:12.5px; color:#92400e;">
+                ⏳ <b>Demande en cours de diffusion :</b> Les artisans qualifiés de votre quartier la consultent actuellement. Vous recevrez les devis réels des professionnels dès qu'ils auront postulé.
+              </div>
+            </div>
+          `;
+        }
+
+        // Section en cours
+        let inProgressHtml = '';
+        if (d.status === 'en_cours') {
+          inProgressHtml = `
+            <div style="background:#f5f3ff; border:1px solid #ddd6fe; border-radius:12px; padding:16px; margin-top:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+              <div>
+                <div style="font-weight:800; font-size:13.5px; color:#6b21a8;">Artisan retenu : ${d.agreedProName || "Professionnel"}</div>
+                <div style="font-size:12px; color:#5b21b6;">Tarif convenu : <b>${d.agreedPrice || "À convenir"}</b> · Contactez-le pour coordonner l'arrivée :</div>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn btn-green-solid" onclick="contactProvider('${d.agreedProName}', '${d.agreedProPhone || '+235 66 12 34 56'}', 'call')">📞 Appeler</button>
+                <button class="btn btn-green-outline" onclick="contactProvider('${d.agreedProName}', '${d.agreedProPhone || '+235 66 12 34 56'}', 'whatsapp')">💬 WhatsApp</button>
+              </div>
+            </div>
+          `;
+        }
+
+        // Section avis
+        let reviewHtml = '';
+        if (d.status === 'terminee') {
+          if (d.review) {
+            reviewHtml = `
+              <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:14px; margin-top:14px;">
+                <div style="font-weight:800; font-size:13px; color:#166534; display:flex; align-items:center; gap:6px;">
+                  <span>★ ${d.review.rating} / 5</span> — Votre avis enregistré
+                </div>
+                <div style="font-size:12.5px; color:#14532d; margin-top:3px;">"${d.review.comment}"</div>
+              </div>
+            `;
+          } else {
+            reviewHtml = `
+              <div style="margin-top:14px; display:flex; justify-content:flex-end;">
+                <button class="btn btn-yellow" onclick="openReviewModal('${d.id}')">
+                  ⭐ Laisser mon avis sur l'artisan
+                </button>
+              </div>
+            `;
+          }
+        }
+
+        return `
+          <article class="demande-card">
+            <div class="demande-header">
+              <div>
+                <span class="demande-ref">${d.id} · Catégorie ${d.category}</span>
+                <h2 class="demande-title">${d.title}</h2>
+                <div class="demande-meta">
+                  <span>📍 ${d.city} (${d.quartier})</span>
+                  <span>⏰ ${d.urgency}</span>
+                  <span>🗓️ Créée : ${d.createdAt}</span>
+                </div>
+              </div>
+
+              <span class="status-badge ${statusBadgeClass}">
+                <span class="status-dot-active" style="background:currentColor;"></span>
+                ${statusBadgeText}
+              </span>
+            </div>
+
+            <p style="font-size:13px; color:#475569; line-height:1.6; margin-bottom:4px;">
+              ${d.description}
+            </p>
+
+            ${quotesHtml}
+            ${inProgressHtml}
+            ${reviewHtml}
+          </article>
+        `;
+      }).join('');
+    }
+
+    // ============================================================
+    // CRÉATION DE DEMANDE — Via API Backend
+    // ============================================================
+    async function handleClientCreateDemand(e) {
+      e.preventDefault();
+      const session = getClientSession();
+      const clientName = session ? session.name : 'Client KHIDMA';
+      const clientPhone = session ? session.phone : '+235 66 00 00 00';
+
+      const demandeData = {
+        title: document.getElementById('clientDemandTitle').value,
+        category: document.getElementById('clientDemandCategory').value,
+        urgency: document.getElementById('clientDemandUrgency').value,
+        city: document.getElementById('clientDemandCity').value,
+        quartier: document.getElementById('clientDemandQuartier').value,
+        description: document.getElementById('clientDemandDesc').value,
+        clientName,
+        clientPhone
+      };
+
+      try {
+        const isOnline = window.KhidmaAPI && await window.KhidmaAPI.checkHealth();
+        let newDemande;
+
+        if (isOnline) {
+          const result = await window.KhidmaAPI.demandes.create(demandeData);
+          if (result.success) {
+            newDemande = result.data;
+          } else {
+            showToast(`❌ ${result.error || 'Erreur lors de la création.'}`);
+            return;
+          }
+        } else {
+          // Fallback LocalStorage
+          newDemande = createDemande(demandeData);
+        }
+
+        closeModal('modalClientNewDemand');
+        showToast(`🎉 Demande ${newDemande ? newDemande.id : ''} publiée avec succès ! Les pros du quartier ont été notifiés.`);
+        e.target.reset();
+
+        // Recharger depuis l'API pour avoir les données à jour
+        await loadClientDemandesFromAPI();
+      } catch(err) {
+        showToast('❌ Erreur : ' + err.message);
+      }
+    }
+
+    // ============================================================
+    // ACCEPTATION DE DEVIS — Via API Backend
+    // ============================================================
+    async function handleClientAcceptQuote(demandeId, quoteId, proName) {
+      if (!confirm(`Confirmez-vous le choix de ${proName} pour cette intervention ?`)) return;
+
+      try {
+        const isOnline = window.KhidmaAPI && await window.KhidmaAPI.checkHealth();
+
+        if (isOnline) {
+          const result = await window.KhidmaAPI.demandes.acceptQuote(demandeId, quoteId);
+          if (result.success) {
+            showToast(`✅ ${result.data.message || 'Devis accepté !'} ${proName} a été notifié de votre accord.`);
+          } else {
+            showToast(`❌ ${result.error || 'Erreur.'}`);
+            return;
+          }
+        } else {
+          // Fallback LocalStorage
+          acceptQuote(demandeId, quoteId);
+          showToast(`✅ Devis accepté ! ${proName} a été notifié de votre accord.`);
+        }
+
+        // Recharger depuis l'API
+        await loadClientDemandesFromAPI();
+      } catch(err) {
+        showToast('❌ Erreur : ' + err.message);
+      }
+    }
+
+    // ============================================================
+    // AVIS CLIENT — Via API Backend
+    // ============================================================
+    function openReviewModal(demandeId) {
+      document.getElementById('reviewDemandeId').value = demandeId;
+      setRating(5);
+      openModal('modalReview');
+    }
+
+    async function handleClientSubmitReview(e) {
+      e.preventDefault();
+      const id = document.getElementById('reviewDemandeId').value;
+      const rating = document.getElementById('ratingValue').value;
+      const comment = document.getElementById('reviewComment').value;
+
+      try {
+        const isOnline = window.KhidmaAPI && await window.KhidmaAPI.checkHealth();
+
+        if (isOnline) {
+          await window.KhidmaAPI.demandes.submitReview(id, rating, comment);
+        } else {
+          submitClientReview(id, rating, comment);
+        }
+
+        closeModal('modalReview');
+        showToast('⭐ Merci pour votre avis ! Il a été publié sur le profil du professionnel.');
+        e.target.reset();
+
+        await loadClientDemandesFromAPI();
+      } catch(err) {
+        showToast('❌ Erreur : ' + err.message);
+      }
+    }
+
+    // ============================================================
+    // INITIALISATION AU CHARGEMENT DE LA PAGE
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      const session = getClientSession();
+      const welcomeTitle = document.querySelector('h1');
+
+      // Afficher le nom de l'utilisateur connecté
+      if (session && session.name && welcomeTitle) {
+        welcomeTitle.textContent = `Bonjour, ${session.name} 👋`;
+      } else if (welcomeTitle) {
+        welcomeTitle.textContent = 'Bonjour 👋';
+      }
+
+      // Afficher le bouton de déconnexion
+      const logoutBtn = document.getElementById('btnClientLogout');
+      if (logoutBtn && session) {
+        logoutBtn.style.display = 'inline-flex';
+      }
+
+      // Charger les demandes depuis le backend (avec fallback localStorage)
+      loadClientDemandesFromAPI();
+    });
+
+    // Écouter l'événement API ready pour rafraîchir les données
+    window.addEventListener('khidma:api_ready', (e) => {
+      if (e.detail && e.detail.online) {
+        loadClientDemandesFromAPI();
+      }
+    });
+  </script>
+</body>
+</html>

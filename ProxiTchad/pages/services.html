@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tous nos Services — KHIDMA Tchad</title>
+  <meta name="description" content="Découvrez l'ensemble des catégories de services et des professionnels vérifiés au Tchad. Plomberie, Électricité, Informatique, Transport...">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a href="../index.html" class="brand-logo">
+        <div class="brand-icon">
+          <div class="brand-icon-inner"></div>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+          <span class="brand-sub">Les bons professionnels, près de vous.</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" aria-label="Menu principal">
+        <a href="../index.html" class="nav-link">Accueil</a>
+        <a href="services.html" class="nav-link active">Services</a>
+        <a href="client.html" class="nav-link" style="color:var(--color-yellow); font-weight:700;">👤 Espace Client</a>
+        <a href="pro.html" class="nav-link">🧰 Espace Pro</a>
+        <a href="devenir-prestataire.html" class="nav-link" onclick="return handleDevenirPrestataireClick(event)">Devenir prestataire</a>
+        <a href="publier-demande.html" class="nav-link">Publier une demande</a>
+        <a href="a-propos.html" class="nav-link">À propos</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="location-selector" onclick="openModal('modalVille')">
+          <span>📍</span>
+          <span id="headerSelectedCity">N'Djamena</span>
+          <span style="font-size: 10px;">▾</span>
+        </div>
+        <button class="btn btn-outline-white btn-connexion" onclick="openModal('modalConnexion')">Connexion</button>
+        <button class="btn btn-yellow btn-inscription" onclick="openModal('modalInscription')">Inscription</button>
+        <button class="mobile-menu-toggle" onclick="toggleMobileDrawer(true)" aria-label="Ouvrir le menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== BANNIÈRE TITRE ==================== -->
+  <section style="background: linear-gradient(135deg, #051a3d 0%, #07224f 60%, #0b3578 100%); color: #fff; padding: 50px 0;">
+    <div class="container text-center">
+      <span class="hero-tagline" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:var(--color-yellow);">
+        CATALOGUE OFFICIEL DES MÉTIERS
+      </span>
+      <h1 style="font-size: 34px; font-weight: 800; margin: 12px 0;">Tous les Services Disponibles au Tchad</h1>
+      <p style="color: #d1e2f7; font-size: 15.5px; max-width: 620px; margin: 0 auto 24px; line-height:1.6;">
+        Sélectionnez votre domaine d'activité pour trouver en quelques secondes un artisan qualifié, disponible et vérifié dans votre quartier à N'Djamena.
+      </p>
+      <div style="display:inline-flex; gap:10px;">
+        <a href="publier-demande.html" class="btn btn-yellow" style="padding:11px 22px; font-size:13.5px; text-decoration:none;">
+          ➕ Publier un besoin particulier
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SÉLECTEUR DE VUE : PRESTATAIRES VS CHANTIERS ==================== -->
+  <div style="background:#ffffff; border-bottom:1px solid #e2e8f0; position:sticky; top:72px; z-index:90; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+    <div class="container" style="display:flex; gap:12px; padding:12px 0; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button type="button" id="tabServicesPros" class="btn btn-yellow" style="font-size:12.5px; padding:8px 18px; border:none; cursor:pointer;" onclick="switchServicesView('pros')">
+          🛠️ Artisans &amp; Professionnels vérifiés
+        </button>
+        <button type="button" id="tabServicesMissions" class="btn" style="background:#f1f5fa; color:var(--color-navy-dark); font-size:12.5px; padding:8px 18px; border:none; cursor:pointer;" onclick="switchServicesView('missions')">
+          🔥 Demandes &amp; Chantiers récents (Postuler)
+        </button>
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <a href="publier-demande.html" class="btn btn-yellow" style="font-size:12px; padding:7px 14px; text-decoration:none;">
+          ➕ Publier une demande
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- VUE 1 : CATALOGUE DES CATÉGORIES & PRESTATAIRES -->
+  <div id="servicesProsView">
+    <!-- ==================== LISTE DES CATÉGORIES ==================== -->
+    <section class="section-categories">
+      <div class="container">
+        <div class="section-header-row">
+          <h2 class="section-title-main">11 Domaines de Compétences</h2>
+          <a href="../index.html#prestataires" class="section-link-more">← Retour à l'accueil</a>
+        </div>
+
+        <div class="categories-grid" id="fullCategoriesGrid">
+          <!-- Rendu depuis les données -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PRESTATAIRES CORRESPONDANTS ==================== -->
+    <section class="section-providers" style="background:#f8fafc; padding: 50px 0 80px;">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title-main">Professionnels &amp; Artisans vérifiés</h2>
+            <span class="text-muted" style="font-size: 13.5px;">Accès direct aux numéros de téléphone, WhatsApp et devis sans intermédiaire</span>
+          </div>
+        </div>
+
+        <div class="providers-grid" id="providersContainer">
+          <!-- Injecté via JS -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- VUE 2 : FLUX DES DEMANDES & MISSIONS OUVERTES AUX POSTULANTS -->
+  <div id="servicesMissionsView" style="display:none; padding:40px 0 80px; background:#f8fafc;">
+    <div class="container">
+      <div class="section-header-row">
+        <div>
+          <h2 class="section-title-main">🔥 Chantiers &amp; Demandes ouverts au Tchad</h2>
+          <span class="text-muted" style="font-size: 13.5px;">Consultez les offres déposées par les particuliers et proposez vos devis directement</span>
+        </div>
+        <button type="button" class="btn btn-yellow" onclick="openModal('modalQuickApplyDemo')" style="font-size:12px; padding:8px 16px;">
+          💼 Vous êtes artisan ? Postuler ici
+        </button>
+      </div>
+
+      <!-- Filtres de catégories pour missions -->
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+        <button type="button" class="btn" style="font-size:12px; padding:6px 14px; background:var(--color-navy-dark); color:var(--color-yellow); border-radius:999px;" onclick="renderServicesMissions('all')">Toutes les offres</button>
+        <button type="button" class="btn" style="font-size:12px; padding:6px 14px; background:#ffffff; color:var(--color-navy-dark); border:1px solid #cbd5e1; border-radius:999px;" onclick="renderServicesMissions('Plomberie')">🔧 Plomberie</button>
+        <button type="button" class="btn" style="font-size:12px; padding:6px 14px; background:#ffffff; color:var(--color-navy-dark); border:1px solid #cbd5e1; border-radius:999px;" onclick="renderServicesMissions('Électricité')">⚡ Électricité</button>
+        <button type="button" class="btn" style="font-size:12px; padding:6px 14px; background:#ffffff; color:var(--color-navy-dark); border:1px solid #cbd5e1; border-radius:999px;" onclick="renderServicesMissions('Informatique')">💻 Informatique</button>
+        <button type="button" class="btn" style="font-size:12px; padding:6px 14px; background:#ffffff; color:var(--color-navy-dark); border:1px solid #cbd5e1; border-radius:999px;" onclick="renderServicesMissions('Bâtiment')">🏗️ Bâtiment</button>
+        <button type="button" class="btn" style="font-size:12px; padding:6px 14px; background:#ffffff; color:var(--color-navy-dark); border:1px solid #cbd5e1; border-radius:999px;" onclick="renderServicesMissions('Transport')">🚚 Transport</button>
+        <button type="button" class="btn" style="font-size:12px; padding:6px 14px; background:#ffffff; color:var(--color-navy-dark); border:1px solid #cbd5e1; border-radius:999px;" onclick="renderServicesMissions('Nettoyage')">🗑️ Nettoyage</button>
+      </div>
+
+      <div class="missions-grid" id="servicesMissionsGrid">
+        <!-- Rendu dynamique via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-col-brand">
+          <div class="footer-logo">
+            <div class="brand-icon"><div class="brand-icon-inner"></div></div>
+            <span class="footer-brand-name">KHIDMA Tchad</span>
+          </div>
+          <p class="footer-about-text">
+            Plateforme numérique leader au Tchad pour la mise en relation directe avec les artisans et techniciens de confiance.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="client.html">Espace Client</a></li>
+            <li><a href="pro.html">Espace Professionnel</a></li>
+            <li><a href="a-propos.html">À propos &amp; FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Services Clés</h4>
+          <ul class="footer-links-list">
+            <li><a href="services.html">Plomberie &amp; Sanitaire</a></li>
+            <li><a href="services.html">Électricité &amp; Énergie</a></li>
+            <li><a href="services.html">Informatique &amp; Réseaux</a></li>
+            <li><a href="services.html">Transport &amp; Déménagement</a></li>
+            <li><a href="publier-demande.html">Publier une demande</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contact &amp; Support</h4>
+          <ul class="footer-contact-info">
+            <li>📍 N'Djamena, République du Tchad</li>
+            <li>📞 +235 66 00 00 00</li>
+            <li>💬 WhatsApp : Disponible 7j/7</li>
+            <li>✉️ contact@KHIDMA Tchad.td</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <span>\u00a9 2025 KHIDMA Tchad. Tous droits réservés.</span>
+        <span>Plateforme locale de mise en relation de services au Tchad.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODALES ==================== -->
+
+  <!-- Modale Ville / Quartier -->
+  <div class="modal-overlay" id="modalVille">
+    <div class="modal-card" style="max-width:520px;">
+      <button class="modal-close-btn" onclick="closeModal('modalVille')">✕</button>
+      <h3 class="modal-title">Sélectionnez votre zone</h3>
+      <p class="modal-sub">Définissez votre localisation pour afficher les prestataires les plus proches.</p>
+      
+      <!-- Sélection visuelle avec photos des 4 villes du Tchad -->
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:18px;">
+        <div onclick="selectCityQuick('N\'Djamena')" class="city-modal-thumb" data-city="N'Djamena" style="cursor:pointer; border-radius:12px; overflow:hidden; border:2px solid #cbdcf4; position:relative; aspect-ratio:4/3; transition:all 0.2s;" title="Choisir N'Djamena">
+          <img src="../images/ndjamena.jpg" alt="N'Djamena" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.88) 0%, rgba(5,26,61,0.2) 60%, transparent 100%); display:flex; align-items:flex-end; justify-content:center; padding:4px;">
+            <span style="color:#fff; font-size:11px; font-weight:800;">N'Djamena</span>
+          </div>
+        </div>
+
+        <div onclick="selectCityQuick('Moundou')" class="city-modal-thumb" data-city="Moundou" style="cursor:pointer; border-radius:12px; overflow:hidden; border:2px solid #cbdcf4; position:relative; aspect-ratio:4/3; transition:all 0.2s;" title="Choisir Moundou">
+          <img src="../images/moundou.jpg" alt="Moundou" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.88) 0%, rgba(5,26,61,0.2) 60%, transparent 100%); display:flex; align-items:flex-end; justify-content:center; padding:4px;">
+            <span style="color:#fff; font-size:11px; font-weight:800;">Moundou</span>
+          </div>
+        </div>
+
+        <div onclick="selectCityQuick('Sarh')" class="city-modal-thumb" data-city="Sarh" style="cursor:pointer; border-radius:12px; overflow:hidden; border:2px solid #cbdcf4; position:relative; aspect-ratio:4/3; transition:all 0.2s;" title="Choisir Sarh">
+          <img src="../images/sarh.jpg" alt="Sarh" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.88) 0%, rgba(5,26,61,0.2) 60%, transparent 100%); display:flex; align-items:flex-end; justify-content:center; padding:4px;">
+            <span style="color:#fff; font-size:11px; font-weight:800;">Sarh</span>
+          </div>
+        </div>
+
+        <div onclick="selectCityQuick('Abéché')" class="city-modal-thumb" data-city="Abéché" style="cursor:pointer; border-radius:12px; overflow:hidden; border:2px solid #cbdcf4; position:relative; aspect-ratio:4/3; transition:all 0.2s;" title="Choisir Abéché">
+          <img src="../images/abeche.jpg" alt="Abéché" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(5,26,61,0.88) 0%, rgba(5,26,61,0.2) 60%, transparent 100%); display:flex; align-items:flex-end; justify-content:center; padding:4px;">
+            <span style="color:#fff; font-size:11px; font-weight:800;">Abéché</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Ville principale</label>
+        <select class="form-control" id="selectCityField" onchange="updateQuartiersList()">
+          <option value="N'Djamena">N'Djamena</option>
+          <option value="Moundou">Moundou</option>
+          <option value="Sarh">Sarh</option>
+          <option value="Abéché">Abéché</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Quartier</label>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;" id="quartiersPills">
+          <!-- Injecté dynamiquement par JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Connexion Dédiée Client ou Prestataire -->
+  <div class="modal-overlay" id="modalConnexion">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalConnexion')">✕</button>
+      <h3 class="modal-title">Connexion à votre compte</h3>
+      <p class="modal-sub">Accédez rapidement à votre espace KHIDMA Tchad :</p>
+      
+      <!-- Boutons de connexion sociale (Google & Facebook) -->
+      <div class="social-login-grid">
+        <button type="button" class="btn-social-auth btn-social-google" onclick="handleSocialLogin('google')">
+          <svg width="19" height="19" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Continuer avec Google</span>
+        </button>
+
+        <button type="button" class="btn-social-auth btn-social-facebook" onclick="handleSocialLogin('facebook')">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span>Continuer avec Facebook</span>
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>ou avec vos identifiants</span>
+      </div>
+      
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-bottom:16px;">
+        <button type="button" id="tabLoginPro" class="btn" style="background:var(--color-navy-dark); color:var(--color-yellow); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid var(--color-yellow); border-radius:8px; cursor:pointer;" onclick="switchLoginRole('pro')">
+          🧰 Prestataire
+        </button>
+        <button type="button" id="tabLoginClient" class="btn" style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px; cursor:pointer;" onclick="switchLoginRole('client')">
+          👤 Client
+        </button>
+        <button type="button" id="tabLoginAdmin" class="btn" style="background:#f1f5f9; color:var(--color-navy-dark); font-size:11.5px; font-weight:700; padding:8px 4px; border:2px solid transparent; border-radius:8px; cursor:pointer;" onclick="switchLoginRole('admin')">
+          🛡️ Admin
+        </button>
+      </div>
+
+      <form onsubmit="handleConnexionSubmit(event)">
+        <input type="hidden" id="loginRoleInput" name="loginRole" value="pro">
+
+        <div id="loginNoticePro" style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:12px; color:#1e40af;">
+          🔧 <b>Espace Prestataire :</b> Connectez-vous avec votre numéro de téléphone d'artisan pour consulter les interventions reçues.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" id="loginIdentifierLabel">Numéro WhatsApp ou Téléphone de l'artisan</label>
+          <input type="text" id="loginIdentifierInput" name="identifier" class="form-control" placeholder="+235 66 12 34 56 ou votre numéro" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de passe du compte</label>
+          <input type="password" id="loginPasswordInput" name="password" class="form-control" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px;">
+          Accéder à mes interventions artisan →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale Inscription Prestataire -->
+  <div class="modal-overlay" id="modalInscription">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalInscription')">✕</button>
+      <h3 class="modal-title">Rejoindre KHIDMA Tchad</h3>
+      <p class="modal-sub">Inscrivez votre activité et recevez de nouveaux clients directement sur votre téléphone.</p>
+      
+      <form onsubmit="handleInscriptionSubmit(event)">
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Photo de profil / Logo</span>
+            <span style="font-size:11px; color:var(--color-blue); font-weight:700;">Recommandé</span>
+          </label>
+          <div class="photo-upload-wrapper" onclick="document.getElementById('modalServicesPhotoFile').click()" style="padding:10px 14px;">
+            <div class="photo-upload-inner">
+              <div class="photo-preview-placeholder" id="modalServicesPhotoPlaceholder" style="width:52px; height:52px; font-size:22px;">📷</div>
+              <img id="modalServicesPhotoPreview" class="photo-preview-avatar" src="" alt="Aperçu" style="width:52px; height:52px; display:none;">
+              <div class="photo-upload-info">
+                <div class="photo-upload-title" style="font-size:12.5px;">
+                  <span>Ajouter une photo de profil</span>
+                  <span id="modalServicesPhotoBadge" class="photo-upload-badge-loaded" style="display:none; font-size:10px; padding:1px 6px;">✓ Prête</span>
+                </div>
+                <div class="photo-upload-hint" style="font-size:11px;">Format JPG ou PNG (photo pro ou atelier)</div>
+              </div>
+            </div>
+          </div>
+          <input type="file" id="modalServicesPhotoFile" accept="image/*" style="display:none;" onchange="handleProPhotoSelect(event, 'modalServicesPhotoPreview', 'modalServicesPhotoPlaceholder', 'modalServicesPhotoBase64', 'modalServicesPhotoBadge');">
+          <input type="hidden" id="modalServicesPhotoBase64" name="proPhotoBase64" value="">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nom de votre entreprise ou Nom complet</label>
+          <input type="text" name="proName" class="form-control" placeholder="Ex : Moussa Dépannage Élec" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Domaine d'activité</label>
+          <select name="proCategory" class="form-control" required>
+            <option value="">Sélectionner une spécialité</option>
+            <option>Plomberie</option>
+            <option>Électricité</option>
+            <option>Informatique &amp; Télécom</option>
+            <option>Nettoyage &amp; Propreté</option>
+            <option>Transport &amp; Logistique</option>
+            <option>Bâtiment &amp; Rénovation</option>
+            <option>Autre métier</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Numéro WhatsApp (pour contact direct)</label>
+          <input type="tel" name="proPhone" class="form-control" placeholder="+235 66 XX XX XX" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Ville &amp; Quartier d'intervention</label>
+          <input type="text" name="proQuartier" class="form-control" placeholder="Ex : N'Djamena – Sabangali" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de passe du compte</label>
+          <input type="password" name="proPassword" class="form-control" placeholder="Créez votre mot de passe secret" required>
+        </div>
+
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px; margin-top:8px;">
+          Créer mon compte &amp; publier mon profil d'artisan
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale Intervention Ciblée -->
+  <div class="modal-overlay" id="modalIntervention">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalIntervention')">✕</button>
+      <h3 class="modal-title">🔵 Demander une intervention</h3>
+      <p class="modal-sub" id="interventionModalSub">Votre demande sera transmise en priorité à ce professionnel.</p>
+
+      <input type="hidden" id="interventionProId" value="">
+      <input type="hidden" id="interventionProName" value="">
+
+      <form onsubmit="handleDirectInterventionSubmit(event)">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Votre nom</label>
+            <input type="text" id="intervClientName" class="form-control" placeholder="Ex : Hamid Mahamat" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp / Téléphone</label>
+            <input type="tel" id="intervClientPhone" class="form-control" placeholder="+235 66 XX XX XX" required>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">Ville</label>
+            <select id="intervClientCity" class="form-control">
+              <option>N'Djamena</option>
+              <option>Moundou</option>
+              <option>Sarh</option>
+              <option>Abéché</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quartier</label>
+            <input type="text" id="intervClientQuartier" class="form-control" placeholder="Ex : Sabangali, Moursal..." required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Délai souhaité</label>
+          <select id="intervClientUrgency" class="form-control">
+            <option>Urgent (Aujourd'hui)</option>
+            <option>Dans les 48 heures</option>
+            <option>Cette semaine</option>
+            <option>Simple demande de devis</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description précise de votre problème</label>
+          <textarea id="intervClientDesc" class="form-control" rows="3" placeholder="Décrivez la panne ou les travaux à réaliser..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-yellow" style="width:100%; padding:13px; font-size:14px;">
+          Envoyer la demande d'intervention directe →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale Contact Téléphone / WhatsApp -->
+  <div class="modal-overlay" id="modalContact">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modalContact')">✕</button>
+      <h3 class="modal-title" id="contactModalTitle">Contacter le professionnel</h3>
+      <p class="modal-sub" id="contactModalSub">Coordonnées directes vérifiées :</p>
+      <div style="background:#f4f7fc; padding:16px; border-radius:12px; margin-bottom:18px;">
+        <div style="font-weight:800; font-size:14px;" id="contactModalProName">Nom Pro</div>
+        <div style="font-size:12.5px; color:#5c6e88;" id="contactModalPhone">+235 XX XX XX XX</div>
+      </div>
+      <a id="btnDirectCall" href="#" class="btn-submit-form" style="display:flex; justify-content:center; background:var(--color-green);">📞 Appeler</a>
+      <a id="btnDirectWhatsApp" href="#" target="_blank" class="btn-submit-form" style="display:flex; justify-content:center; background:#25D366; margin-top:8px;">💬 WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="toast-notice" id="toastNotice"><span id="toastMessage">Action effectuée</span></div>
+
+  <!-- ==================== MENU LATÉRAL COULISSANT MOBILE ==================== -->
+  <div class="mobile-drawer-overlay" id="mobileDrawer" onclick="closeMobileDrawer(event)">
+    <aside class="mobile-drawer-content">
+      <div class="drawer-header">
+        <div class="brand-logo">
+          <div class="brand-icon"><div class="brand-icon-inner"></div></div>
+          <div class="brand-text">
+            <span class="brand-name">KHIDMA<span class="brand-name-accent"> Tchad</span></span>
+            <span class="brand-sub">Les bons professionnels, près de vous.</span>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="toggleMobileDrawer(false)">✕</button>
+      </div>
+
+      <div class="drawer-user-card">
+        <div class="drawer-user-info">
+          <div class="drawer-avatar">👤</div>
+          <div>
+            <div style="font-weight:800; font-size:14px; color:#ffffff;">Bienvenue sur KHIDMA Tchad</div>
+            <div style="font-size:11px; color:#cbdcf4;">Catalogue complet des services</div>
+          </div>
+        </div>
+        <div class="drawer-auth-buttons">
+          <button class="btn btn-outline-white" style="font-size:12px; padding:7px 12px;" onclick="toggleMobileDrawer(false); openModal('modalConnexion');">Connexion</button>
+          <button class="btn btn-yellow" style="font-size:12px; padding:7px 12px;" onclick="toggleMobileDrawer(false); openModal('modalInscription');">Inscription</button>
+        </div>
+      </div>
+
+      <nav class="drawer-links">
+        <a href="../index.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🏠</span> <span>Accueil</span>
+        </a>
+        <a href="services.html" class="drawer-link active" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">🛠️</span> <span>Tous les Services (11)</span>
+        </a>
+        <a href="client.html" class="drawer-link" onclick="toggleMobileDrawer(false)" style="border-left:3px solid var(--color-yellow);">
+          <span class="drawer-icon">👤</span> <span>Espace Client</span>
+        </a>
+        <a href="pro.html" class="drawer-link" onclick="toggleMobileDrawer(false)" style="border-left:3px solid #10b981;">
+          <span class="drawer-icon">🧰</span> <span>Espace Professionnel</span>
+        </a>
+        <a href="devenir-prestataire.html" class="drawer-link" onclick="toggleMobileDrawer(false); return handleDevenirPrestataireClick(event)">
+          <span class="drawer-icon">🤝</span> <span>Devenir Prestataire</span>
+        </a>
+        <a href="publier-demande.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">📝</span> <span>Publier une Demande</span>
+        </a>
+        <a href="a-propos.html" class="drawer-link" onclick="toggleMobileDrawer(false)">
+          <span class="drawer-icon">ℹ️</span> <span>À propos &amp; FAQ</span>
+        </a>
+      </nav>
+
+      <div class="drawer-footer">
+        <div class="drawer-location-badge" onclick="toggleMobileDrawer(false); openModal('modalVille');">
+          <span>📍 Zone active : </span>
+          <b id="drawerSelectedCity">N'Djamena</b>
+          <span style="font-size:11px; text-decoration:underline;">Modifier</span>
+        </div>
+        <a href="https://wa.me/23566123456" target="_blank" class="drawer-support-btn">
+          <span>💬</span> <span>Support WhatsApp</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ==================== BARRE MOBILE BASSE ==================== -->
+  <nav class="mobile-bottom-bar" aria-label="Navigation mobile rapide">
+    <a href="../index.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="services.html" class="bottom-nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Services</span>
+    </a>
+    <a href="publier-demande.html" class="bottom-nav-item bottom-nav-center">
+      <div class="center-pill-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </div>
+      <span>Demande</span>
+    </a>
+    <a href="../index.html#prestataires" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span>Pros</span>
+    </a>
+    <button type="button" class="bottom-nav-item" onclick="toggleMobileDrawer(true)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      <span>Menu</span>
+    </button>
+  </nav>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="../js/data.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/modals.js"></script>
+  <script src="../js/search.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/handlers.js"></script>
+  <script>
+    function switchServicesView(view) {
+      const prosView = document.getElementById('servicesProsView');
+      const missionsView = document.getElementById('servicesMissionsView');
+      const tabPros = document.getElementById('tabServicesPros');
+      const tabMissions = document.getElementById('tabServicesMissions');
+
+      if (view === 'missions') {
+        prosView.style.display = 'none';
+        missionsView.style.display = 'block';
+        tabMissions.className = 'btn btn-yellow';
+        tabPros.className = 'btn';
+        tabPros.style.background = '#f1f5fa';
+        tabPros.style.color = 'var(--color-navy-dark)';
+        renderServicesMissions('all');
+      } else {
+        missionsView.style.display = 'none';
+        prosView.style.display = 'block';
+        tabPros.className = 'btn btn-yellow';
+        tabMissions.className = 'btn';
+        tabMissions.style.background = '#f1f5fa';
+        tabMissions.style.color = 'var(--color-navy-dark)';
+      }
+    }
+
+    function renderServicesMissions(filterCat = 'all') {
+      const container = document.getElementById('servicesMissionsGrid');
+      if (!container) return;
+
+      const demandes = (typeof getAllDemandes === 'function') ? getAllDemandes() : [];
+      const openDemandes = demandes.filter(d => {
+        if (d.status === 'terminee') return false;
+        if (filterCat !== 'all' && d.category !== filterCat) return false;
+        return true;
+      });
+
+      if (openDemandes.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align:center; padding:40px; background:#fff; border-radius:14px; border:1px solid #e2e8f0;">
+            <p style="font-weight:700; color:var(--color-navy-dark);">Aucune demande en cours pour cette catégorie.</p>
+            <button class="btn btn-yellow" style="margin-top:10px;" onclick="renderServicesMissions('all')">Voir toutes les demandes</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = openDemandes.map(d => {
+        const quotes = d.quotes || [];
+        const count = quotes.length;
+        const isHot = count >= 3;
+        const escapedTitle = (d.title || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        const escapedBudget = (d.budget || '15 000 — 30 000 FCFA').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+        return `
+          <article class="mission-card ${isHot ? 'hot-demand' : ''}">
+            <div>
+              <div class="mission-top-row">
+                <span class="mission-cat-tag">🛠️ ${d.category}</span>
+                <span class="mission-postulants-badge ${isHot ? 'high' : ''}">
+                  ${count > 0 ? `🔥 ${count} artisan(s) ont postulé` : `⚡ Soyez le 1er postulant`}
+                </span>
+              </div>
+
+              <h3 class="mission-title">${d.title}</h3>
+              <p class="mission-desc">${d.description}</p>
+
+              <div class="mission-meta-chips">
+                <span class="mission-chip">📍 ${d.quartier} (${d.city})</span>
+                <span class="mission-chip budget">💰 ${d.budget || "15 000 — 30 000 FCFA"}</span>
+                <span class="mission-chip urgency">⏰ ${d.urgency}</span>
+              </div>
+
+              ${count > 0 ? `
+                <div class="mission-postulants-preview">
+                  <div class="postulants-preview-header">
+                    <span>Offres des artisans :</span>
+                    <span style="color:var(--color-green); font-weight:800;">Dès ${quotes[0].amount}</span>
+                  </div>
+                  <div class="postulants-summary-text">
+                    ${quotes.length} professionnel(s) en concurrence. Délai moyen : ${quotes[0].delay}.
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="mission-action-footer">
+              <span style="font-size:11px; color:var(--color-text-muted);">Reçue : ${d.createdAt || "Récemment"}</span>
+              <a href="pro.html" class="btn-postuler-mission" style="text-decoration:none;">
+                💼 Postuler à ce chantier →
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Afficher les catégories
+      const catContainer = document.getElementById('fullCategoriesGrid');
+      if (catContainer && typeof CATEGORIES_DATA !== 'undefined') {
+        catContainer.innerHTML = CATEGORIES_DATA.map(c => `
+          <div class="category-card" onclick="filterByCategory('${c.name}', this)">
+            <div class="cat-circle ${c.colorClass}">${c.icon}</div>
+            <span class="cat-title">${c.name}</span>
+          </div>
+        `).join('');
+      }
+
+      // Afficher les prestataires dynamiquement depuis LocalStorage
+      if (typeof renderProvidersGrid === 'function') {
+        renderProvidersGrid('providersContainer', true);
+      }
+
+      if (typeof updateQuartiersList === 'function') {
+        updateQuartiersList();
+      }
+
+      // Vérifier si paramètre URL vers missions
+      if (window.location.search.includes('view=missions') || window.location.hash === '#chantiers') {
+        switchServicesView('missions');
+      }
+    });
+  </script>
+</body>
+</html>

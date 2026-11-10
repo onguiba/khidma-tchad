@@ -1,0 +1,186 @@
+/* ============================================================
+   KHIDMA TCHAD / PROXITCHAD - DESIGN SYSTEM & VARIABLES CSS
+   Couleurs, Typographies, Ombres & Espacements
+   v3.0 — Design Premium AlloVoisins Inspired
+============================================================ */
+
+:root {
+  /* ========= PALETTE PRINCIPALE (Marque ProxiTchad) ========= */
+  --color-navy-dark: #05172e;
+  --color-navy: #07214a;
+  --color-navy-light: #0b3068;
+  --color-blue: #0a47a9;
+  --color-blue-mid: #1358c8;
+  --color-blue-hover: #073990;
+  --color-blue-light: #e8f2ff;
+  --color-blue-glow: rgba(10, 71, 169, 0.25);
+
+  /* ========= ACCENTUATION DORÉE / ORANGE TCHAD ========= */
+  --color-yellow: #f5a623;
+  --color-yellow-deep: #e8940f;
+  --color-yellow-hover: #d4850d;
+  --color-yellow-light: #fff7e6;
+  --color-yellow-glow: rgba(245, 166, 35, 0.35);
+  --color-orange: #f97316;
+  --color-orange-light: #fff3eb;
+
+  /* ========= COULEURS DE STATUT & VALIDATION ========= */
+  --color-green: #16a34a;
+  --color-green-hover: #15803d;
+  --color-green-light: #dcfce7;
+  --color-green-border: #86efac;
+  --color-green-glow: rgba(22, 163, 74, 0.2);
+  --color-star: #f59e0b;
+  --color-red: #dc2626;
+  --color-red-light: #fee2e2;
+
+  /* ========= NUANCES DE TEXTE & ARRIÈRE-PLANS ========= */
+  --color-text-main: #0f2340;
+  --color-text-secondary: #3d5470;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
+  --color-white: #ffffff;
+  --color-bg-page: #f5f7fb;
+  --color-bg-card: #ffffff;
+  --color-bg-subtle: #eef2f7;
+  --color-bg-dark: #060f1e;
+  --color-border: #e1e8f0;
+  --color-border-hover: #c2d4eb;
+  --color-border-strong: #a8bdd6;
+
+  /* ========= COULEURS DES CATÉGORIES ========= */
+  --cat-blue: #1886e0;
+  --cat-amber: #f59e0b;
+  --cat-teal: #0d9488;
+  --cat-green: #16a34a;
+  --cat-purple: #7c3aed;
+  --cat-orange: #f97316;
+  --cat-red: #e11d48;
+  --cat-indigo: #4f46e5;
+  --cat-magenta: #c026d3;
+  --cat-emerald: #059669;
+  --cat-slate: #475569;
+
+  /* ========= TYPOGRAPHIES ========= */
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-script: 'Kalam', cursive, sans-serif;
+
+  /* ========= OMBRES PORTÉES — NIVEAU PREMIUM ========= */
+  --shadow-xs: 0 1px 4px rgba(7, 33, 74, 0.05);
+  --shadow-sm: 0 2px 8px rgba(7, 33, 74, 0.07);
+  --shadow-md: 0 6px 24px rgba(7, 33, 74, 0.1);
+  --shadow-lg: 0 14px 40px rgba(7, 33, 74, 0.14);
+  --shadow-xl: 0 24px 64px rgba(5, 23, 46, 0.22);
+  --shadow-2xl: 0 40px 80px rgba(5, 23, 46, 0.3);
+  --shadow-glow-yellow: 0 6px 28px rgba(245, 166, 35, 0.45);
+  --shadow-glow-blue: 0 6px 28px rgba(10, 71, 169, 0.35);
+  --shadow-glow-green: 0 6px 20px rgba(22, 163, 74, 0.3);
+  --shadow-card-hover: 0 20px 50px rgba(7, 33, 74, 0.16);
+
+  /* ========= GLASSMORPHISME ========= */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg-strong: rgba(255, 255, 255, 0.18);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-blur: blur(16px);
+  --glass-blur-strong: blur(24px);
+
+  /* ========= RAYONS DE BORDURE ========= */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-3xl: 36px;
+  --radius-full: 9999px;
+
+  /* ========= TRANSITIONS ========= */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-slow: 0.6s ease;
+
+  /* ========= ESPACEMENTS SYSTÈME ========= */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+}
+
+/* =====================================================
+   UTILITAIRES GLOBAUX
+===================================================== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-yellow) 0%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: linear-gradient(135deg, #1358c8 0%, #0a47a9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========= KEYFRAMES ANIMATIONS ========= */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.7; }
+  50%  { transform: scale(1.4); opacity: 0.3; }
+  100% { transform: scale(1); opacity: 0.7; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
+}
+
+@keyframes badge-pop {
+  0%   { transform: scale(0.8); opacity: 0; }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
