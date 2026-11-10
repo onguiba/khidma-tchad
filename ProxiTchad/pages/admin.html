@@ -109,10 +109,13 @@
     <!-- Onglets Admin -->
     <div class="dashboard-nav-tabs" style="border-radius:12px 12px 0 0; margin-bottom:18px;">
       <div class="dashboard-tab-item active" onclick="switchAdminTab('providers', this)">
-        Artisans &amp; Vérification IA <span class="tab-counter" id="tabCountAdminPros">0</span>
+        Artisans &amp; Vérification CNI <span class="tab-counter" id="tabCountAdminPros">0</span>
       </div>
       <div class="dashboard-tab-item" onclick="switchAdminTab('demandes', this)">
-        Flux des Demandes de services <span class="tab-counter" id="tabCountAdminDemandes">0</span>
+        Flux &amp; Vérification des Demandes <span class="tab-counter" id="tabCountAdminDemandes">0</span>
+      </div>
+      <div class="dashboard-tab-item" onclick="switchAdminTab('communications', this)">
+        📢 Communications &amp; Partage d'Informations <span class="tab-counter" id="tabCountAdminComms" style="background:#dbeafe; color:#1e40af;">0</span>
       </div>
       <div class="dashboard-tab-item" onclick="switchAdminTab('config', this)">
         Villes &amp; Catégories Tchad
@@ -437,9 +440,116 @@
                     <span><b>Artisan assigné :</b> ${d.agreedProName || "Aucun pour le moment"}</span>
                     <span><b>Montant retenu :</b> ${d.agreedPrice || "N/A"}</span>
                   </div>
+
+                  <div style="margin-top:12px; padding-top:10px; border-top:1px dashed #e2e8f0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <div style="font-size:12px; color:#0f2c59; display:flex; align-items:center; gap:6px;">
+                      <span>🛡️ <b>Statut Modération :</b></span>
+                      <span style="font-weight:700; color:${d.status === 'rejetee' ? '#dc2626' : '#16a34a'};">
+                        ${d.status === 'rejetee' ? '❌ Demande rejetée' : '✓ Validée par l\'administrateur'}
+                      </span>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                      <button class="btn btn-yellow" style="font-size:11px; padding:5px 12px; font-weight:700;" onclick="handleAdminApproveDemande('${d.id}', true)">
+                        ✓ Valider &amp; Diffuser aux artisans
+                      </button>
+                      <button class="btn btn-outline-white" style="color:#ef4444; border-color:#fca5a5; font-size:11px; padding:5px 10px;" onclick="handleAdminApproveDemande('${d.id}', false)">
+                        ❌ Rejeter
+                      </button>
+                    </div>
+                  </div>
                 </div>
               `;
         }).join('')}
+          </div>
+        `;
+      }
+
+      // TAB 3 : Centre de Communications & Partage d'Informations
+      else if (activeAdminTab === 'communications') {
+        const comms = window._adminCommunicationsList || [];
+        container.innerHTML = `
+          <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:22px; align-items:start;">
+            <!-- Formulaire d'envoi d'annonce ou message -->
+            <div style="background:#fff; border:1px solid var(--color-border); border-radius:14px; padding:22px; box-shadow:var(--shadow-sm);">
+              <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin-bottom:6px; display:flex; align-items:center; gap:8px;">
+                <span>📢</span> <span>Diffuser une Communication Officielle</span>
+              </h3>
+              <p style="font-size:12px; color:var(--color-text-muted); margin-bottom:16px;">
+                Partagez des consignes, informations ou avis officiels aux prestataires et clients au Tchad.
+              </p>
+
+              <form onsubmit="handlePublishAdminCommunication(event)">
+                <div class="form-group" style="margin-bottom:12px;">
+                  <label class="form-label" style="font-size:12.5px;">Titre de l'annonce ou communication <span style="color:#ef4444;">*</span></label>
+                  <input type="text" name="commTitle" class="form-control" placeholder="Ex : Consignes de sécurité et vérification CNI" required>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size:12.5px;">Destinataires</label>
+                    <select name="commRecipient" class="form-control">
+                      <option value="all">Diffuser à tous (Artisans + Clients)</option>
+                      <option value="pros">Uniquement aux Artisans / Prestataires</option>
+                      <option value="clients">Uniquement aux Clients</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size:12.5px;">Niveau d'importance</label>
+                    <select name="commLevel" class="form-control">
+                      <option value="info">ℹ️ Information générale</option>
+                      <option value="important">⚠️ Important / Urgent</option>
+                      <option value="alerte">🚨 Alerte officielle</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:16px;">
+                  <label class="form-label" style="font-size:12.5px;">Message / Instructions officielles <span style="color:#ef4444;">*</span></label>
+                  <textarea name="commMessage" class="form-control" rows="4" placeholder="Rédigez votre communiqué ou vos consignes pour les utilisateurs..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-yellow" style="width:100%; padding:12px; font-weight:800; font-size:13.5px;">
+                  🚀 Publier &amp; Notifier immédiatement →
+                </button>
+              </form>
+            </div>
+
+            <!-- Flux des communications publiées -->
+            <div style="background:#fff; border:1px solid var(--color-border); border-radius:14px; padding:22px; box-shadow:var(--shadow-sm);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 style="font-size:16px; font-weight:800; color:var(--color-navy-dark); margin:0;">
+                  Historique des Communications (${comms.length})
+                </h3>
+                <button type="button" class="btn btn-outline-white" style="font-size:11px; padding:4px 10px;" onclick="loadAdminCommunications()">
+                  🔄 Actualiser
+                </button>
+              </div>
+
+              ${comms.length === 0 ? `
+                <div style="text-align:center; padding:36px 16px; color:#64748b; font-size:13px; background:#f8fafc; border-radius:10px; border:1px dashed #cbd5e1;">
+                  <div style="font-size:32px; margin-bottom:8px;">💬</div>
+                  Aucune communication officielle publiée pour le moment.<br>Utilisez le formulaire ci-contre pour diffuser votre premier message.
+                </div>
+              ` : `
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                  ${comms.map((c, i) => `
+                    <div style="background:${c.level === 'alerte' ? '#fef2f2' : c.level === 'important' ? '#fffbeb' : '#f0f9ff'}; border:1px solid ${c.level === 'alerte' ? '#fecaca' : c.level === 'important' ? '#fde68a' : '#bae6fd'}; border-radius:10px; padding:14px;">
+                      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+                        <div style="font-weight:800; font-size:13.5px; color:#0f2c59;">${c.title}</div>
+                        <span style="font-size:10.5px; padding:2px 8px; border-radius:12px; font-weight:700; background:${c.level === 'alerte' ? '#ef4444' : c.level === 'important' ? '#f59e0b' : '#0284c7'}; color:#ffffff;">
+                          ${c.recipient_type === 'pros' ? 'Artisans' : c.recipient_type === 'clients' ? 'Clients' : 'Général'}
+                        </span>
+                      </div>
+                      <p style="font-size:12.5px; color:#334155; margin:0 0 8px 0; line-height:1.5;">${c.message}</p>
+                      <div style="font-size:11px; color:#64748b; display:flex; justify-content:space-between; align-items:center;">
+                        <span>✍️ Par : <b>${c.sender_name || 'Daniel Onguiba Boutna'}</b></span>
+                        <span>🗓️ ${c.created_at || "Récemment"}</span>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              `}
+            </div>
           </div>
         `;
       }
@@ -651,8 +761,11 @@
             <button class="btn btn-yellow" style="flex:1; padding:12px; font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="handleAdminValidateWithAi(${p.id})">
               <span>✓ Valider la CNI &amp; Débloquer l'artisan</span>
             </button>
-            <button class="btn btn-outline-white" style="color:#dc2626; border-color:#fca5a5; font-size:12.5px; padding:12px 16px; font-weight:700;" onclick="handleAdminRejectCandidate(${p.id})">
-              <span>❌ Refuser la candidature</span>
+            <button class="btn btn-outline-white" style="color:#0f2c59; border-color:#94a3b8; font-size:12.5px; padding:12px 14px; font-weight:700;" onclick="handleAdminSendMessageToPro(${p.id}, '${p.name}')">
+              <span>💬 Message direct</span>
+            </button>
+            <button class="btn btn-outline-white" style="color:#dc2626; border-color:#fca5a5; font-size:12.5px; padding:12px 14px; font-weight:700;" onclick="handleAdminRejectCandidate(${p.id})">
+              <span>❌ Refuser</span>
             </button>
           </div>
         `;
@@ -661,12 +774,106 @@
       openModal('modalInspectCni');
     }
 
-    // Simuler une nouvelle candidature d'artisan
-    function handleAdminSimulatePro() {
-      if (typeof simulatePendingProvider === 'function') {
-        const newPro = simulatePendingProvider();
-        showToast(`🤖 Nouvelle candidature reçue : ${newPro.name} (CNI N° ${newPro.cniNumber}) en attente de validation !`);
+    // Modération des demandes de clients
+    async function handleAdminApproveDemande(demandeId, approved) {
+      try {
+        const token = localStorage.getItem('khidma_jwt_token');
+        const res = await fetch(`http://localhost:3001/api/demandes/${demandeId}/approve`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify({ approved })
+        });
+        const data = await res.json();
+        showToast(approved ? '✅ Demande approuvée et rendue publique pour les artisans !' : '❌ Demande rejetée.');
+      } catch(e) {
+        showToast(approved ? '✅ Demande approuvée localement !' : '❌ Demande rejetée.');
+      }
+      location.reload();
+    }
+
+    // Charger les communications officielles
+    async function loadAdminCommunications() {
+      try {
+        const res = await fetch('http://localhost:3001/api/communications');
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          window._adminCommunicationsList = data.data;
+          const badge = document.getElementById('tabCountAdminComms');
+          if (badge) badge.textContent = data.data.length;
+        }
+      } catch(e) {
+        window._adminCommunicationsList = window._adminCommunicationsList || [];
+      }
+      if (activeAdminTab === 'communications') renderAdminDashboard();
+    }
+
+    // Publier une communication officielle
+    async function handlePublishAdminCommunication(e) {
+      e.preventDefault();
+      const form = e.target;
+      const title = form.querySelector('[name="commTitle"]').value;
+      const recipientType = form.querySelector('[name="commRecipient"]').value;
+      const level = form.querySelector('[name="commLevel"]').value;
+      const message = form.querySelector('[name="commMessage"]').value;
+
+      try {
+        const token = localStorage.getItem('khidma_jwt_token');
+        const res = await fetch('http://localhost:3001/api/communications', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify({ title, recipientType, level, message })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('📢 Communication officielle diffusée avec succès !');
+          form.reset();
+          await loadAdminCommunications();
+        } else {
+          showToast('❌ ' + (data.error || 'Erreur lors de la publication.'));
+        }
+      } catch(err) {
+        // Fallback local
+        if (!window._adminCommunicationsList) window._adminCommunicationsList = [];
+        window._adminCommunicationsList.unshift({
+          title, recipient_type: recipientType, level, message,
+          sender_name: 'Daniel Onguiba Boutna', created_at: "À l'instant"
+        });
+        showToast('📢 Communication enregistrée !');
+        form.reset();
         renderAdminDashboard();
+      }
+    }
+
+    // Message direct de l'administrateur à un artisan
+    async function handleAdminSendMessageToPro(proId, proName) {
+      const msg = prompt(`Envoyer un message direct de l'administrateur à ${proName} (concernant son dossier CNI ou ses chantiers) :`);
+      if (!msg) return;
+
+      try {
+        const token = localStorage.getItem('khidma_jwt_token');
+        await fetch('http://localhost:3001/api/communications', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify({
+            title: `Message de l'Administrateur pour ${proName}`,
+            message: msg,
+            recipientType: 'pro_single',
+            targetUserId: proId,
+            level: 'important'
+          })
+        });
+        showToast(`💬 Message transmis à ${proName} !`);
+      } catch(e) {
+        showToast(`💬 Message enregistré pour ${proName} !`);
       }
     }
 
@@ -678,6 +885,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       renderAdminDashboard();
+      loadAdminCommunications();
     });
   </script>
 

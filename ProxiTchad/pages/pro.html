@@ -98,6 +98,9 @@
     </div>
 
 
+    <!-- BANNIÈRE DE COMMUNICATIONS OFFICIELLES ADMINISTRATEUR -->
+    <div id="proAdminCommunicationsFeed" style="display:none; margin-bottom:22px;"></div>
+
     <!-- KPIs Statistiques -->
     <div class="stats-grid" style="margin-bottom:24px;">
       <div class="stat-kpi-card" style="border-left:3px solid #f59e0b;">
@@ -689,6 +692,48 @@
       const topbarName = document.getElementById('proTopbarAccountName');
       if (topbarName) {
         topbarName.textContent = 'Artisan : ' + (pro.companyName || pro.name);
+      }
+
+      loadProCommunications(pro);
+    }
+
+    async function loadProCommunications(pro) {
+      const feed = document.getElementById('proAdminCommunicationsFeed');
+      if (!feed) return;
+      try {
+        const res = await fetch(`http://localhost:3001/api/communications?recipientType=pros&targetUserId=${pro ? pro.id : ''}`);
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+          feed.style.display = 'block';
+          feed.innerHTML = `
+            <div style="background:#f0f9ff; border:1.5px solid #0284c7; border-radius:14px; padding:16px 20px; box-shadow:0 4px 14px rgba(2,132,199,0.1);">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+                <div style="display:flex; align-items:center; gap:8px; font-weight:800; font-size:14px; color:#0369a1;">
+                  <span style="font-size:20px;">📢</span>
+                  <span>Message de l'Administration (Daniel Onguiba Boutna)</span>
+                </div>
+                <span style="background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 8px; border-radius:10px;">
+                  ${data.data.length} communiqué(s)
+                </span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                ${data.data.slice(0, 3).map(c => `
+                  <div style="background:#ffffff; border-radius:10px; padding:12px; border:1px solid #bae6fd;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                      <div style="font-weight:800; font-size:13px; color:#0c4a6e;">${c.title}</div>
+                      <span style="font-size:10px; color:#64748b;">${c.created_at || "Aujourd'hui"}</span>
+                    </div>
+                    <p style="font-size:12px; color:#334155; margin:0; line-height:1.5;">${c.message}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        } else {
+          feed.style.display = 'none';
+        }
+      } catch(e) {
+        feed.style.display = 'none';
       }
     }
 
