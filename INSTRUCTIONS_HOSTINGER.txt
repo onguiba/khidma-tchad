@@ -1,0 +1,183 @@
+═══════════════════════════════════════════════════════════════════════
+  📋 INSTRUCTIONS RAPIDES - DÉPLOIEMENT HOSTINGER
+  KHIDMA Tchad - Plateforme de Services au Tchad
+═══════════════════════════════════════════════════════════════════════
+
+✅ PROJET POUSSÉ SUR GITHUB !
+URL: https://github.com/onguiba/khidma-tchad
+
+═══════════════════════════════════════════════════════════════════════
+  🚀 ÉTAPE 1 : PRÉPARER LES FICHIERS
+═══════════════════════════════════════════════════════════════════════
+
+1. Ouvrez le dossier : ProxiTchad\
+
+2. Sélectionnez TOUT le contenu :
+   ✅ index.html
+   ✅ .htaccess (fichier caché - important !)
+   ✅ Dossier css\
+   ✅ Dossier js\
+   ✅ Dossier images\
+   ✅ Dossier pages\
+
+3. ❌ NE PAS inclure :
+   ❌ Le dossier backend\
+   ❌ Le fichier DEMARRER_BACKEND.bat
+   ❌ Les fichiers node_modules\
+
+═══════════════════════════════════════════════════════════════════════
+  🌐 ÉTAPE 2 : CONNEXION À HOSTINGER
+═══════════════════════════════════════════════════════════════════════
+
+1. Allez sur : https://hpanel.hostinger.com
+
+2. Connectez-vous avec vos identifiants Hostinger
+
+3. Cliquez sur "File Manager" (Gestionnaire de fichiers)
+
+4. Accédez au dossier : public_html\
+
+═══════════════════════════════════════════════════════════════════════
+  📤 ÉTAPE 3 : TÉLÉCHARGER LES FICHIERS
+═══════════════════════════════════════════════════════════════════════
+
+1. Dans public_html\ :
+   - SUPPRIMEZ les fichiers par défaut (index.html existant, etc.)
+   - Gardez le dossier vide
+
+2. Cliquez sur "Upload Files" (Télécharger des fichiers)
+
+3. Sélectionnez TOUS les fichiers du dossier ProxiTchad\
+   (vous pouvez faire glisser-déposer)
+
+4. Attendez la fin du téléchargement (100%)
+
+═══════════════════════════════════════════════════════════════════════
+  ⚙️ ÉTAPE 4 : VÉRIFIER LA STRUCTURE
+═══════════════════════════════════════════════════════════════════════
+
+Votre public_html\ doit ressembler à ça :
+
+public_html/
+├── index.html
+├── .htaccess          ← IMPORTANT (fichier caché)
+├── css/
+│   ├── base.css
+│   ├── components.css
+│   └── ...
+├── js/
+│   ├── api.js
+│   ├── app.js
+│   └── ...
+├── images/
+│   └── ...
+└── pages/
+    ├── a-propos.html
+    ├── admin.html
+    └── ...
+
+═══════════════════════════════════════════════════════════════════════
+  🔐 ÉTAPE 5 : VÉRIFIER LES PERMISSIONS
+═══════════════════════════════════════════════════════════════════════
+
+Dans File Manager Hostinger :
+
+1. Sélectionnez tous les FICHIERS (.html, .css, .js, .htaccess)
+   - Clic droit → Permissions → 644
+
+2. Sélectionnez tous les DOSSIERS (css, js, images, pages)
+   - Clic droit → Permissions → 755
+
+═══════════════════════════════════════════════════════════════════════
+  ✨ ÉTAPE 6 : TESTER VOTRE SITE
+═══════════════════════════════════════════════════════════════════════
+
+1. Ouvrez votre navigateur
+
+2. Allez sur votre nom de domaine :
+   https://votre-site.com
+   (ou le domaine fourni par Hostinger)
+
+3. Vous devriez voir la page d'accueil KHIDMA Tchad !
+
+═══════════════════════════════════════════════════════════════════════
+  🚨 EN CAS DE PROBLÈME "NOT FOUND"
+═══════════════════════════════════════════════════════════════════════
+
+VÉRIFICATION 1 : Le fichier index.html existe-t-il ?
+   → Il doit être à la RACINE de public_html\
+
+VÉRIFICATION 2 : Le fichier .htaccess est-il présent ?
+   → Activez "Afficher les fichiers cachés" dans File Manager
+   → Il doit être à côté de index.html
+
+VÉRIFICATION 3 : Testez directement :
+   → https://votre-site.com/index.html
+   → Si ça marche, le problème vient de .htaccess
+
+VÉRIFICATION 4 : Permissions correctes ?
+   → Fichiers : 644
+   → Dossiers : 755
+
+VÉRIFICATION 5 : Videz le cache de votre navigateur
+   → Ctrl + Shift + R (Windows)
+   → Cmd + Shift + R (Mac)
+
+═══════════════════════════════════════════════════════════════════════
+  🔑 COMPTES DE TEST
+═══════════════════════════════════════════════════════════════════════
+
+ADMINISTRATEUR :
+   Email : onguibaboutnadaniel@gmail.com
+   Mot de passe : 12345
+
+PRESTATAIRE :
+   Créez un compte depuis "Devenir Prestataire"
+
+CLIENT :
+   Créez un compte depuis "Connexion" → "Créer un compte"
+
+═══════════════════════════════════════════════════════════════════════
+  📊 MODE DE FONCTIONNEMENT ACTUEL
+═══════════════════════════════════════════════════════════════════════
+
+✅ Le site fonctionne en mode FRONTEND UNIQUEMENT
+✅ Les données sont stockées dans le navigateur (LocalStorage)
+✅ Parfait pour démonstration et tests
+
+⚠️ LIMITATIONS :
+   - Les données ne sont PAS partagées entre utilisateurs
+   - Chaque navigateur a ses propres données
+   - Si vous videz le cache, les données sont perdues
+
+💡 POUR PARTAGER LES DONNÉES ENTRE UTILISATEURS :
+   - Déployez le backend sur Railway/Render
+   - Voir le fichier DEPLOIEMENT.md pour les instructions
+
+═══════════════════════════════════════════════════════════════════════
+  📞 SUPPORT
+═══════════════════════════════════════════════════════════════════════
+
+Email : onguibaboutnadaniel@gmail.com
+GitHub : https://github.com/onguiba/khidma-tchad
+Documentation : Voir README.md et DEPLOIEMENT.md
+
+═══════════════════════════════════════════════════════════════════════
+  ✅ CHECKLIST FINALE
+═══════════════════════════════════════════════════════════════════════
+
+□ Fichiers téléchargés sur Hostinger
+□ Structure vérifiée (index.html + .htaccess à la racine)
+□ Permissions correctes (fichiers 644, dossiers 755)
+□ Site accessible sur le domaine
+□ Page d'accueil s'affiche correctement
+□ Liens de navigation fonctionnent
+□ Images s'affichent
+□ Formulaire de connexion fonctionne
+□ Création de compte prestataire testée
+
+═══════════════════════════════════════════════════════════════════════
+
+Félicitations ! Votre site KHIDMA Tchad est maintenant en ligne ! 🎉🇹🇩
+
+═══════════════════════════════════════════════════════════════════════
