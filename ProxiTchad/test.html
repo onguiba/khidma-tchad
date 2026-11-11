@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test KHIDMA Tchad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid #4CAF50;
+        }
+        .error {
+            border-left-color: #f44336;
+        }
+        h1 {
+            color: #333;
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .fail {
+            color: #f44336;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Test de Diagnostic KHIDMA Tchad</h1>
+    
+    <div class="status">
+        <h3>✅ Test 1: Fichier HTML chargé</h3>
+        <p>Si vous voyez ce message, le fichier HTML fonctionne correctement.</p>
+    </div>
+    
+    <div class="status" id="cssTest">
+        <h3>⏳ Test 2: Fichiers CSS</h3>
+        <p id="cssResult">Vérification en cours...</p>
+    </div>
+    
+    <div class="status" id="jsTest">
+        <h3>⏳ Test 3: Fichiers JavaScript</h3>
+        <p id="jsResult">Vérification en cours...</p>
+    </div>
+    
+    <div class="status" id="imagesTest">
+        <h3>⏳ Test 4: Images</h3>
+        <p id="imagesResult">Vérification en cours...</p>
+    </div>
+    
+    <div class="status">
+        <h3>📋 Instructions de correction</h3>
+        <ol>
+            <li>Vérifiez que TOUS les dossiers sont téléchargés : css/, js/, images/, pages/</li>
+            <li>Vérifiez que le fichier .htaccess est présent (fichier caché)</li>
+            <li>Permissions : Fichiers 644, Dossiers 755</li>
+            <li>Si une erreur persiste, consultez les logs d'erreur dans le panneau Hostinger</li>
+        </ol>
+    </div>
+    
+    <script>
+        // Test CSS
+        fetch('css/styles.css')
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('cssResult').innerHTML = '<span class="success">✅ Fichiers CSS chargés correctement</span>';
+                } else {
+                    document.getElementById('cssTest').classList.add('error');
+                    document.getElementById('cssResult').innerHTML = '<span class="fail">❌ Erreur : Fichiers CSS non trouvés</span>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('cssTest').classList.add('error');
+                document.getElementById('cssResult').innerHTML = '<span class="fail">❌ Erreur CSS : ' + error.message + '</span>';
+            });
+        
+        // Test JS
+        fetch('js/app.js')
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('jsResult').innerHTML = '<span class="success">✅ Fichiers JavaScript chargés correctement</span>';
+                } else {
+                    document.getElementById('jsTest').classList.add('error');
+                    document.getElementById('jsResult').innerHTML = '<span class="fail">❌ Erreur : Fichiers JS non trouvés</span>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('jsTest').classList.add('error');
+                document.getElementById('jsResult').innerHTML = '<span class="fail">❌ Erreur JS : ' + error.message + '</span>';
+            });
+        
+        // Test Images
+        fetch('images/hero_artisan.jpg')
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('imagesResult').innerHTML = '<span class="success">✅ Dossier images accessible</span>';
+                } else {
+                    document.getElementById('imagesTest').classList.add('error');
+                    document.getElementById('imagesResult').innerHTML = '<span class="fail">❌ Erreur : Dossier images non trouvé</span>';
+                }
+            })
+            .catch(error => {
+                document.getElementById('imagesTest').classList.add('error');
+                document.getElementById('imagesResult').innerHTML = '<span class="fail">❌ Erreur images : ' + error.message + '</span>';
+            });
+        
+        // Afficher les informations du navigateur
+        setTimeout(() => {
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'status';
+            infoDiv.innerHTML = `
+                <h3>ℹ️ Informations Système</h3>
+                <p><strong>URL actuelle :</strong> ${window.location.href}</p>
+                <p><strong>Navigateur :</strong> ${navigator.userAgent}</p>
+                <p><strong>Date :</strong> ${new Date().toLocaleString('fr-FR')}</p>
+            `;
+            document.body.appendChild(infoDiv);
+        }, 1000);
+    </script>
+</body>
+</html>
