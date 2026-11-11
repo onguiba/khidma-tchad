@@ -14,8 +14,41 @@ const fs = require('fs');
 const { db, initDatabase } = require('./database');
 
 const app = express();
-const PORT = 3001;
-const JWT_SECRET = 'khidma_tchad_jwt_secret_2025_secure';
+const PORT = process.env.PORT || 3001;
+const JWT_SECRET = process.env.JWT_SECRET || 'khidma_tchad_jwt_secret_2025_secure';
+
+// ============================================================
+// HEALTH CHECK & STATUS
+// ============================================================
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    service: 'KHIDMA Tchad API',
+    version: '2.0',
+    timestamp: new Date().toISOString(),
+    database: 'connected'
+  });
+});
+
+app.get('/api/health', (req, res) => {
+  try {
+    // Vérifier la connexion à la base de données
+    const result = db.prepare('SELECT COUNT(*) as count FROM providers').get();
+    res.status(200).json({ 
+      status: 'OK', 
+      service: 'KHIDMA Tchad API',
+      version: '2.0',
+      timestamp: new Date().toISOString(),
+      database: 'connected',
+      providers: result.count
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      status: 'ERROR', 
+      error: error.message 
+    });
+  }
+});
 
 // ============================================================
 // MIDDLEWARES

@@ -4,9 +4,25 @@
  * Remplace le LocalStorage par de vraies requêtes HTTP
  */
 
-// Configuration : Mode Frontend uniquement (sans backend Node.js)
-// Pour Hostinger : le backend est désactivé par défaut
-const API_BASE_URL = null; // Backend désactivé - Mode LocalStorage uniquement
+// Configuration automatique de l'URL de l'API selon l'environnement
+const API_BASE_URL = (() => {
+  const hostname = window.location.hostname;
+  
+  // Développement local
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'http://localhost:3001/api';
+  }
+  
+  // Production avec Docker ou serveur backend
+  // Si le backend est hébergé sur le même domaine (reverse proxy)
+  if (hostname.includes('khidma') || hostname.includes('tchad')) {
+    return `${window.location.protocol}//${hostname}/api`;
+  }
+  
+  // Mode Frontend uniquement (Hostinger sans backend)
+  // Désactivé par défaut pour forcer l'utilisation de LocalStorage
+  return null;
+})();
 
 // ============================================================
 // GESTION DU TOKEN JWT & SESSION

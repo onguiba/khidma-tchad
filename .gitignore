@@ -22,6 +22,9 @@ yarn-error.log*
 .env.local
 .env.production
 
+# Garder .env.example comme template
+!.env.example
+
 # Système d'exploitation
 .DS_Store
 .DS_Store?

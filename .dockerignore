@@ -1,0 +1,56 @@
+# Fichiers à ignorer lors du build Docker
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Node modules
+node_modules
+backend/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Base de données temporaires
+*.db-shm
+*.db-wal
+
+# Fichiers de configuration locale
+.env.local
+.env.development
+.env.test
+
+# Documentation
+README.md
+DEPLOIEMENT.md
+RESUME_DEPLOIEMENT.md
+INSTRUCTIONS_HOSTINGER.txt
+*.md
+
+# Système d'exploitation
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Fichiers temporaires
+*.tmp
+*.temp
+*.log
+*.cache
+
+# Scripts Windows
+*.bat
+*.cmd
+
+# Tests
+tests/
+__tests__/
+*.test.js
+*.spec.js
